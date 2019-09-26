@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DataService {
 
-  dataUrl:string = 'http://localhost/api-slim/public/index.php/api/art/type/4';
+  dataUrl:string = 'http://localhost/api-slim/public/index.php/api/info/type';
 
   constructor(private http: HttpClient) { }
   

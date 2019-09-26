@@ -1,0 +1,15 @@
+<h1>You are quite meticulous as it seems.</h1>
+<h3>Kindly select what you want to see.</h3>
+
+
+<ul *ngIf="arts">
+		<mat-selection-list #types>
+		  <mat-list-option *ngFor="let art of arts.records">
+		    {{art.TYPE}}
+		  </mat-list-option>
+		</mat-selection-list>
+
+		<p>
+		  Options selected: {{types.selectedOptions.selected.length}}
+		</p>
+</ul>
