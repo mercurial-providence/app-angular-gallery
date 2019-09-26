@@ -1,0 +1,13 @@
+<h1>You are welcomed to explore my Art collection</h1>
+<h3>Please choose among the following category</h3>
+
+
+<button (click)="clickfunction()" class="btn">Refine</button>
+<ul *ngIf="arts">
+  <h4>Displaying Contents of type : LANDSCAPE</h4>
+  <li *ngFor="let art of arts.records">
+    <img src="http://localhost/piwigo/{{art.URL}}">
+    <p> {{ art.TITLE }} </p>
+  </li>
+  <div class="info">count={{arts.pagination.count}} limit={{arts.pagination.limit}} page={{arts.pagination.page}} of {{arts.pagination.totalpages}}</div>
+</ul>
