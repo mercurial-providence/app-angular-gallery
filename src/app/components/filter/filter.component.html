@@ -2,14 +2,14 @@
 <h3>Kindly select what you want to see.</h3>
 
 
-<ul *ngIf="arts">
-		<mat-selection-list #types>
-		  <mat-list-option *ngFor="let art of arts.records">
-		    {{art.TYPE}}
-		  </mat-list-option>
-		</mat-selection-list>
+<ul *ngIf="types">
+	<mat-selection-list #typesC>
+	  <mat-list-option *ngFor="let type of types">
+		{{type.TYPE}}
+	  </mat-list-option>
+	</mat-selection-list>
 
-		<p>
-		  Options selected: {{types.selectedOptions.selected.length}}
-		</p>
+	<p>
+	  Options selected: {{typesC.selectedOptions.selected.length}}
+	</p>
 </ul>

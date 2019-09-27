@@ -1,20 +1,18 @@
-<h1>You are welcomed to explore my Art collection</h1>
-<h3>Please choose among the following category</h3>
+<h4>You are welcomed to explore my Art collection</h4>
+<h5>Please choose among the following category</h5>
+	
+<h5>Currently displaying {{whatAmI}} </h5>
 
+<mat-button-toggle-group name="Category" aria-label="Font Style" >
+  <mat-button-toggle value="author" (click)="populateAuthor('','0,999999','999999')" checked>Author</mat-button-toggle>
+  <mat-button-toggle value="form" (click)="populateForm('','0,999999','999999')">Form</mat-button-toggle>
+  <mat-button-toggle value="location" (click)="populateLocation('','0,999999','999999')">Location</mat-button-toggle>
+  <mat-button-toggle value="school" (click)="populateSchool('','0,999999','999999')">School</mat-button-toggle>
+  <mat-button-toggle value="timeframe" (click)="populateTimeframe('','0,999999','999999')">Timeframe</mat-button-toggle>
+  <mat-button-toggle value="type" (click)="populateType('','0,999999','999999')">Type</mat-button-toggle>
+</mat-button-toggle-group>
 
-<button mat-button (click)="clickfunction()" class="btn">Get types of Art in collection</button>
-<ul *ngIf="dataSource.filteredData">
-		<mat-selection-list #typesC>
-		  <mat-list-option *ngFor="let type of dataSource.filteredData">
-		    {{type.TYPE}}
-		  </mat-list-option>
-		</mat-selection-list>
-
-		<p>
-		  Options selected: {{typesC.selectedOptions.selected.length}}
-		</p>
-</ul>
-
+<br><br>
 <mat-form-field>
 		<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
 	  </mat-form-field>
@@ -27,15 +25,39 @@
 			<th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
 			<td mat-cell *matCellDef="let row"> {{row.ID}} </td>
 		  </ng-container>
-	  
+	  	  <!-- Progress Column -->
+		  <ng-container matColumnDef="AUTHOR">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header> AUTHOR </th>
+			<td mat-cell *matCellDef="let row"> {{row.AUTHOR}} </td>
+		  </ng-container>
 		  <!-- Progress Column -->
+		  <ng-container matColumnDef="BORN_DIED">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header> BORN - DIED </th>
+			<td mat-cell *matCellDef="let row"> {{row.BORN_DIED}} </td>
+		  </ng-container>
+		  <ng-container matColumnDef="FORM">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header> FORM </th>
+			<td mat-cell *matCellDef="let row"> {{row.FORM}} </td>
+		  </ng-container>
+		  <ng-container matColumnDef="LOCATION">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header> LOCATION </th>
+			<td mat-cell *matCellDef="let row"> {{row.LOCATION}} </td>
+		  </ng-container>
+		  <ng-container matColumnDef="SCHOOL">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header> SCHOOL </th>
+			<td mat-cell *matCellDef="let row"> {{row.SCHOOL}} </td>
+		  </ng-container>
+		  <ng-container matColumnDef="TIMEFRAME">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header> TIMEFRAME </th>
+			<td mat-cell *matCellDef="let row"> {{row.TIMEFRAME}} </td>
+		  </ng-container>
 		  <ng-container matColumnDef="TYPE">
 			<th mat-header-cell *matHeaderCellDef mat-sort-header> TYPE </th>
 			<td mat-cell *matCellDef="let row"> {{row.TYPE}} </td>
 		  </ng-container>
-	  
+
 		  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-		  <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+		  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)">
 		  </tr>
 		</table>
 	  

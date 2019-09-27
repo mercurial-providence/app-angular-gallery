@@ -17,6 +17,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { FilterComponent } from './components/filter/filter.component';
+import { ArtsComponent } from './components/arts/arts.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { FilterComponent } from './components/filter/filter.component';
     GalleryComponent,
     NotfoundComponent,
     NavComponent,
-    FilterComponent
+    FilterComponent,
+    ArtsComponent
   ],
   imports: [
     BrowserModule,
