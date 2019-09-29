@@ -1,0 +1,34 @@
+<ul>
+	<li *ngFor="let art of arts.records">
+	  {{ art.ART_ID }} / {{ art.TITLE }} / {{ art.URL }}
+	</li>
+</ul>
+
+<button mat-raised-button (click)="fetchArts('',1,10)" >First</button>
+<button mat-raised-button (click)="fetchArts('',+arts.pagination.page - 1,50)">Prev</button>
+<button mat-raised-button (click)="fetchArts('',+arts.pagination.page + 1,50)">Next</button>
+<button mat-raised-button (click)="fetchArts('',arts.pagination.totalpages,50)" >Last</button>
+
+<h6>{{ arts.pagination | json }}</h6>
+
+<ngx-masonry [useImagesLoaded]="true" [updateLayout]="updateMasonryLayout">
+	<div ngxMasonryItem class="masonry-item" *ngFor="let art of arts.records">
+		<mat-card class="art-card" (click)="cardClick(art.TITLE)">
+			<mat-card-header>
+			<mat-card-title>{{ art.TITLE }}</mat-card-title>
+			<mat-card-subtitle>{{ art.AUTHOR }}</mat-card-subtitle>
+			</mat-card-header>
+			<img mat-card-image src="http://localhost/piwigo/{{ art.URL }}" alt="Photo of a Shiba Inu">
+			<mat-card-content>
+				{{art.TECHNIQUE}} / {{art.SCHOOL}} / {{art.FORM}} / {{art.TYPE}} / {{art.LOCATION}}
+			</mat-card-content>
+		</mat-card>
+	</div>
+</ngx-masonry>
+
+
+<app-notfound></app-notfound>
+
+
+
+

@@ -17,7 +17,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { FilterComponent } from './components/filter/filter.component';
-import { ArtsComponent } from './components/arts/arts.component';
+import { ArtsComponent } from './components/gallery/arts/arts.component';
+import { NgxMasonryModule } from 'ngx-masonry';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ArtsComponent } from './components/arts/arts.component';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-    MaterialModule
+    MaterialModule,
+    NgxMasonryModule
   ],
   providers: [],
   bootstrap: [AppComponent]

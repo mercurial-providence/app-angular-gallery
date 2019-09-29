@@ -7,7 +7,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 export class DataService {
 
   apiUrl:string = 'http://localhost/api-slim/public/index.php/api';
-  artHandler:any = [];
 
   constructor(private http: HttpClient) { }
   

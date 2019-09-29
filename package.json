@@ -23,7 +23,10 @@
     "@angular/pwa": "^0.803.6",
     "@angular/router": "~8.2.7",
     "@angular/service-worker": "~8.2.7",
+    "@thisissoon/angular-masonry": "^1.2.0",
     "hammerjs": "^2.0.8",
+    "masonry-layout": "^4.2.2",
+    "ngx-masonry": "^1.1.4",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"

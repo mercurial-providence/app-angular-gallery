@@ -4,7 +4,7 @@ import { HomeComponent } from './components/home/home.component';
 import { GalleryComponent } from './components/gallery/gallery.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { FilterComponent } from './components/filter/filter.component';
-import { ArtsComponent } from './components/arts/arts.component';
+import { ArtsComponent } from './components/gallery/arts/arts.component';
 
 
 
