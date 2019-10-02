@@ -15,11 +15,11 @@ export class ArtsComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
-      this.fetchArts("",1,50);
+      this.fetchArts("",'1','50');
   }
 
-  fetchArts(id, page, limit){
-    this.dataService.getArts(id, page, limit).subscribe((data: RawImportData<Artdata>)=>{
+  fetchArts(id:any, page:any, limit:any){
+    this.dataService.getArts(id.toString(), page.toString(), limit.toString()).subscribe((data: RawImportData<Artdata>)=>{
       if(data) this.arts=data;
     }); 
   }
