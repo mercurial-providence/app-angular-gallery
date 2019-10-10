@@ -19,7 +19,7 @@ export class ArtsComponent implements OnInit {
   }
 
   fetchArts(id:any, page:any, limit:any){
-    this.dataService.getArts(id.toString(), page.toString(), limit.toString()).subscribe((data: RawImportData<Artdata>)=>{
+    this.dataService.getArtsAPI('all', id.toString(), page.toString(), limit.toString()).subscribe((data: RawImportData<Artdata>)=>{
       if(data) this.arts=data;
     }); 
   }

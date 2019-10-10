@@ -6,134 +6,49 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 })
 export class DataService {
 
-  apiUrl:string = 'http://localhost/api-slim/public/index.php/api';
+  apiUrl:string = 'http://localhost/api-slim-php/public/api';
 
   constructor(private http: HttpClient) { }
   
-  //INFORMATION STREAM
-  public getInfoAuthors(id:string = "", page:string = "1", limit:string = "10") {
-    if(!!id.trim()) return this.http.get(this.apiUrl+'/info/author/'+id,{
-      params: new HttpParams()
-        .set('page', page)
-        .set('limit', limit)
-    });
-    return this.http.get(this.apiUrl+'/info/author',{
-      params: new HttpParams()
-        .set('page', page)
-        .set('limit', limit)
-    });
-  }
-  public getInfoForms(id:string = "", page:string = "1", limit:string = "10") {
-    if(!!id.trim()) return this.http.get(this.apiUrl+'/info/form/'+id,{
-      params: new HttpParams()
-        .set('page', page)
-        .set('limit', limit)
-    });
-    return this.http.get(this.apiUrl+'/info/form',{
-      params: new HttpParams()
-        .set('page', page)
-        .set('limit', limit)
-    });
-  }
-  public getInfoLocations(id:string = "", page:string = "1", limit:string = "10") {
-    if(!!id.trim()) return this.http.get(this.apiUrl+'/info/location/'+id,{
-      params: new HttpParams()
-        .set('page', page)
-        .set('limit', limit)
-    });
-    return this.http.get(this.apiUrl+'/info/location',{
-      params: new HttpParams()
-        .set('page', page)
-        .set('limit', limit)
-    });
-  }
-  public getInfoSchools(id:string = "", page:string = "1", limit:string = "10") {
-    if(!!id.trim()) return this.http.get(this.apiUrl+'/info/school/'+id,{
-      params: new HttpParams()
-        .set('page', page)
-        .set('limit', limit)
-    });
-    return this.http.get(this.apiUrl+'/info/school',{
-      params: new HttpParams()
-        .set('page', page)
-        .set('limit', limit)
-    });
-  }
-  public getInfoTimeframes(id:string = "", page:string = "1", limit:string = "10") {
-    if(!!id.trim()) return this.http.get(this.apiUrl+'/info/timeframe/'+id,{
-      params: new HttpParams()
-        .set('page', page)
-        .set('limit', limit)
-    });
-    return this.http.get(this.apiUrl+'/info/timeframe',{
-      params: new HttpParams()
-        .set('page', page)
-        .set('limit', limit)
-    });
-  }
-  public getInfoTypes(id:string = "", page:string = "1", limit:string = "10") {
-    if(!!id.trim()) return this.http.get(this.apiUrl+'/info/type/'+id,{
-      params: new HttpParams()
-        .set('page', page)
-        .set('limit', limit)
-    });
-    return this.http.get(this.apiUrl+'/info/type',{
+/* 
+This function fetches all the info from API /info/{category}/{id}
+category  : author    & id  : '' or 1,2,3... or a,b,c...
+category  : form      & id  : '' or 1,2,3...
+category  : location  & id  : '' or 1,2,3...
+category  : school    & id  : '' or 1,2,3...
+category  : timeframe & id  : '' or 1,2,3...
+category  : type      & id  : '' or 1,2,3...
+ */            
+  public getInfoAPI(category:string, id:string = "", page:string = "1", limit:string = "10"){
+    var callURL : string = '';
+
+    if(!!id.trim()) callURL = this.apiUrl+'/info/'+category+'/'+id;
+    else callURL = this.apiUrl+'/info/'+category;
+
+    return this.http.get(callURL,{
       params: new HttpParams()
         .set('page', page)
         .set('limit', limit)
     });
   }
 
-  //ARTDATA STREAM
-  public getArts(id:string = "", page:string = "1", limit:string = "10") {
-    if(!!id.trim()) return this.http.get(this.apiUrl+'/art/'+id,{
-      params: new HttpParams()
-        .set('page', page)
-        .set('limit', limit)
-    });
-    return this.http.get(this.apiUrl+'/art',{
-      params: new HttpParams()
-        .set('page', page)
-        .set('limit', limit)
-    });
-  }
-  public getArtsAuthor(id:string = "", page:string = "1", limit:string = "10") {
-    if(!!id.trim()) return this.http.get(this.apiUrl+'/art/author/'+id,{
-      params: new HttpParams()
-        .set('page', page)
-        .set('limit', limit)
-    });
-  }
-  public getArtsForm(id:string = "", page:string = "1", limit:string = "10") {
-    if(!!id.trim()) return this.http.get(this.apiUrl+'/art/form/'+id,{
-      params: new HttpParams()
-        .set('page', page)
-        .set('limit', limit)
-    });
-  }
-  public getArtsLocation(id:string = "", page:string = "1", limit:string = "10") {
-    if(!!id.trim()) return this.http.get(this.apiUrl+'/art/location/'+id,{
-      params: new HttpParams()
-        .set('page', page)
-        .set('limit', limit)
-    });
-  }
-  public getArtsSchool(id:string = "", page:string = "1", limit:string = "10") {
-    if(!!id.trim()) return this.http.get(this.apiUrl+'/art/school/'+id,{
-      params: new HttpParams()
-        .set('page', page)
-        .set('limit', limit)
-    });
-  }
-  public getArtsTimeframe(id:string = "", page:string = "1", limit:string = "10") {
-    if(!!id.trim()) return this.http.get(this.apiUrl+'/art/timeframe/'+id,{
-      params: new HttpParams()
-        .set('page', page)
-        .set('limit', limit)
-    });
-  }
-  public getArtsType(id:string = "", page:string = "1", limit:string = "10") {
-    if(!!id.trim()) return this.http.get(this.apiUrl+'/art/type/'+id,{
+/* 
+This function fetches all the info from API /info/{category}/{id}
+category  : all       & id  : '' or 1,2,3...
+category  : author    & id  : 1,2,3... 
+category  : form      & id  : 1,2,3... 
+category  : location  & id  : 1,2,3... 
+category  : school    & id  : 1,2,3... 
+category  : timeframe & id  : 1,2,3... 
+category  : type      & id  : 1,2,3... 
+ */   
+  public getArtsAPI(category:string, id:string = "", page:string = "1", limit:string = "10"){
+    var callURL : string = '';
+
+    if(!!id.trim()) callURL = this.apiUrl+'/art/'+category+'/'+id;
+    else callURL = this.apiUrl+'/art/'+category;
+
+    return this.http.get(callURL,{
       params: new HttpParams()
         .set('page', page)
         .set('limit', limit)

@@ -21,7 +21,7 @@ export class FilterComponent implements OnInit {
     this.clickfunction();
   }
   clickfunction(){
-   	this.data.getInfoTypes("","1","10").subscribe((data: RawImportData<Type>)=>{
+   	this.data.getInfoAPI('type',"","1","10").subscribe((data: RawImportData<Type>)=>{
       this.types=data.records
     }); 
   } 

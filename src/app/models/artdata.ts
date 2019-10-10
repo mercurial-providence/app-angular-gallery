@@ -1,5 +1,5 @@
 export class Artdata {
-	"ART_ID":string;
+	"ID":string;
 	"AUTHOR_ID":string;
 	"FORM_ID":string;
 	"LOCATION_ID":string;
