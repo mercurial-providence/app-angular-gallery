@@ -12,7 +12,7 @@
 	'<ngx-masonry [useImagesLoaded]="true" [options]='
 	to atoms if aligment is distorting 
 -->
-<ngx-masonry [useImagesLoaded]="true" 
+<ngx-masonry  
 [options]= "{ 
 			transitionDuration: '0.8s',
 			horizontalOrder: true
@@ -23,7 +23,7 @@
 			<mat-card-title>{{ art.TITLE }}</mat-card-title>
 			<mat-card-subtitle>{{ art.AUTHOR }}</mat-card-subtitle>
 			</mat-card-header>
-			<img mat-card-image src="http://localhost/piwigo/{{ art.URL }}" alt="Photo of a Shiba Inu">
+			<img mat-card-image src="http://localhost/piwigo/{{ art.URL }}" alt="{{ art.TITLE }}">
 			<mat-card-content>
 				{{art.TECHNIQUE}} / {{art.SCHOOL}} / {{art.FORM}} / {{art.TYPE}} / {{art.LOCATION}}
 			</mat-card-content>

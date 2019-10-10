@@ -19,6 +19,8 @@ import { MatListModule } from '@angular/material/list';
 import { FilterComponent } from './components/filter/filter.component';
 import { ArtsComponent } from './components/arts/arts.component';
 import { NgxMasonryModule } from 'ngx-masonry';
+import { PasteComponent } from './components/paste/paste.component';
+import { ImageViewerModule } from 'ng2-image-viewer';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { NgxMasonryModule } from 'ngx-masonry';
     NotfoundComponent,
     NavComponent,
     FilterComponent,
-    ArtsComponent
+    ArtsComponent,
+    PasteComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,9 @@ import { NgxMasonryModule } from 'ngx-masonry';
     HttpClientModule,
     AppRoutingModule,
     MaterialModule,
-    NgxMasonryModule
+    NgxMasonryModule,
+    ImageViewerModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

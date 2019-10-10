@@ -5,6 +5,7 @@ import { GalleryComponent } from './components/gallery/gallery.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { ArtsComponent } from './components/arts/arts.component';
+import { PasteComponent } from './components/paste/paste.component';
 
 
 
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'gallery', component: GalleryComponent },
   { path: 'arts', component: ArtsComponent },
   { path: 'filter', component: FilterComponent },
+  { path: 'paste', component: PasteComponent },
   { path: '**', component: NotfoundComponent},
 ];
 
