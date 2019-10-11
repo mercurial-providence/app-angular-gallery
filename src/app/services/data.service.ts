@@ -6,7 +6,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 })
 export class DataService {
 
-  apiUrl:string = 'http://localhost/api-slim-php/public/api';
+  private apiUrl:string = 'http://localhost/api-slim-php/public/api';
+  public dataServerURL:string = 'http://localhost/';
 
   constructor(private http: HttpClient) { }
   
@@ -22,7 +23,7 @@ category  : type      & id  : '' or 1,2,3...
   public getInfoAPI(category:string, id:string = "", page:string = "1", limit:string = "10"){
     var callURL : string = '';
 
-    if(!!id.trim()) callURL = this.apiUrl+'/info/'+category+'/'+id;
+    if(!!id.trim() && !isNaN(+id)) callURL = this.apiUrl+'/info/'+category+'/'+id;
     else callURL = this.apiUrl+'/info/'+category;
 
     return this.http.get(callURL,{
@@ -45,7 +46,7 @@ category  : type      & id  : 1,2,3...
   public getArtsAPI(category:string, id:string = "", page:string = "1", limit:string = "10"){
     var callURL : string = '';
 
-    if(!!id.trim()) callURL = this.apiUrl+'/art/'+category+'/'+id;
+    if(!!id.trim() && !isNaN(+id)) callURL = this.apiUrl+'/art/'+category+'/'+id;
     else callURL = this.apiUrl+'/art/'+category;
 
     return this.http.get(callURL,{
@@ -56,7 +57,7 @@ category  : type      & id  : 1,2,3...
   }
 
   public search(id:string = "", page:string = "1", limit:string = "10") {
-    if(!!id.trim()) return this.http.get(this.apiUrl+'/search/'+id,{
+    if(!!id.trim() && !isNaN(+id)) return this.http.get(this.apiUrl+'/search/'+id,{
       params: new HttpParams()
         .set('page', page)
         .set('limit', limit)

@@ -21,6 +21,7 @@ import { ArtsComponent } from './components/arts/arts.component';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { PasteComponent } from './components/paste/paste.component';
 import { ImageViewerModule } from 'ng2-image-viewer';
+import { ShowcaseComponent } from './components/showcase/showcase.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ImageViewerModule } from 'ng2-image-viewer';
     NavComponent,
     FilterComponent,
     ArtsComponent,
-    PasteComponent
+    PasteComponent,
+    ShowcaseComponent
   ],
   imports: [
     BrowserModule,

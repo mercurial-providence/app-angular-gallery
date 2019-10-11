@@ -1,0 +1,10 @@
+<p>{{ activatedRouteArt | json }}</p>
+<div id="image-viewer-container">
+    <app-image-viewer 
+    [images]="[artURL]"
+    [loadOnInit]="true"
+    [idContainer]="'idOnHTML'"
+    [showOptions]="true"
+    >
+    </app-image-viewer>
+</div>

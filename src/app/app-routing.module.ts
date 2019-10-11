@@ -6,6 +6,7 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { ArtsComponent } from './components/arts/arts.component';
 import { PasteComponent } from './components/paste/paste.component';
+import { ShowcaseComponent } from './components/showcase/showcase.component';
 
 
 
@@ -13,7 +14,18 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', redirectTo: '/home', pathMatch: 'full'},
   { path: 'gallery', component: GalleryComponent },
-  { path: 'arts', component: ArtsComponent },
+  { path: 'arts', 
+    children: [
+      { path: '', component: ArtsComponent, data :{ name:"all" } },
+      { path: 'author/:id', component: ArtsComponent, data :{ name:"author" }},
+      { path: 'form/:id', component: ArtsComponent, data :{ name:"form" } },
+      { path: 'location/:id', component: ArtsComponent, data :{ name:"location" } },
+      { path: 'school/:id', component: ArtsComponent, data :{ name:"school" } },
+      { path: 'timeframe/:id', component: ArtsComponent, data :{ name:"timeframe" } },
+      { path: 'type/:id', component: ArtsComponent, data :{ name:"type" } },
+      { path: 'showcase/:id', component: ShowcaseComponent },
+    ]
+  },
   { path: 'filter', component: FilterComponent },
   { path: 'paste', component: PasteComponent },
   { path: '**', component: NotfoundComponent},

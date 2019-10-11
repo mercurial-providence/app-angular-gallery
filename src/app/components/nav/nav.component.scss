@@ -3,7 +3,7 @@
 }
 
 .sidenav {
-  width: 200px;
+  width: 300px;
 }
 
 .sidenav .mat-toolbar {
@@ -17,7 +17,11 @@
 .mat-toolbar.mat-primary {
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 2;
+  background: #fff;
+  color: #666;
+  box-shadow: 0px 1px 10px #666;
+  font-family:Roboto;
 }
 
 .spacer{
@@ -28,4 +32,9 @@
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+}
+
+.mat-toolbar h2{
+  font-family: Georgia;
+  font-size: 1.7em;
 }

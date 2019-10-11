@@ -10,7 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { RawImportData } from 'src/app/models/common/raw-import-data';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-gallery',
@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./gallery.component.scss']
 })
 export class GalleryComponent implements OnInit {
-  
+
   constructor(private data: DataService, private router:  Router) { }
   
   authors: RawImportData<Author> = new RawImportData();
@@ -36,6 +36,7 @@ export class GalleryComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   ngOnInit() {
+    
     this.dataSource = new MatTableDataSource();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -86,14 +87,6 @@ export class GalleryComponent implements OnInit {
       this.displayedColumns=['ID', 'FORM'];
     }); 
   } 
-
-
-
-
-  onRowClicked(row) {
-    this.router.navigate(['/arts']);
-    console.log('Row clicked');
-  }
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
