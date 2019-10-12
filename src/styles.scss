@@ -1,7 +1,17 @@
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,600,800&display=swap');
+:root {
+    --themeColor: #666;
+    --hoverColor: red;
+    --bodyColor:  #fff;
+    --lightTheme:   red;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Georgia, "Helvetica Neue", sans-serif; }
+html, body { height: 100%;  scroll-behavior: smooth;}
+body { 
+    margin: 0; font-family: Georgia, "Helvetica Neue", sans-serif ; 
+    user-select: none !important;
+}
 
 .container{
 	margin:1rem 2rem;
@@ -9,4 +19,16 @@ body { margin: 0; font-family: Georgia, "Helvetica Neue", sans-serif; }
 
 table {
     width: 100%;
+}
+
+.iv-snap-view{
+    visibility: visible !important;
+    opacity: 1;
+}
+.image-gallery-2{
+    visibility: hidden;
+}
+.options-image-viewer{
+    visibility: visible !important;
+    background: #666;
 }
