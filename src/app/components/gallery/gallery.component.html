@@ -1,74 +1,5 @@
-<div style="display:flex">
-<div style="flex:1">
-	<h1 style="font-size: 3.5em">Gallery</h1>
-	<div style="
 
-    max-height: 500px;
-    overflow-y: auto;
-    height: 500px;
-">
-	<mat-accordion>
-
-
-	  <mat-expansion-panel>
-	    <mat-expansion-panel-header>
-	      	<mat-panel-title>
-				Form
-			</mat-panel-title>
-	    </mat-expansion-panel-header>
-			<mat-nav-list>
-			   <a mat-list-item href="..." *ngFor="let link of forms.records" > {{ link.FORM }} </a>
-			</mat-nav-list>
-	  </mat-expansion-panel>
-
-	  <mat-expansion-panel>
-	    <mat-expansion-panel-header>
-	      <mat-panel-title>
-	        School
-	      </mat-panel-title>
-	    </mat-expansion-panel-header>
-			<mat-nav-list>
-			   <a mat-list-item href="..." *ngFor="let link of schools.records"> {{ link.SCHOOL }} </a>
-			</mat-nav-list>
-	  </mat-expansion-panel>
-
-	  <mat-expansion-panel>
-	    <mat-expansion-panel-header>
-	      <mat-panel-title>
-	        Timeframe
-	      </mat-panel-title>
-	    </mat-expansion-panel-header>
-			<mat-nav-list>
-			   <a mat-list-item href="..." *ngFor="let link of timeframes.records"> {{ link.TIMEFRAME }} </a>
-			</mat-nav-list>
-	  </mat-expansion-panel>
-
-	  <mat-expansion-panel>
-	    <mat-expansion-panel-header>
-	      <mat-panel-title>
-	        Type
-	      </mat-panel-title>
-	    </mat-expansion-panel-header>
-			<mat-nav-list>
-			   <a mat-list-item href="..." *ngFor="let link of types.records"> {{ link.TYPE }} </a>
-			</mat-nav-list>
-	  </mat-expansion-panel>	  	  	  	  
-
-
-	  
-	</mat-accordion>
-</div>
-
-
-
-</div>
-<mat-divider [vertical]="true" style="margin:1em"></mat-divider>
-<div style="flex:5">
-		<h4>You are welcomed to explore my Art collection</h4>
-		<h5>Please choose among the following category</h5>
-			
-		<h5>Currently displaying {{whatAmI}} </h5>
-
+<div >
 		<mat-button-toggle-group name="Category" aria-label="Font Style" >
 		  <mat-button-toggle value="author" (click)="populateAuthor('','0,999999','999999')" checked>Author</mat-button-toggle>
 		  <mat-button-toggle value="form" (click)="populateForm('','0,999999','999999')">Form</mat-button-toggle>
@@ -129,7 +60,6 @@
 			  
 				<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 			  </div>
-</div>
 </div>
 
 

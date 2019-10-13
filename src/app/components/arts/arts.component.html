@@ -16,15 +16,23 @@
 			horizontalOrder: true
 			}">
 	<div ngxMasonryItem class="masonry-item" *ngFor="let art of arts.records">
-		<mat-card class="art-card" [routerLink]="['/arts/showcase', art.ID]">
+		<mat-card class="art-card" [routerLink]="['/arts/showcase', art.ID]" matRipple>
 			<img mat-card-image src="{{ dataService.dataServerURL + art.URL }}" alt="{{ art.TITLE }}">
- 			<mat-card-header>
+<!-- 			
+			<mat-card-header>
 				<mat-card-title>{{ art.TITLE }}</mat-card-title>
 				<mat-card-subtitle><a class ="mat-card-art-image" [routerLink]="['/arts/author', art.AUTHOR_ID]">{{ art.AUTHOR }}</a></mat-card-subtitle>
 			</mat-card-header>
-<!--			<mat-card-content>
+			<mat-card-content>
 				{{art.TECHNIQUE}} / {{art.SCHOOL}} / {{art.FORM}} / {{art.TYPE}} / {{art.LOCATION}}
-			</mat-card-content> -->
+			</mat-card-content> 
+-->
+			<mat-card-content>
+				<b>{{art.TITLE}}</b> <br> 
+				<a class ="mat-card-art-image" [routerLink]="['/arts/author', art.AUTHOR_ID]">{{ art.AUTHOR }}</a> 
+				/ {{art.DATE}} 
+			</mat-card-content> 
+
 		</mat-card>
 	</div>
 </ngx-masonry>
