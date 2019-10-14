@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { retry, catchError, delay, retryWhen, take, concatMap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -30,8 +32,11 @@ category  : type      & id  : '' or 1,2,3...
       params: new HttpParams()
         .set('page', page)
         .set('limit', limit)
-    });
+    }).pipe(
+      retryWhen(errors => errors.pipe(delay(1000), take(10)))//This will retry 10 times at 1000ms interval if data is not found
+    );
   }
+
 
 /* 
 This function fetches all the info from API /info/{category}/{id}
@@ -53,7 +58,9 @@ category  : type      & id  : 1,2,3...
       params: new HttpParams()
         .set('page', page)
         .set('limit', limit)
-    });
+      }).pipe(
+        retryWhen(errors => errors.pipe(delay(1000), take(10)))//This will retry 10 times at 1000ms interval if data is not found
+      );
   }
 
   public search(id:string = "", page:string = "1", limit:string = "10") {
@@ -61,7 +68,9 @@ category  : type      & id  : 1,2,3...
       params: new HttpParams()
         .set('page', page)
         .set('limit', limit)
-    });
+      }).pipe(
+        retryWhen(errors => errors.pipe(delay(1000), take(10)))//This will retry 10 times at 1000ms interval if data is not found
+      );
   }
 }
 

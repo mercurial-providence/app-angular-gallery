@@ -11,18 +11,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './modules/material/material.module';
 import { NavComponent } from './components/nav/nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
 import { FilterComponent } from './components/filter/filter.component';
 import { ArtsComponent } from './components/arts/arts.component';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { PasteComponent } from './components/paste/paste.component';
 import { ImageViewerModule } from 'ng2-image-viewer';
 import { ShowcaseComponent } from './components/showcase/showcase.component';
-
+import { FooterComponent } from './components/nav/footer/footer.component';
+import { HeaderComponent } from './components/nav/header/header.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +29,9 @@ import { ShowcaseComponent } from './components/showcase/showcase.component';
     FilterComponent,
     ArtsComponent,
     PasteComponent,
-    ShowcaseComponent
+    ShowcaseComponent,
+    FooterComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

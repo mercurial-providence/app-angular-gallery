@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app-ang';
+  static title: string= 'Mercurial Gallery of Art';
+  static appTitle(): string {
+    return this.title;
+  }
 }

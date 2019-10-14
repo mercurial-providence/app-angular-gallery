@@ -18,7 +18,7 @@ export class ShowcaseComponent implements OnInit {
   constructor(private dataService: DataService,private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
+      this.route.params.subscribe(params => {
       this.activatedRouteID = +params.id;
     });
     this.fetchArts('all',this.activatedRouteID,'1','50');
