@@ -3,7 +3,7 @@
 :root {
     --themeColor: #666;
     --bodyColor:  #fff;
-    --activatedColor: rgb(33, 118, 197);
+    --activatedColor: rgb(25, 93, 153);
     --standoutColor: rgb(18, 66, 109);
     --tier1-font-stack: 'Cinzel Decorative', cursive;
     --tier2-font-stack: 'Cinzel', serif;
@@ -27,7 +27,7 @@ body {
     visibility: hidden !important;
 }
 .container{
-    margin:1rem 2rem;
+    margin: 2rem 6rem 4rem 6rem;
 }
 button{
     font-family: var(--tier2-font-stack) !important;
@@ -82,3 +82,6 @@ a{
         font-family: var(--tier3-font-stack) !important; 
 
     }
+
+
+    

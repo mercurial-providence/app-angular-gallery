@@ -1,0 +1,29 @@
+.footer-content {
+  padding: 1em 4em;
+  background: #ddd;
+
+
+}
+
+.f-c-info, .footer-content-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.f-c-info {
+  border-bottom: 1px solid #eee !important;
+}
+
+.footer-columns {
+  flex: 1 1 0px;
+  padding: 2em;
+  text-align: justify;
+}
+
+.footer-links {
+  padding: 2em;
+}
+.footer-links-anchor{
+margin-left: 1em;
+}

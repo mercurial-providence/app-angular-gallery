@@ -15,7 +15,8 @@ export class ArtsComponent implements OnInit {
   activatedRouteID: number;
   activatedRoute: string;
   activatedRouteData: RawImportData<any> = new RawImportData();
-  
+  isLoading:boolean = true;
+
   constructor(private dataService: DataService, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -30,11 +31,17 @@ export class ArtsComponent implements OnInit {
 
   fetchArts(route:string ='all', id:any, page:any, limit:any){
     this.dataService.getArtsAPI(route, id.toString(), page.toString(), limit.toString()).subscribe((data: RawImportData<Artdata>)=>{
-      if(data) this.arts=data;
+      if(data) {
+        this.arts=data;
+        this.isLoading = false;
+      }
     }); 
     if(route != 'all')
     this.dataService.getInfoAPI(route, id.toString(), page.toString(), limit.toString()).subscribe((data: RawImportData<Artdata>)=>{
-      if(data) this.activatedRouteData=data;
+      if(data) {
+        this.activatedRouteData=data;
+        this.isLoading = false;
+      }
     }); 
   }
 

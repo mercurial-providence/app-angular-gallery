@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -19,6 +18,9 @@ import { ImageViewerModule } from 'ng2-image-viewer';
 import { ShowcaseComponent } from './components/showcase/showcase.component';
 import { FooterComponent } from './components/nav/footer/footer.component';
 import { HeaderComponent } from './components/nav/header/header.component';
+import { DataService } from './services/data.service';
+import { SidenavService } from './services/sidenav.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +49,7 @@ import { HeaderComponent } from './components/nav/header/header.component';
     ImageViewerModule
     
   ],
-  providers: [],
+  providers: [DataService , SidenavService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

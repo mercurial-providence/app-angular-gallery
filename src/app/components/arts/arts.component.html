@@ -15,7 +15,15 @@
 			transitionDuration: '0.8s',
 			horizontalOrder: true
 			}">
+			<mat-card *ngIf="isLoading" 
+			style="display: flex; justify-content: center; align-items: center">
+				<mat-progress-spinner 
+					color="primary" 
+					mode="indeterminate">
+				</mat-progress-spinner>
+			</mat-card>
 	<div ngxMasonryItem class="masonry-item" *ngFor="let art of arts.records">
+
 		<mat-card class="art-card" [routerLink]="['/arts/showcase', art.ID]" matRipple>
 			<img mat-card-image src="{{ dataService.dataServerURL + art.URL }}" alt="{{ art.TITLE }}">
 <!-- 			
