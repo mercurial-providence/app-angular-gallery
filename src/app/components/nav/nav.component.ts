@@ -20,8 +20,4 @@ export class NavComponent {
 
   constructor(private breakpointObserver: BreakpointObserver) {}
 
-  test(){
-    				this.drawer.toggle();
-
-  }
 }
