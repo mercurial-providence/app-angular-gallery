@@ -3,8 +3,8 @@
 :root {
     --themeColor: #666;
     --bodyColor:  #fff;
-    --activatedColor: rgb(25, 93, 153);
-    --standoutColor: rgb(18, 66, 109);
+    --activatedColor: rgb(25,93,153);
+    --standoutColor: rgb(18,66,109);
     --tier1-font-stack: 'Cinzel Decorative', cursive;
     --tier2-font-stack: 'Cinzel', serif;
     --tier3-font-stack: 'Merriweather', serif;
@@ -32,20 +32,30 @@ body {
 button{
     font-family: var(--tier2-font-stack) !important;
 }
+h1, h2, h3, h4, h5, h6{
+    color: var(--activatedColor);
+    font-family: var(--tier5-font-stack); 
+
+}
+mat-card{
+    font-family: var(--tier5-font-stack) !important; 
+}
 a{
     text-decoration: none;
-    color: var(--standoutColor);
+    color: var(--activatedColor) !important;
     &:hover{
         text-decoration: underline;
-        color: var(--activatedColor);
+        color: var(--standoutColor);
 
     }
     &:visited{
     }
 }
 /* Tweaking Angular Material Spinner Color */
-    .mat-progress-spinner circle, .mat-spinner circle {
-        stroke: var(--themeColor);
+    .mat-progress-spinner circle, .mat-spinner circle, mat-progress-bar .mat-progress-bar-fill::after {
+        stroke: var(--standoutColor);
+        background-color: var(--activatedColor) !important;
+
     }
 
  /* Tweaking ng2-angular-view CSS */
@@ -80,7 +90,6 @@ a{
     table {
         width: 100%;
         font-family: var(--tier3-font-stack) !important; 
-
     }
 
 

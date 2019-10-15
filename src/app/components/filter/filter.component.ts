@@ -45,13 +45,20 @@ export class FilterComponent implements OnInit {
 
   }
   populateAuthor(id, page, limit){
-   	this.data.getInfoAPI('author', id, page, limit).subscribe((data: RawImportData<Author>)=>{
-      this.authors=data;
-      this.dataSource.data=data.records;
-      this.isLoading = false;
-      this.whatAmI = "Author";
-      this.displayedColumns=['ID', 'AUTHOR', 'BORN_DIED', 'COUNT'];
-    }); 
+   	this.data.getInfoAPI('author', id, page, limit).subscribe(
+      (data: RawImportData<Author>)=>{
+        this.authors=data;
+        this.dataSource.data=data.records;
+        this.isLoading = false;
+        this.whatAmI = "Author";
+        this.displayedColumns=['ID', 'AUTHOR', 'BORN_DIED', 'COUNT'];
+      }/* ,
+      error => {
+         console.log("I am capable of handling errors here, \
+                    but i don't have to, as because my DataService is doing it for me"
+                    +error); 
+      } */
+      ); 
   } 
   populateLocation(id, page, limit){
     this.data.getInfoAPI('location', id, page, limit).subscribe((data: RawImportData<Location>)=>{

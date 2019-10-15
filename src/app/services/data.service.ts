@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { retry, catchError, delay, retryWhen, take, concatMap } from 'rxjs/operators';
-import { Observable, throwError } from 'rxjs';
+import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { retry, catchError, delay, retryWhen, take, concatMap, flatMap, delayWhen, tap, mergeMap, finalize } from 'rxjs/operators';
+import { Observable, throwError, of, timer } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+  constructor(private http: HttpClient) { }
 
   private apiUrl:string = 'http://localhost/api-slim-php/public/api';
   public dataServerURL:string = 'http://localhost/';
-
-  constructor(private http: HttpClient) { }
   
 /* 
 This function fetches all the info from API /info/{category}/{id}
@@ -33,11 +33,10 @@ category  : type      & id  : '' or 1,2,3...
         .set('page', page)
         .set('limit', limit)
     }).pipe(
-      retryWhen(errors => errors.pipe(delay(1000), take(10)))//This will retry 10 times at 1000ms interval if data is not found
+      retryWhen(genericRetryStrategy({maxRetryAttempts: 10, scalingDuration: 1000}))
     );
   }
-
-
+  
 /* 
 This function fetches all the info from API /info/{category}/{id}
 category  : all       & id  : '' or 1,2,3...
@@ -59,7 +58,7 @@ category  : type      & id  : 1,2,3...
         .set('page', page)
         .set('limit', limit)
       }).pipe(
-        retryWhen(errors => errors.pipe(delay(1000), take(10)))//This will retry 10 times at 1000ms interval if data is not found
+        retryWhen(genericRetryStrategy({maxRetryAttempts: 10, scalingDuration: 1000}))
       );
   }
 
@@ -69,8 +68,39 @@ category  : type      & id  : 1,2,3...
         .set('page', page)
         .set('limit', limit)
       }).pipe(
-        retryWhen(errors => errors.pipe(delay(1000), take(10)))//This will retry 10 times at 1000ms interval if data is not found
+        retryWhen(genericRetryStrategy({maxRetryAttempts: 10, scalingDuration: 1000}))
       );
   }
 }
 
+export const genericRetryStrategy = ({
+  maxRetryAttempts = 3,
+  scalingDuration = 1000,
+  excludedStatusCodes = []
+}: {
+  maxRetryAttempts?: number,
+  scalingDuration?: number,
+  excludedStatusCodes?: number[]
+} = {}) => (attempts: Observable<any>) => {
+  return attempts.pipe(
+    mergeMap((error, i) => {
+      const retryAttempt = i + 1;
+      // if maximum number of retries have been met
+      // or response is a status code we don't wish to retry, throw error
+      if (
+        retryAttempt > maxRetryAttempts ||
+        excludedStatusCodes.find(e => e === error.status)
+      ) {
+        console.log(error);
+        return throwError(error);
+      }
+      console.log(
+        `Attempt ${retryAttempt}: retrying in ${retryAttempt *
+          scalingDuration}ms`
+      );
+      // retry after 1s, 2s, etc...
+      return timer(retryAttempt * scalingDuration);
+    }),
+    finalize(() => console.log('We are done!'))
+  );
+};

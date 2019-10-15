@@ -1,6 +1,7 @@
 <header>
         <mat-toolbar >
             <mat-toolbar-row class="navigation-panel">
+                <span>
                 <button
                     type="button"
                     aria-label="Toggle sidenav"
@@ -10,8 +11,9 @@
                     <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
                 </button>
                 <button mat-button routerLink="/"><h2>{{appTitle}}</h2></button>
-                <span class="spacer"></span>
-
+                </span>
+                <!-- <span class="spacer"></span> -->
+                <span>
                 <button mat-button routerLink="/">Home</button>
                 <button mat-button routerLink="/gallery">Gallery</button>
                 <button mat-button routerLink="/filter">Filter</button>
@@ -70,10 +72,11 @@
                     <button mat-menu-item>Blue Spiny Lizard</button>
                     <button mat-menu-item disabled>Velociraptor</button>
                 </mat-menu>
-                <!-- THIRD BUTTON ENDS -->          
+                <!-- THIRD BUTTON ENDS -->  
+            </span>        
             </mat-toolbar-row>
             <mat-toolbar-row class="page-header hidden">
-                <span>Hello! I was designed to display Page Headings, but i am hidden till owner says so.</span>
+                <h3>Hello! I was designed to display Page Headings, but i am hidden till owner says so.</h3>
             </mat-toolbar-row>
         </mat-toolbar>
     </header>

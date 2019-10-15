@@ -11,6 +11,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { RawImportData } from 'src/app/models/common/raw-import-data';
 import { Router, ActivatedRoute } from '@angular/router';
+import { HeaderComponent } from '../nav/header/header.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-gallery',
@@ -19,10 +21,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class GalleryComponent implements OnInit {
 
-  constructor(private data: DataService, private router:  Router) { }
-
-
+  constructor(private data: DataService, private titleService: Title) { }
   ngOnInit() {
-
+    /* this.titleService.setTitle( "Gallery" ); */
   }
 }

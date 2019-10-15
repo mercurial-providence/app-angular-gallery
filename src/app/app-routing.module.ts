@@ -7,6 +7,7 @@ import { FilterComponent } from './components/filter/filter.component';
 import { ArtsComponent } from './components/arts/arts.component';
 import { PasteComponent } from './components/paste/paste.component';
 import { ShowcaseComponent } from './components/showcase/showcase.component';
+import { ErrorComponent } from './components/error/error.component';
 
 
 
@@ -27,6 +28,7 @@ const routes: Routes = [
     ]
   },
   { path: 'filter', component: FilterComponent },
+  { path: 'error', component: ErrorComponent },
   { path: 'paste', component: PasteComponent },
   { path: '**', component: NotfoundComponent},
 ];

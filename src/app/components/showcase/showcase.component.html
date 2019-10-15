@@ -7,7 +7,7 @@
     >
     </app-image-viewer>
     <div style="text-align: center;" *ngIf="activatedRouteArt.records">
-        <span style="font-size:1.3em;font-weight: bold;">{{ activatedRouteArt.records[0].TITLE }}</span><br>
+        <span style="font-size:1.3em;font-weight: bold;">{{ activatedRouteArt.records[0].TITLE }} / {{  activatedRouteArt.records[0].DATE }}</span><br>
         <span>{{ activatedRouteArt.records[0].AUTHOR }}  {{ activatedRouteArt.records[0].BORN_DIED }}</span><br>
     </div>
 </div>

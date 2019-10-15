@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +20,9 @@ import { FooterComponent } from './components/nav/footer/footer.component';
 import { HeaderComponent } from './components/nav/header/header.component';
 import { DataService } from './services/data.service';
 import { SidenavService } from './services/sidenav.service';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { ErrorhandlerService } from './services/errorhandler.service';
+import { ErrorComponent } from './components/error/error.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,9 @@ import { SidenavService } from './services/sidenav.service';
     PasteComponent,
     ShowcaseComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    SpinnerComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +54,7 @@ import { SidenavService } from './services/sidenav.service';
     ImageViewerModule
     
   ],
-  providers: [DataService , SidenavService],
+  providers: [DataService , SidenavService, {provide: ErrorHandler, useClass: ErrorhandlerService}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

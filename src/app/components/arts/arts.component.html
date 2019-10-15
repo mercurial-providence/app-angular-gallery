@@ -10,18 +10,14 @@
 	'<ngx-masonry [useImagesLoaded]="true" [options]='
 	to atoms if aligment is distorting 
 -->
+<app-spinner *ngIf="isLoading"></app-spinner>
+
 <ngx-masonry  [useImagesLoaded]="true"
 [options]= "{ 
 			transitionDuration: '0.8s',
 			horizontalOrder: true
 			}">
-			<mat-card *ngIf="isLoading" 
-			style="display: flex; justify-content: center; align-items: center">
-				<mat-progress-spinner 
-					color="primary" 
-					mode="indeterminate">
-				</mat-progress-spinner>
-			</mat-card>
+
 	<div ngxMasonryItem class="masonry-item" *ngFor="let art of arts.records">
 
 		<mat-card class="art-card" [routerLink]="['/arts/showcase', art.ID]" matRipple>

@@ -25,3 +25,16 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+APP:
+Spinner is acting wierd! Overlapping Footer.
+Make Mat cards Horizontal.
+Work on Gallery page.
+Work on Home page.
+Work on Search and Filter page.
+
+API: 
+implement pagination properly (not important)
+
+
+

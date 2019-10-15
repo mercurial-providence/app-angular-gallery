@@ -9,15 +9,14 @@ import { SidenavService } from 'src/app/services/sidenav.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
+  
   appTitle:string = "";
-  constructor(private sidenav: SidenavService) { }
+  constructor(private sidenavService: SidenavService) { }
 
   ngOnInit() {
-    this.appTitle = AppComponent.appTitle();    
+    this.appTitle = AppComponent.appTitle();
   }
   toggleDrawer(){
-    console.log("Do the thing!");
-    this.sidenav.toggle();
+    this.sidenavService.toggle();
   }
 }

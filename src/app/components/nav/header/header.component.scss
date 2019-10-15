@@ -1,10 +1,15 @@
  .navigation-panel{
   /*   position: sticky; */
-    top: 0;
-    z-index: 2;
-    background: var(--bodyColor);
-    color: var(--themeColor);
-    box-shadow: 0px 0px 2px var(--themeColor);
+  top: 0;
+  z-index: 2;
+  background: var(--bodyColor);
+  color: var(--themeColor);
+  box-shadow: 0px 0px 2px var(--themeColor);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  height: auto;
+  min-height: 64px;
   }
   
   .spacer{
@@ -17,8 +22,21 @@
     width: 50%;
   }
   
-  .mat-toolbar h2{
-    font-family: var(--tier1-font-stack);
-    font-size: 1.3em;
-    font-weight: bold;
+  .mat-toolbar{
+    h2{
+      font-family: var(--tier1-font-stack);
+      font-size: 1.3em;
+      font-weight: bold;
+    }
+  }
+
+  .page-header{
+    background: #ddd;
+    padding: 1rem 6rem;
+    height: auto;
+    white-space: pre-wrap;
+    h1,h2,h3,h4{
+      font-family: var(--tier5-font-stack) !important; 
+      font-weight: bold;
+    }
   }

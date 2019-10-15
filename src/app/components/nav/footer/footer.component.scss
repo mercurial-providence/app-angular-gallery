@@ -9,6 +9,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  flex-wrap: wrap;
 }
 
 .f-c-info {
@@ -19,11 +20,14 @@
   flex: 1 1 0px;
   padding: 2em;
   text-align: justify;
+  background: transparent;
+  box-shadow: none;
+  min-width: 200px;
 }
 
 .footer-links {
-  padding: 2em;
+  margin: 2em;
 }
 .footer-links-anchor{
-margin-left: 1em;
+  margin-left: 1em;
 }

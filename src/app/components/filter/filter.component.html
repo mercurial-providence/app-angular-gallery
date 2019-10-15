@@ -1,6 +1,7 @@
 <h2>You are quite meticulous as it seems.</h2>
-
-<div >
+<app-spinner *ngIf="isLoading"></app-spinner>
+<!-- [hidden] makes element present but hidden, *ngIf removes the element -->
+<div [hidden] = isLoading>
 	<mat-button-toggle-group name="Category" aria-label="Font Style" >
 		<mat-button-toggle value="author" (click)="populateAuthor('','1','999999')" checked>Author</mat-button-toggle>
 		<mat-button-toggle value="form" (click)="populateForm('','1','999999')">Form</mat-button-toggle>
@@ -15,9 +16,9 @@
 		<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
 	</mat-form-field>
 
-	<div class="mat-elevation-z8">
+	<div class="mat-elevation-z8"  >
 
-		<table mat-table [dataSource]="dataSource" matSort>
+		<table mat-table  [dataSource]="dataSource" matSort>
 
 			<!-- ID Column -->
 			<ng-container matColumnDef="ID">
@@ -63,13 +64,6 @@
 			<tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/arts', whatAmI | lowercase, row.ID]">
 			</tr>
 		</table>
-		<mat-card *ngIf="isLoading" 
-	     style="display: flex; justify-content: center; align-items: center">
-			<mat-progress-spinner 
-				color="primary" 
-				mode="indeterminate">
-			</mat-progress-spinner>
-		</mat-card>
 		<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 	</div>
 
