@@ -12,15 +12,17 @@
 -->
 <app-spinner *ngIf="isLoading"></app-spinner>
 
-<ngx-masonry  [useImagesLoaded]="true"
-[options]= "{ 
-			transitionDuration: '0.8s',
-			horizontalOrder: true
-			}">
+<ngx-masonry  
+		[useImagesLoaded]="true"
+		[options]= "{ 
+					transitionDuration: 0,
+					horizontalOrder: true
+					}">
 
 	<div ngxMasonryItem class="masonry-item" *ngFor="let art of arts.records">
 
 		<mat-card class="art-card" [routerLink]="['/arts/showcase', art.ID]" matRipple>
+			<div>
 			<img mat-card-image src="{{ dataService.dataServerURL + art.URL }}" alt="{{ art.TITLE }}">
 <!-- 			
 			<mat-card-header>
@@ -36,7 +38,7 @@
 				<a class ="mat-card-art-image" [routerLink]="['/arts/author', art.AUTHOR_ID]">{{ art.AUTHOR }}</a> 
 				/ {{art.DATE}} 
 			</mat-card-content> 
-
+		</div>
 		</mat-card>
 	</div>
 </ngx-masonry>

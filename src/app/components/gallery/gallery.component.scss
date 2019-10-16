@@ -1,0 +1,27 @@
+.gallery-cat{
+    display: flex;
+    justify-content: space-between;
+    align-items: normal;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.gallery-cat-card{
+    flex: 1 1 0px;
+    padding: 2em;
+    text-align: justify;
+    background: transparent;
+    box-shadow: none;
+    min-width: 10rem;
+    color: var(--themeColor);
+    cursor: pointer;
+    &:hover{
+/*         background: rgba($color: #666, $alpha: 0.1);
+ */    }
+}
+
+.gal-mat-card-image{
+    height: 12rem;
+    object-fit: cover;
+    border-radius: 0.5em;
+}

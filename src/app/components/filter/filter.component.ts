@@ -60,7 +60,7 @@ export class FilterComponent implements OnInit {
       } */
       ); 
   } 
-  populateLocation(id, page, limit){
+    populateLocation(id, page, limit){
     this.data.getInfoAPI('location', id, page, limit).subscribe((data: RawImportData<Location>)=>{
       this.locations=data;
       this.dataSource.data=data.records;

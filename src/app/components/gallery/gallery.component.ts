@@ -21,8 +21,81 @@ import { Title } from '@angular/platform-browser';
 })
 export class GalleryComponent implements OnInit {
 
+  private authors: RawImportData<Author> = new RawImportData();
+  private forms: RawImportData<Form> = new RawImportData();
+  private schools: RawImportData<School> = new RawImportData();
+  private timeframes: RawImportData<Timeframe> = new RawImportData();
+  private types: RawImportData<Type> = new RawImportData();
+  private locations: RawImportData<Location> = new RawImportData();
+  private whatAmI:string = '';
+  private auLoaded:boolean = false;
+  private foLoaded:boolean = false;
+  private scLoaded:boolean = false;
+  private tiLoaded:boolean = false;
+  private tyLoaded:boolean = false;
+  private loLoaded:boolean = false;
+  
+
+
   constructor(private data: DataService, private titleService: Title) { }
   ngOnInit() {
     /* this.titleService.setTitle( "Gallery" ); */
+    //this.populateAuthor("", "1", "999999");
+    //this.populateLocation("", "1", "999999");
+    this.populateSchool("", "1", "999999");
+    this.populateTimeframe("", "1", "999999");
+    this.populateType("", "1", "999999");
+    this.populateForm("", "1", "999999");
+
   }
+
+  populateAuthor(id, page, limit){
+    this.data.getInfoAPI('author', id, page, limit).subscribe(
+     (data: RawImportData<Author>)=>{
+       this.authors=data;
+       this.whatAmI = "Author";
+       this.auLoaded=true;
+     }/* ,
+     error => {
+        console.log("I am capable of handling errors here, \
+                   but i don't have to, as because my DataService is doing it for me"
+                   +error); 
+     } */
+     ); 
+ } 
+   populateLocation(id, page, limit){
+   this.data.getInfoAPI('location', id, page, limit).subscribe((data: RawImportData<Location>)=>{
+     this.locations=data;
+     this.whatAmI = "Location";
+     this.loLoaded=true;
+   }); 
+ } 
+   populateSchool(id, page, limit){
+   this.data.getInfoAPI('school', id, page, limit).subscribe((data: RawImportData<School>)=>{
+     this.schools=data;
+     this.whatAmI = "School";
+     this.scLoaded=true;
+   }); 
+ }   
+    populateTimeframe(id, page, limit){
+   this.data.getInfoAPI('timeframe', id, page, limit).subscribe((data: RawImportData<Timeframe>)=>{
+     this.timeframes=data;
+     this.whatAmI = "Timeframe";
+     this.tiLoaded=true;
+   }); 
+ }   
+    populateType(id, page, limit){
+   this.data.getInfoAPI('type', id, page, limit).subscribe((data: RawImportData<Type>)=>{
+     this.types=data;
+     this.whatAmI = "Type";
+     this.tyLoaded=true;
+   }); 
+ }   
+    populateForm(id, page, limit){
+   this.data.getInfoAPI('form', id, page, limit).subscribe((data: RawImportData<Form>)=>{
+     this.forms=data;
+     this.whatAmI = "Form";
+     this.foLoaded=true;
+   }); 
+ }
 }
