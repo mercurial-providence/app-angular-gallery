@@ -50,7 +50,8 @@ export class GalleryComponent implements OnInit {
   }
 
   populateAuthor(id, page, limit){
-    this.data.getInfoAPI('author', id, page, limit).subscribe(
+    this.data.getInfoAPI<RawImportData<Author>>('author', id, page, limit)
+    .subscribe(
      (data: RawImportData<Author>)=>{
        this.authors=data;
        this.whatAmI = "Author";
@@ -64,35 +65,45 @@ export class GalleryComponent implements OnInit {
      ); 
  } 
    populateLocation(id, page, limit){
-   this.data.getInfoAPI('location', id, page, limit).subscribe((data: RawImportData<Location>)=>{
+   this.data.getInfoAPI<RawImportData<Location>>('location', id, page, limit)
+   .subscribe(
+     (data: RawImportData<Location>)=>{
      this.locations=data;
      this.whatAmI = "Location";
      this.loLoaded=true;
    }); 
  } 
    populateSchool(id, page, limit){
-   this.data.getInfoAPI('school', id, page, limit).subscribe((data: RawImportData<School>)=>{
+   this.data.getInfoAPI<RawImportData<School>>('school', id, page, limit)
+   .subscribe(
+     (data: RawImportData<School>)=>{
      this.schools=data;
      this.whatAmI = "School";
      this.scLoaded=true;
    }); 
  }   
     populateTimeframe(id, page, limit){
-   this.data.getInfoAPI('timeframe', id, page, limit).subscribe((data: RawImportData<Timeframe>)=>{
+   this.data.getInfoAPI<RawImportData<Timeframe>>('timeframe', id, page, limit)
+   .subscribe(
+     (data: RawImportData<Timeframe>)=>{
      this.timeframes=data;
      this.whatAmI = "Timeframe";
      this.tiLoaded=true;
    }); 
  }   
     populateType(id, page, limit){
-   this.data.getInfoAPI('type', id, page, limit).subscribe((data: RawImportData<Type>)=>{
+   this.data.getInfoAPI<RawImportData<Type>>('type', id, page, limit)
+   .subscribe(
+     (data: RawImportData<Type>)=>{
      this.types=data;
      this.whatAmI = "Type";
      this.tyLoaded=true;
    }); 
  }   
     populateForm(id, page, limit){
-   this.data.getInfoAPI('form', id, page, limit).subscribe((data: RawImportData<Form>)=>{
+   this.data.getInfoAPI<RawImportData<Form>>('form', id, page, limit)
+   .subscribe(
+     (data: RawImportData<Form>)=>{
      this.forms=data;
      this.whatAmI = "Form";
      this.foLoaded=true;

@@ -1,21 +1,33 @@
 <h2>Gallery!</h2>
 <app-spinner *ngIf="!foLoaded && !tyLoaded && !scLoaded && !tiLoaded"></app-spinner>
 
+<!-- <mat-grid-list cols="5" rowHeight="1:1" gutterSize="1em">
+    <mat-grid-tile *ngFor="let form of forms.records" >
+      <img src="{{form?.FIMAGE}}" alt="model">
 
-{{ catToLoad | json }}
+      <mat-grid-tile-footer>
+          <h3 >{{ form.FORM }}</h3><br>
+          <span >{{ form.FORM }}</span><br>
+          <mat-icon>info</mat-icon><br>
+      </mat-grid-tile-footer>
+
+    </mat-grid-tile>
+</mat-grid-list> -->
+
 <div *ngIf="foLoaded">
 <h3>Forms</h3>
 <section  class="gallery-cat" >
-  <mat-card class="gallery-cat-card" [routerLink]="['/arts/form', form.ID]" *ngFor="let form of forms.records" matRipple>
-    <div>
+  <mat-card class="gallery-cat-card" [ngClass]="{'hidden': !+form.COUNT}" [routerLink]="['/arts/form', form.ID]" *ngFor="let form of forms.records" matRipple>
+    <div *ngIf="form.COUNT">
     <img mat-card-image 
-          src="http://localhost/artworks/art/a/aachen/rudolf2.jpg" 
+          src="{{ data.dataServerURL + form?.FIMAGE }}" 
           alt="{{ form.FORM }}"
           class="gal-mat-card-image"
-          title="Form / {{ form.FORM | titlecase }}">
-    <mat-card-title style="font-size: 1.2em;">{{form.FORM | titlecase}}</mat-card-title>
-    <mat-card-content>
-      <b>Found #{{form.COUNT}} Arts</b>
+          title="Form / {{ form.FORM | titlecase }}"
+          onerror="this.src='assets/imgs/inf.jpg'">
+    <mat-card-content >
+      <mat-card-title style="font-size: 1.2em;">{{form.FORM | titlecase}}</mat-card-title>
+      <b>#{{form.COUNT}} Articles</b>
     </mat-card-content> 
   </div>
   </mat-card>
@@ -25,16 +37,17 @@
 <div *ngIf="tyLoaded">
 <h3>Type</h3>
 <section  class="gallery-cat" >
-  <mat-card class="gallery-cat-card" [routerLink]="['/arts/type', type.ID]" *ngFor="let type of types.records" matRipple>
-    <div>
+  <mat-card class="gallery-cat-card" [ngClass]="{'hidden': !+type.COUNT}" [routerLink]="['/arts/type', type.ID]" *ngFor="let type of types.records" matRipple>
+    <div *ngIf="type.COUNT">
     <img mat-card-image 
-          src="http://localhost/artworks/art/a/aachen/rudolf2.jpg" 
+          src="{{data.dataServerURL + type?.FIMAGE}}" 
           alt="{{ type.TYPE }}"
           class="gal-mat-card-image"
-          title="Type / {{ type.TYPE | titlecase }}">
+          title="Type / {{ type.TYPE | titlecase }}"          
+          onerror="this.src='assets/imgs/inf.jpg'">
     <mat-card-content>
       <b>{{type.TYPE | titlecase}}</b> <br> 
-      <b>Found #{{type.COUNT}} Arts</b>
+      <b>#{{type.COUNT}} Articles</b>
     </mat-card-content> 
   </div>
   </mat-card>
@@ -44,16 +57,17 @@
 <div *ngIf="scLoaded">
 <h3>School</h3>
 <section  class="gallery-cat" >
-  <mat-card class="gallery-cat-card" [routerLink]="['/arts/school', school.ID]" *ngFor="let school of schools.records" matRipple>
-    <div>
+  <mat-card class="gallery-cat-card" [ngClass]="{'hidden': !+school.COUNT}" [routerLink]="['/arts/school', school.ID]" *ngFor="let school of schools.records" matRipple>
+    <div *ngIf="school.COUNT">
     <img mat-card-image 
-          src="http://localhost/artworks/art/a/aachen/rudolf2.jpg" 
+          src="{{data.dataServerURL + school?.FIMAGE}}" 
           alt="{{ school.SCHOOL }}"
           class="gal-mat-card-image"
-          title="School / {{ school.SCHOOL | titlecase }}">
+          title="School / {{ school.SCHOOL | titlecase }}"          
+          onerror="this.src='assets/imgs/inf.jpg'">
     <mat-card-content>
       <b>{{school.SCHOOL | titlecase}}</b> <br> 
-      <b>Found #{{school.COUNT}} Arts</b>
+      <b>#{{school.COUNT}} Articles</b>
     </mat-card-content> 
   </div>
   </mat-card>
@@ -63,16 +77,17 @@
 <div *ngIf="tiLoaded">
 <h3>Timeframe</h3>
 <section  class="gallery-cat" >
-  <mat-card class="gallery-cat-card" [routerLink]="['/arts/timeframe', timeframe.ID]" *ngFor="let timeframe of timeframes.records" matRipple>
-    <div>
+  <mat-card class="gallery-cat-card" [ngClass]="{'hidden': !+timeframe.COUNT}" [routerLink]="['/arts/timeframe', timeframe.ID]" *ngFor="let timeframe of timeframes.records" matRipple>
+    <div >
     <img mat-card-image 
-          src="http://localhost/artworks/art/a/aachen/rudolf2.jpg" 
+          src="{{data.dataServerURL + timeframe?.FIMAGE}}" 
           alt="{{ timeframe.TIMEFRAME }}"
           class="gal-mat-card-image"
-          title="Timeframe / {{ timeframe.TIMEFRAME | titlecase }}">
+          title="Timeframe / {{ timeframe.TIMEFRAME | titlecase }}"          
+          onerror="this.src='assets/imgs/inf.jpg'">
     <mat-card-content>
       <b>{{timeframe.TIMEFRAME | titlecase}}</b> <br> 
-      <b>Found #{{timeframe.COUNT}} Arts</b>
+      <b>#{{timeframe.COUNT}} Articles</b>
     </mat-card-content> 
   </div>
   </mat-card>

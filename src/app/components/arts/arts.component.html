@@ -5,6 +5,8 @@
 
 <h6>{{ arts.pagination | json }}</h6>
 <h4>{{ activatedRouteData.records | json }}</h4>
+<h4>Currently viewing, {{ activatedRoute }}</h4>
+
 <!-- 
 	Reduce [useImagesLoaded]="true" from 
 	'<ngx-masonry [useImagesLoaded]="true" [options]='
@@ -23,7 +25,10 @@
 
 		<mat-card class="art-card" [routerLink]="['/arts/showcase', art.ID]" matRipple>
 			<div>
-			<img mat-card-image src="{{ dataService.dataServerURL + art.URL }}" alt="{{ art.TITLE }}">
+			<img mat-card-image 
+				src="{{ dataService.dataServerURL + art.URL }}" 
+				alt="{{ art.TITLE }}"          
+				onerror="this.src='assets/imgs/inf.jpg'">
 <!-- 			
 			<mat-card-header>
 				<mat-card-title>{{ art.TITLE }}</mat-card-title>

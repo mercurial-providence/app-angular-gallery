@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
-import { retry, catchError, delay, retryWhen, take, concatMap, flatMap, delayWhen, tap, mergeMap, finalize } from 'rxjs/operators';
-import { Observable, throwError, of, timer } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { retryWhen, mergeMap, finalize, share, shareReplay, retry } from 'rxjs/operators';
+import { Observable, throwError, of, timer, observable } from 'rxjs';
 
 
 @Injectable({
@@ -22,19 +22,32 @@ category  : school    & id  : '' or 1,2,3...
 category  : timeframe & id  : '' or 1,2,3...
 category  : type      & id  : '' or 1,2,3...
  */            
-  public getInfoAPI(category:string, id:string = "", page:string = "1", limit:string = "10"){
+  public getInfoAPI<T>(category:string, id:string = "", page:string = "1", limit:string = "10"){
     var callURL : string = '';
-
-    if(!!id.trim() && !isNaN(+id)) callURL = this.apiUrl+'/info/'+category+'/'+id;
-    else callURL = this.apiUrl+'/info/'+category;
-
-    return this.http.get(callURL,{
+    
+    if(!!id.trim()){
+      //id: something is set
+      if(isNaN(+id) || +id <= 0){
+        //id: Invalid value, can not continue
+        return throwError("API Parameter is invalid.");
+      }else{
+        //id: Valid vallue, a positive integer
+        callURL = this.apiUrl+'/info/'+category+'/'+id;
+      }
+    }else{
+      //id: empty string
+      callURL = this.apiUrl+'/info/'+category;
+    }
+    console.log("INFO: ID Verfied. Calling:"+callURL);
+    return this.http.get<T>(callURL,{
       params: new HttpParams()
         .set('page', page)
         .set('limit', limit)
     }).pipe(
-      retryWhen(genericRetryStrategy({maxRetryAttempts: 10, scalingDuration: 1000}))
+      retryWhen(genericRetryStrategy({maxRetryAttempts: 5, scalingDuration: 100})),
+      shareReplay(1)
     );
+    
   }
   
 /* 
@@ -47,29 +60,53 @@ category  : school    & id  : 1,2,3...
 category  : timeframe & id  : 1,2,3... 
 category  : type      & id  : 1,2,3... 
  */   
-  public getArtsAPI(category:string, id:string = "", page:string = "1", limit:string = "10"){
+  public getArtsAPI<T>(category:string, id:string = "", page:string = "1", limit:string = "10"){
     var callURL : string = '';
 
-    if(!!id.trim() && !isNaN(+id)) callURL = this.apiUrl+'/art/'+category+'/'+id;
-    else callURL = this.apiUrl+'/art/'+category;
+    if(!!id.trim()){
+      //id: something is set
+      if(isNaN(+id) || +id <= 0){
+        //can not continue
+        return throwError("API Parameter is invalid.");
+      }else{
+        //id: a positive integer
+        callURL = this.apiUrl+'/art/'+category+'/'+id;
+      }
+    }else{
+      //id: empty string
+      callURL = this.apiUrl+'/art/'+category;
+    }
 
-    return this.http.get(callURL,{
+    console.log("ART: ID Verified. Calling:"+callURL);
+    return this.http.get<T>(callURL,{
       params: new HttpParams()
         .set('page', page)
         .set('limit', limit)
       }).pipe(
-        retryWhen(genericRetryStrategy({maxRetryAttempts: 10, scalingDuration: 1000}))
+        retryWhen(genericRetryStrategy({maxRetryAttempts: 5, scalingDuration: 100})),
+        shareReplay(1)
       );
   }
 
-  public search(id:string = "", page:string = "1", limit:string = "10") {
-    if(!!id.trim() && !isNaN(+id)) return this.http.get(this.apiUrl+'/search/'+id,{
+  public search<T>(id:string = "", page:string = "1", limit:string = "10") {
+    if(!!id.trim() && !isNaN(+id)) return this.http.get<T>(this.apiUrl+'/search/'+id,{
       params: new HttpParams()
         .set('page', page)
         .set('limit', limit)
       }).pipe(
-        retryWhen(genericRetryStrategy({maxRetryAttempts: 10, scalingDuration: 1000}))
+        retryWhen(genericRetryStrategy({maxRetryAttempts: 5, scalingDuration: 100})),
+        shareReplay(1)
       );
+  }
+
+/* This function is not throwing error because I am catching this error in it's 
+observable in HomeComponent */
+  public getRandomArt<T>() {
+    return this.http.get<T>(this.apiUrl+'/random')
+    .pipe(
+      retryWhen(genericRetryStrategy({maxRetryAttempts: 5, scalingDuration: 100})),
+      shareReplay(1)
+    );
   }
 }
 
@@ -91,7 +128,6 @@ export const genericRetryStrategy = ({
         retryAttempt > maxRetryAttempts ||
         excludedStatusCodes.find(e => e === error.status)
       ) {
-        console.log(error);
         return throwError(error);
       }
       console.log(
@@ -101,6 +137,6 @@ export const genericRetryStrategy = ({
       // retry after 1s, 2s, etc...
       return timer(retryAttempt * scalingDuration);
     }),
-    finalize(() => console.log('We are done!'))
+    shareReplay(1)
   );
 };

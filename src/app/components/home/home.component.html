@@ -1,12 +1,43 @@
 <div >
-      <div class="TDShadowText main-text" matRipple><span>Mercurial Gallery of Art</span></div>
-      <p>This is necessary. </p>
-
-
-
+      <div class="TDShadowText main-text" matRipple>
+            <span>Mercurial Gallery of Art</span>
+      </div>
 </div>
 
-<!-- <h1 class="bgClip">Mercurial Gallery of Art</h1>
- -->
+<!-- <h1 class="bgClip">Mercurial Gallery of Art</h1> -->
 
+ <mat-card class="art-card" 
+      [routerLink]="['/arts/showcase', art.ID]" 
+      *ngFor="let art of displayImage.records"
+      style="width: 40rem;margin: auto;box-shadow: none;background: none;" matRipple>
+      <div *ngIf="!isLoading">
+<!--       <mat-card-header>
+            <mat-card-title><h3>Picture of the Day!</h3></mat-card-title>
+      </mat-card-header> -->
+      <img mat-card-image 
+            src="{{ dataService.dataServerURL + art.URL }}" 
+            alt="{{ art.TITLE }}"          
+            onerror="this.src='assets/imgs/inf.jpg'">
+      <mat-card-content>
+            <div>
+                  <b style="font-size: 1.5em;line-height: 2em;">{{art.TITLE}}</b> 
+            </div>
+            <div style="display: flex;
+                        align-items: center;
+                        justify-content: flex-start">
+                  <mat-icon>label</mat-icon>
+                  <span style="margin:0 1em">
+                        <span style="font-size: 1.1em; font-weight: bold;"><a title="Author" class ="mat-card-art-image" [routerLink]="['/arts/author', art.AUTHOR_ID]">{{ art.AUTHOR }}</a> {{ art.BORN_DIED }} </span><br>
+                        <span title="Date Created">{{art.DATE}}</span> /
+                        <span title="Technique">{{art.TECHNIQUE | titlecase}}</span> <br>
+                        <a title="Art School" class ="mat-card-art-image" [routerLink]="['/arts/school', art.SCHOOL_ID]">{{art.SCHOOL | titlecase}}</a> /
+                        <a title="Art Form" class ="mat-card-art-image" [routerLink]="['/arts/form', art.FORM_ID]">{{art.FORM | titlecase}}</a> /
+                        <a title="Art Type" class ="mat-card-art-image" [routerLink]="['/arts/type', art.TYPE_ID]">{{art.TYPE | titlecase}}</a> /
+                        <a title="Timeframe of this Article" class ="mat-card-art-image" [routerLink]="['/arts/timeframe', art.TIMEFRAME_ID]">{{art.TIMEFRAME}}</a> /
+                        <a title="Location of this Article" class ="mat-card-art-image" [routerLink]="['/arts/location', art.LOCATION_ID]">{{art.LOCATION | titlecase}}</a>
+                  </span>
+            </div>
 
+      </mat-card-content> 
+</div>
+</mat-card>

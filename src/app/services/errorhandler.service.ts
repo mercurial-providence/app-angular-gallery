@@ -26,9 +26,9 @@ export class ErrorhandlerService implements ErrorHandler{
       // Handle Client Error (Angular Error, ReferenceError...)
       //router.navigate(['/error'], { queryParams: {error: error} });
       this.errorMessage=error.message ? error.message : error.toString();
+      ngZone.run(() => router.navigate(['/error'], { queryParams: {error: this.errorMessage} })).then();
     }
       // Log the error anyway
       console.error('It happens: ', error);
-      ngZone.run(() => router.navigate(['/error'], { queryParams: {error: this.errorMessage} })).then();
   }
 }

@@ -1,5 +1,5 @@
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
-@import url('https://fonts.googleapis.com/css?family=Cinzel|Cinzel+Decorative|Lobster|Merriweather:400,700|Playfair+Display&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Cinzel|Cinzel+Decorative|Lora|Merriweather:400,700|Playfair+Display&display=swap');
 :root {
     --themeColor: #666;
     --bodyColor:  #fff;
@@ -8,8 +8,8 @@
     --tier1-font-stack: 'Cinzel Decorative', cursive;
     --tier2-font-stack: 'Cinzel', serif;
     --tier3-font-stack: 'Merriweather', serif;
-    --tier4-font-stack: 'Lobster', cursive;
-    --tier5-font-stack: 'Playfair Display', serif;
+    --tier5-font-stack: 'Lora', serif;
+    --tier4-font-stack: 'Playfair Display', serif;
     
 }
 

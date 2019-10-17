@@ -20,24 +20,28 @@ export class ArtsComponent implements OnInit {
   constructor(private dataService: DataService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-      this.route.params.subscribe(params => {
+      this.route.params
+      .subscribe(params => {
         this.activatedRouteID = +params.id; // (+) converts string 'id' to a number
       });
-      this.route.data.subscribe(data => {
+      this.route.data
+      .subscribe(data => {
         this.activatedRoute = data.name;
       });
       this.fetchArts(this.activatedRoute,this.activatedRouteID,'1','50');
   }
 
   fetchArts(route:string ='all', id:any, page:any, limit:any){
-    this.dataService.getArtsAPI(route, id.toString(), page.toString(), limit.toString()).subscribe((data: RawImportData<Artdata>)=>{
+    this.dataService.getArtsAPI<RawImportData<Artdata>>(route, id.toString(), page.toString(), limit.toString())
+    .subscribe((data: RawImportData<Artdata>)=>{
       if(data) {
         this.arts=data;
         this.isLoading = false;
       }
     }); 
     if(route != 'all')
-    this.dataService.getInfoAPI(route, id.toString(), page.toString(), limit.toString()).subscribe((data: RawImportData<Artdata>)=>{
+    this.dataService.getInfoAPI<RawImportData<Artdata>>(route, id.toString(), page.toString(), limit.toString())
+    .subscribe((data: RawImportData<Artdata>)=>{
       if(data) {
         this.activatedRouteData=data;
         this.isLoading = false;
