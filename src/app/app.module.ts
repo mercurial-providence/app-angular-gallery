@@ -13,16 +13,18 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { FilterComponent } from './components/filter/filter.component';
 import { ArtsComponent } from './components/arts/arts.component';
 import { NgxMasonryModule } from 'ngx-masonry';
-import { PasteComponent } from './components/paste/paste.component';
+import { PasteComponent } from './components/plugins/paste/paste.component';
 import { ImageViewerModule } from 'ng2-image-viewer';
 import { ShowcaseComponent } from './components/showcase/showcase.component';
 import { FooterComponent } from './components/nav/footer/footer.component';
 import { HeaderComponent } from './components/nav/header/header.component';
 import { DataService } from './services/data.service';
 import { SidenavService } from './services/sidenav.service';
-import { SpinnerComponent } from './components/spinner/spinner.component';
+import { SpinnerComponent } from './components/plugins/spinner/spinner.component';
 import { ErrorhandlerService } from './services/errorhandler.service';
 import { ErrorComponent } from './components/error/error.component';
+import { FormsModule } from '@angular/forms';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { ErrorComponent } from './components/error/error.component';
     FooterComponent,
     HeaderComponent,
     SpinnerComponent,
-    ErrorComponent
+    ErrorComponent,
+    SearchComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -51,8 +55,9 @@ import { ErrorComponent } from './components/error/error.component';
     AppRoutingModule,
     MaterialModule,
     NgxMasonryModule,
-    ImageViewerModule
-    
+    ImageViewerModule,
+    BrowserAnimationsModule,
+    FormsModule
   ],
   providers: [DataService , SidenavService, {provide: ErrorHandler, useClass: ErrorhandlerService}],
   bootstrap: [AppComponent]

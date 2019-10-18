@@ -2,6 +2,7 @@
 import { Component } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
 import { SafeUrl } from "@angular/platform-browser";
+import { MatSliderChange } from '@angular/material/slider';
 
 // ----------------------------------------------------------------------------------- //
 // ----------------------------------------------------------------------------------- //
@@ -15,6 +16,11 @@ import { SafeUrl } from "@angular/platform-browser";
     templateUrl: './paste.component.html'
 })
 export class PasteComponent {
+
+    onInputChange(event: MatSliderChange) {
+        console.log("This is emitted as the thumb slides");
+        console.log(event.value);
+    }
 
     public imageUrls: SafeUrl[];
 

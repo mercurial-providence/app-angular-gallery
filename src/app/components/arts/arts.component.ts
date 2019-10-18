@@ -9,44 +9,66 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './arts.component.html',
   styleUrls: ['./arts.component.scss']
 })
+
 export class ArtsComponent implements OnInit {
 
   arts: RawImportData<Artdata> = new RawImportData();
   activatedRouteID: number;
   activatedRoute: string;
-  activatedRouteData: RawImportData<any> = new RawImportData();
-  isLoading:boolean = true;
-
+  infoLoading:boolean = true;
+  artsLoading:boolean = true;
+  private pagination:Pagination = new Pagination();
   constructor(private dataService: DataService, private route: ActivatedRoute) { }
 
   ngOnInit() {
       this.route.params
       .subscribe(params => {
-        this.activatedRouteID = +params.id; // (+) converts string 'id' to a number
+        this.pagination.pageID = +params.id;
       });
       this.route.data
       .subscribe(data => {
-        this.activatedRoute = data.name;
+        this.pagination.pageRoute = data.name;
       });
-      this.fetchArts(this.activatedRoute,this.activatedRouteID,'1','50');
+      this.fetchArts(this.pagination.pageRoute,this.pagination.pageID,'1',this.pagination.pageSize);
+      this.fetchInfo(this.pagination.pageRoute,this.pagination.pageID,'1',this.pagination.pageSize);
   }
 
   fetchArts(route:string ='all', id:any, page:any, limit:any){
+    this.artsLoading=true;
     this.dataService.getArtsAPI<RawImportData<Artdata>>(route, id.toString(), page.toString(), limit.toString())
     .subscribe((data: RawImportData<Artdata>)=>{
-      if(data) {
         this.arts=data;
-        this.isLoading = false;
-      }
+        this.pagination.pageCurr = +data.pagination.page;
+        this.pagination.pageTotal = +data.pagination.totalpages;
+        this.pagination.totalElement = +data.pagination.count;
+        this.pagination.pageElement = +data.records.length;
+        this.artsLoading = false;
+      
     }); 
+
+  }
+
+  fetchInfo(route:string ='all', id:any, page:any, limit:any){
+    this.infoLoading=true;
     if(route != 'all')
     this.dataService.getInfoAPI<RawImportData<Artdata>>(route, id.toString(), page.toString(), limit.toString())
     .subscribe((data: RawImportData<Artdata>)=>{
-      if(data) {
-        this.activatedRouteData=data;
-        this.isLoading = false;
-      }
+        this.pagination.pageRouteData = data;
+        this.infoLoading = false;
+    
     }); 
   }
 
+
+}
+
+export class Pagination {
+  pageID: number;
+  pageRoute: string;
+  pageRouteData: RawImportData<any>;
+  pageSize:number = 50;
+  pageCurr: number;
+  pageTotal: number;
+  pageElement: number;
+  totalElement:number;
 }

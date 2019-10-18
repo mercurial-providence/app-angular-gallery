@@ -34,13 +34,16 @@ export class GalleryComponent implements OnInit {
   private tiLoaded:boolean = false;
   private tyLoaded:boolean = false;
   private loLoaded:boolean = false;
-  
-
+  private alphabets:string[] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+                                'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+  private activatedAlpha:string = this.alphabets[0];                                
+  private pagesize:string = '24';
 
   constructor(private data: DataService, private titleService: Title) { }
   ngOnInit() {
+    this.pagesize='24';
     /* this.titleService.setTitle( "Gallery" ); */
-    //this.populateAuthor("", "1", "999999");
+    this.populateAuthor("a", "", "1", this.pagesize);
     //this.populateLocation("", "1", "999999");
     this.populateSchool("", "1", "999999");
     this.populateTimeframe("", "1", "999999");
@@ -49,8 +52,9 @@ export class GalleryComponent implements OnInit {
 
   }
 
-  populateAuthor(id, page, limit){
-    this.data.getInfoAPI<RawImportData<Author>>('author', id, page, limit)
+  populateAuthor(ele, id, page, limit){
+    this.activatedAlpha=ele;
+    this.data.getInfoAPI<RawImportData<Author>>(ele?'author/'+ele:'author', id, page, limit)
     .subscribe(
      (data: RawImportData<Author>)=>{
        this.authors=data;
@@ -108,5 +112,24 @@ export class GalleryComponent implements OnInit {
      this.whatAmI = "Form";
      this.foLoaded=true;
    }); 
+ }
+
+ getAuthors(){
+  return this.authors.records.filter((item) => +item.COUNT != 0);
+ }
+ getTimeframes(){
+  return this.timeframes.records.filter((item) => +item.COUNT != 0);
+ }
+ getTypes(){
+  return this.types.records.filter((item) => +item.COUNT != 0);
+ }
+ getLocations(){
+  return this.locations.records.filter((item) => +item.COUNT != 0);
+ }
+ getSchools(){
+  return this.schools.records.filter((item) => +item.COUNT != 0);
+ }
+ getForms(){
+  return this.forms.records.filter((item) => +item.COUNT != 0);
  }
 }

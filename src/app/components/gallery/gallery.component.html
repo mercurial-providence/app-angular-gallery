@@ -1,96 +1,180 @@
 <h2>Gallery!</h2>
-<app-spinner *ngIf="!foLoaded && !tyLoaded && !scLoaded && !tiLoaded"></app-spinner>
+<app-spinner *ngIf="!foLoaded && !tyLoaded && !scLoaded && !tiLoaded && !auLoaded"></app-spinner>
 
 <!-- <mat-grid-list cols="5" rowHeight="1:1" gutterSize="1em">
-    <mat-grid-tile *ngFor="let form of forms.records" >
-      <img src="{{form?.FIMAGE}}" alt="model">
+	<mat-grid-tile *ngFor="let form of forms.records" >
+	<img src="{{form?.FIMAGE}}" alt="model">
 
-      <mat-grid-tile-footer>
-          <h3 >{{ form.FORM }}</h3><br>
-          <span >{{ form.FORM }}</span><br>
-          <mat-icon>info</mat-icon><br>
-      </mat-grid-tile-footer>
+	<mat-grid-tile-footer>
+	<h2 >{{ form.FORM }}</h2><br>
+	<span >{{ form.FORM }}</span><br>
+	<mat-icon>info</mat-icon><br>
+	</mat-grid-tile-footer>
 
-    </mat-grid-tile>
-</mat-grid-list> -->
+	</mat-grid-tile>
+	</mat-grid-list> -->
+	<div *ngIf="auLoaded">
+		<h2>Authors</h2>
+		<section  class="gallery-cat">
+			<mat-card class="gallery-cat-small-card" 
+				  *ngFor="let alpha of alphabets" 
+				  (click)="populateAuthor(alpha, '', '1', pagesize)" matRipple>
+				{{alpha | uppercase}}
+			</mat-card>
 
-<div *ngIf="foLoaded">
-<h3>Forms</h3>
-<section  class="gallery-cat" >
-  <mat-card class="gallery-cat-card" [ngClass]="{'hidden': !+form.COUNT}" [routerLink]="['/arts/form', form.ID]" *ngFor="let form of forms.records" matRipple>
-    <div *ngIf="form.COUNT">
-    <img mat-card-image 
-          src="{{ data.dataServerURL + form?.FIMAGE }}" 
-          alt="{{ form.FORM }}"
-          class="gal-mat-card-image"
-          title="Form / {{ form.FORM | titlecase }}"
-          onerror="this.src='assets/imgs/inf.jpg'">
-    <mat-card-content >
-      <mat-card-title style="font-size: 1.2em;">{{form.FORM | titlecase}}</mat-card-title>
-      <b>#{{form.COUNT}} Articles</b>
-    </mat-card-content> 
-  </div>
-  </mat-card>
-</section>
-</div>
+<!-- 
+        <div style="width:100%;padding: 1em;">
+          <div style="display:flex;">
+					
+           <mat-card (click)="populateAuthor(activatedAlpha, '', +authors.pagination.page -1, pagesize)" 
+           *ngIf="authors.pagination.page!=1"
+           style="margin-right:auto;cursor: pointer;" matRipple>
+           <mat-icon>navigate_before</mat-icon>
+          </mat-card>
+					<mat-card (click)="populateAuthor(activatedAlpha, '', +authors.pagination.page +1, pagesize)" 
+           *ngIf="authors.pagination.page!=authors.pagination.totalpages"
+           style="margin-left:auto;cursor: pointer;" matRipple>
+           <mat-icon>navigate_next</mat-icon>
+					</mat-card>
+          </div>
 
-<div *ngIf="tyLoaded">
-<h3>Type</h3>
-<section  class="gallery-cat" >
-  <mat-card class="gallery-cat-card" [ngClass]="{'hidden': !+type.COUNT}" [routerLink]="['/arts/type', type.ID]" *ngFor="let type of types.records" matRipple>
-    <div *ngIf="type.COUNT">
-    <img mat-card-image 
-          src="{{data.dataServerURL + type?.FIMAGE}}" 
-          alt="{{ type.TYPE }}"
-          class="gal-mat-card-image"
-          title="Type / {{ type.TYPE | titlecase }}"          
-          onerror="this.src='assets/imgs/inf.jpg'">
-    <mat-card-content>
-      <b>{{type.TYPE | titlecase}}</b> <br> 
-      <b>#{{type.COUNT}} Articles</b>
-    </mat-card-content> 
-  </div>
-  </mat-card>
-</section>
-</div>
+					<ul style="display: flex;
+                    flex-flow: column wrap;
+                    max-height: 20em;
+                    align-content: space-between">
+						<li *ngFor="let author of authors.records" 
+					      style="flex: 1 0 calc(33% - 10px);    min-width: 15em;">{{author.AUTHOR}}</li>
+          </ul>
+          {{authors.pagination | json}}
+        </div>
+ -->
+        <div style="display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        min-height: 5em;
+        margin: 1em 0;">
+                  
+          <button mat-mini-fab (click)="populateAuthor(activatedAlpha, '', +authors.pagination.page -1, pagesize)" 
+            *ngIf="authors.pagination.page!=1"
+            style="    margin-right: auto;
+			cursor: pointer;
+			background-color: inherit;
+			color: #666;" matRipple>
+            <mat-icon>navigate_before</mat-icon>
+          </button>
+          <mat-card style="position: absolute;
+            left: 50%;
+            transform: translate(-50%, 0px);
+            box-shadow: none;
+            background: none;">
+            <h2>Authors / {{activatedAlpha | uppercase}}</h2>
+          </mat-card>
+          <button mat-mini-fab (click)="populateAuthor(activatedAlpha, '', +authors.pagination.page +1, pagesize)" 
+            *ngIf="authors.pagination.page!=authors.pagination.totalpages"
+            style="    margin-left: auto;
+			cursor: pointer;
+			background-color: inherit;
+			color: #666;" matRipple>
+            <mat-icon>navigate_next</mat-icon>
+          </button>
+        </div>
+       <section  class="gallery-cat" >
+	     <mat-card *ngFor="let author of getAuthors()" class="gallery-aut-card" [routerLink]="['/arts/author', author.ID]" matRipple>
+         <div style="    display: flex;
+         align-items: center;
+         justify-content: flex-start;">
+          <span><mat-icon>account_circle</mat-icon></span>
+		  <div style="margin: 0 1em;">
+			<span><strong>{{author.AUTHOR}}</strong></span><br>
+			<span>{{author.BORN_DIED}} / #{{author.COUNT}} Articles</span>
+		  </div>
+        </div>
+	     </mat-card>
+	     </section>
 
-<div *ngIf="scLoaded">
-<h3>School</h3>
-<section  class="gallery-cat" >
-  <mat-card class="gallery-cat-card" [ngClass]="{'hidden': !+school.COUNT}" [routerLink]="['/arts/school', school.ID]" *ngFor="let school of schools.records" matRipple>
-    <div *ngIf="school.COUNT">
-    <img mat-card-image 
-          src="{{data.dataServerURL + school?.FIMAGE}}" 
-          alt="{{ school.SCHOOL }}"
-          class="gal-mat-card-image"
-          title="School / {{ school.SCHOOL | titlecase }}"          
-          onerror="this.src='assets/imgs/inf.jpg'">
-    <mat-card-content>
-      <b>{{school.SCHOOL | titlecase}}</b> <br> 
-      <b>#{{school.COUNT}} Articles</b>
-    </mat-card-content> 
-  </div>
-  </mat-card>
-</section>
-</div>
+		</section>
+	</div>
 
-<div *ngIf="tiLoaded">
-<h3>Timeframe</h3>
-<section  class="gallery-cat" >
-  <mat-card class="gallery-cat-card" [ngClass]="{'hidden': !+timeframe.COUNT}" [routerLink]="['/arts/timeframe', timeframe.ID]" *ngFor="let timeframe of timeframes.records" matRipple>
-    <div >
-    <img mat-card-image 
-          src="{{data.dataServerURL + timeframe?.FIMAGE}}" 
-          alt="{{ timeframe.TIMEFRAME }}"
-          class="gal-mat-card-image"
-          title="Timeframe / {{ timeframe.TIMEFRAME | titlecase }}"          
-          onerror="this.src='assets/imgs/inf.jpg'">
-    <mat-card-content>
-      <b>{{timeframe.TIMEFRAME | titlecase}}</b> <br> 
-      <b>#{{timeframe.COUNT}} Articles</b>
-    </mat-card-content> 
-  </div>
-  </mat-card>
-</section>
-</div>
+
+
+	<div *ngIf="foLoaded">
+		<h2>Forms</h2>
+		<section  class="gallery-cat" >
+			<mat-card class="gallery-cat-card" [ngClass]="{'hidden': !+form.COUNT}" [routerLink]="['/arts/form', form.ID]" *ngFor="let form of getForms()" matRipple>
+				<div *ngIf="form.COUNT">
+					<img mat-card-image 
+					     src="{{ data.dataServerURL + form?.FIMAGE }}" 
+					     alt="{{ form.FORM }}"
+					     class="gal-mat-card-image"
+					     title="Form / {{ form.FORM | titlecase }}"
+					     onerror="this.src='assets/imgs/inf.jpg'">
+					<mat-card-content >
+						<mat-card-title style="font-size: 1.2em;">{{form.FORM | titlecase}}</mat-card-title>
+						<b>#{{form.COUNT}} Articles</b>
+					</mat-card-content> 
+				</div>
+			</mat-card>
+		</section>
+	</div>
+
+	<div *ngIf="tyLoaded">
+		<h2>Type</h2>
+		<section  class="gallery-cat" >
+			<mat-card class="gallery-cat-card" [ngClass]="{'hidden': !+type.COUNT}" [routerLink]="['/arts/type', type.ID]" *ngFor="let type of getTypes()" matRipple>
+				<div *ngIf="type.COUNT">
+					<img mat-card-image 
+					     src="{{data.dataServerURL + type?.FIMAGE}}" 
+					     alt="{{ type.TYPE }}"
+					     class="gal-mat-card-image"
+					     title="Type / {{ type.TYPE | titlecase }}"          
+					     onerror="this.src='assets/imgs/inf.jpg'">
+					<mat-card-content>
+						<b>{{type.TYPE | titlecase}}</b> <br> 
+						<b>#{{type.COUNT}} Articles</b>
+					</mat-card-content> 
+				</div>
+			</mat-card>
+		</section>
+	</div>
+
+	<div *ngIf="scLoaded">
+		<h2>School</h2>
+		<section  class="gallery-cat" >
+			<mat-card class="gallery-cat-card" [ngClass]="{'hidden': !+school.COUNT}" [routerLink]="['/arts/school', school.ID]" *ngFor="let school of getSchools()" matRipple>
+				<div *ngIf="school.COUNT">
+					<img mat-card-image 
+					     src="{{data.dataServerURL + school?.FIMAGE}}" 
+					     alt="{{ school.SCHOOL }}"
+					     class="gal-mat-card-image"
+					     title="School / {{ school.SCHOOL | titlecase }}"          
+					     onerror="this.src='assets/imgs/inf.jpg'">
+					<mat-card-content>
+						<b>{{school.SCHOOL | titlecase}}</b> <br> 
+						<b>#{{school.COUNT}} Articles</b>
+					</mat-card-content> 
+				</div>
+			</mat-card>
+		</section>
+	</div>
+
+	<div *ngIf="tiLoaded">
+		<h2>Timeframe</h2>
+		<section  class="gallery-cat" >
+			<mat-card class="gallery-cat-card"  [routerLink]="['/arts/timeframe', timeframe.ID]" *ngFor="let timeframe of getTimeframes()" matRipple>
+				<div >
+					<img mat-card-image 
+					     src="{{data.dataServerURL + timeframe?.FIMAGE}}" 
+					     alt="{{ timeframe.TIMEFRAME }}"
+					     class="gal-mat-card-image"
+					     title="Timeframe / {{ timeframe.TIMEFRAME | titlecase }}"          
+					     onerror="this.src='assets/imgs/inf.jpg'">
+					<mat-card-content>
+						<b>{{timeframe.TIMEFRAME | titlecase}}</b> <br> 
+						<b>#{{timeframe.COUNT}} Articles</b>
+					</mat-card-content> 
+				</div>
+			</mat-card>
+		</section>
+	</div>
 

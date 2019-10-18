@@ -6,7 +6,7 @@
     flex-direction: row;
 }
 
-.gallery-cat-card{
+.gallery-cat-card, .gallery-aut-card{
     flex: 1 1 0px;
     padding: 2em;
     text-align: justify;
@@ -18,6 +18,31 @@
     &:hover{
 /*         background: rgba($color: #666, $alpha: 0.1);
  */    }
+}
+
+.gallery-aut-card{
+    min-width: 20em;
+    padding: 1em;
+}
+
+.gallery-cat-small-card{
+    flex: 1 1 0px;
+    text-align: center;
+    background: transparent;
+    min-width: 3.5rem;
+    color: var(--themeColor);
+    cursor: pointer;
+    flex-grow: 1;
+}
+
+.gallery-cat-small-author-card{
+    flex: 1 1 0px;
+    text-align: center;
+    background: transparent;
+    min-width: 3.5rem;
+    color: var(--themeColor);
+    cursor: pointer;
+    flex-grow: 1;
 }
 
 .gal-mat-card-image{

@@ -38,7 +38,6 @@ category  : type      & id  : '' or 1,2,3...
       //id: empty string
       callURL = this.apiUrl+'/info/'+category;
     }
-    console.log("INFO: ID Verfied. Calling:"+callURL);
     return this.http.get<T>(callURL,{
       params: new HttpParams()
         .set('page', page)
@@ -77,7 +76,6 @@ category  : type      & id  : 1,2,3...
       callURL = this.apiUrl+'/art/'+category;
     }
 
-    console.log("ART: ID Verified. Calling:"+callURL);
     return this.http.get<T>(callURL,{
       params: new HttpParams()
         .set('page', page)
@@ -88,15 +86,20 @@ category  : type      & id  : 1,2,3...
       );
   }
 
-  public search<T>(id:string = "", page:string = "1", limit:string = "10") {
-    if(!!id.trim() && !isNaN(+id)) return this.http.get<T>(this.apiUrl+'/search/'+id,{
-      params: new HttpParams()
-        .set('page', page)
-        .set('limit', limit)
-      }).pipe(
-        retryWhen(genericRetryStrategy({maxRetryAttempts: 5, scalingDuration: 100})),
-        shareReplay(1)
+  public search<T>(query:string = "", page:string = "1", limit:string = "10") {
+    if(!!query.trim()){
+      //id: something is set
+      return this.http.get<T>(this.apiUrl+'/search',{
+        params: new HttpParams()
+          .set('q', query)
+          .set('page', page)
+          .set('limit', limit)
+        }).pipe(
+          retryWhen(genericRetryStrategy({maxRetryAttempts: 5, scalingDuration: 100})),
+          shareReplay(1)
       );
+    }
+
   }
 
 /* This function is not throwing error because I am catching this error in it's 

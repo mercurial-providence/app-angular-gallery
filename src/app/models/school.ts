@@ -1,4 +1,6 @@
 export class School {
-	"ID":string;
-	"SCHOOL":string;
+	ID:string;
+	SCHOOL:string;
+	COUNT:string;
+
 }

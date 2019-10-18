@@ -1,5 +1,7 @@
 export class Location {
-	"ID":string;
-	"LOCATION":string;
+	ID:string;
+	LOCATION:string;
+	COUNT:string;
+
 
 }

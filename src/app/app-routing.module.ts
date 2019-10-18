@@ -5,15 +5,16 @@ import { GalleryComponent } from './components/gallery/gallery.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { ArtsComponent } from './components/arts/arts.component';
-import { PasteComponent } from './components/paste/paste.component';
+import { PasteComponent } from './components/plugins/paste/paste.component';
 import { ShowcaseComponent } from './components/showcase/showcase.component';
 import { ErrorComponent } from './components/error/error.component';
+import { SearchComponent } from './components/search/search.component';
 
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'home', redirectTo: '/home', pathMatch: 'full'},
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent},
   { path: 'gallery', component: GalleryComponent },
   { path: 'arts', 
     children: [
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: 'filter', component: FilterComponent },
   { path: 'error', component: ErrorComponent },
   { path: 'paste', component: PasteComponent },
+  { path: 'search', component: SearchComponent },
   { path: '**', component: NotfoundComponent},
 ];
 

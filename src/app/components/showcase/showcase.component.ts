@@ -21,12 +21,15 @@ export class ShowcaseComponent implements OnInit {
       this.route.params.subscribe(params => {
       this.activatedRouteID = +params.id;
     });
-    this.fetchArts('all',this.activatedRouteID,'1','50');
+    this.fetchArts('all',this.activatedRouteID,'1','1');
   }
   fetchArts(route:string ='all', id:any, page:any, limit:any){
-    this.dataService.getArtsAPI(route, id.toString(), page.toString(), limit.toString()).subscribe((data: RawImportData<Artdata>)=>{
-      if(data) this.activatedRouteArt=data;
-      this.artURL=this.dataService.dataServerURL+this.activatedRouteArt.records['0'].URL;
+    this.dataService.getArtsAPI(route, id.toString(), page.toString(), limit.toString())
+    .subscribe((data: RawImportData<Artdata>)=>{
+      if(data){
+        this.activatedRouteArt=data;
+        this.artURL=this.dataService.dataServerURL+this.activatedRouteArt.records['0'].URL;
+      }
     }); 
   }
 }

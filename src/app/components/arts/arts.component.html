@@ -1,25 +1,82 @@
-<button mat-raised-button (click)="fetchArts(activatedRoute,activatedRouteID,'1','50')" >First</button>
-<button mat-raised-button (click)="fetchArts(activatedRoute,activatedRouteID,+arts.pagination.page-1,'50')">Prev</button>
-<button mat-raised-button (click)="fetchArts(activatedRoute,activatedRouteID,+arts.pagination.page+1,'50')">Next</button>
-<button mat-raised-button (click)="fetchArts(activatedRoute,activatedRouteID,arts.pagination.totalpages,'50')" >Last</button>
+
+
+
+<!-- <button mat-raised-button (click)="fetchArts(pagination.pageRoute,pagination.pageID,'1','50')" >First</button>
+<button mat-raised-button (click)="fetchArts(pagination.pageRoute,pagination.pageID,pagination.pageCurr-1,'50')">Prev</button>
+<button mat-raised-button (click)="fetchArts(pagination.pageRoute,pagination.pageID,pagination.pageCurr+1,'50')">Next</button>
+<button mat-raised-button (click)="fetchArts(pagination.pageRoute,pagination.pageID,pagination.pageTotal,'50')" >Last</button>
 
 <h6>{{ arts.pagination | json }}</h6>
-<h4>{{ activatedRouteData.records | json }}</h4>
-<h4>Currently viewing, {{ activatedRoute }}</h4>
+<h4>{{ pagination.pageRouteData.records | json }}</h4>
+<h4>Currently viewing, {{ pagination.pageRoute | titlecase }}</h4> -->
+
+<div style="display: flex;
+width: 100%;
+align-items: center;
+justify-content: center;
+min-height: 5em;
+margin: 4em 0;
+text-align: center;"
+*ngIf="!infoLoading&&!artsLoading">
+		  
+  <button mat-mini-fab (click)="fetchArts(pagination.pageRoute, pagination.pageID, pagination.pageCurr -1, pagination.pageSize)" 
+	*ngIf="pagination.pageCurr!=1"
+	style="    margin-right: auto;
+    cursor: pointer;
+    background-color: inherit;
+    color: #666;" matRipple>
+	<mat-icon>navigate_before</mat-icon>
+  </button>
+  <mat-card style="position: absolute;
+	left: 50%;
+	transform: translate(-50%, 0px);
+	box-shadow: none;
+	background: none;">
+	<h2>ARTS / {{pagination.pageRoute | uppercase}} / {{ pagination.pageRouteData.records[0][pagination.pageRoute.toUpperCase()] | uppercase}} (#{{pagination.totalElement}})</h2>
+	<div style="display: flex;
+    justify-content: center;
+    align-content: center;">
+	<mat-form-field>
+		<mat-label>Page</mat-label>
+		<mat-select [(ngModel)]="pagination.pageCurr">
+			<mat-option 
+			*ngFor="let item of [].constructor(pagination.pageTotal); let i = index" [value]="i+1"
+			(click)="fetchArts(pagination.pageRoute, pagination.pageID, i+1, pagination.pageSize)">
+			Page {{i+1}}
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
+	<h3 style="margin-left:1em"> of {{pagination.pageTotal}} (#{{pagination.pageElement}})</h3>
+	</div>
+  </mat-card>
+  <button mat-mini-fab (click)="fetchArts(pagination.pageRoute, pagination.pageID, pagination.pageCurr +1, pagination.pageSize)" 
+	*ngIf="pagination.pageCurr!=pagination.pageTotal"
+	style="    margin-left: auto;
+    cursor: pointer;
+    background-color: inherit;
+    color: #666;">
+	<mat-icon>navigate_next</mat-icon>
+  </button>
+
+</div>
+
+
+
 
 <!-- 
 	Reduce [useImagesLoaded]="true" from 
 	'<ngx-masonry [useImagesLoaded]="true" [options]='
 	to atoms if aligment is distorting 
 -->
-<app-spinner *ngIf="isLoading"></app-spinner>
+<app-spinner *ngIf="infoLoading||artsLoading"></app-spinner>
 
 <ngx-masonry  
 		[useImagesLoaded]="true"
 		[options]= "{ 
 					transitionDuration: 0,
 					horizontalOrder: true
-					}">
+					}"
+		*ngIf="!infoLoading&&!artsLoading">
 
 	<div ngxMasonryItem class="masonry-item" *ngFor="let art of arts.records">
 
@@ -40,8 +97,8 @@
 -->
 			<mat-card-content>
 				<b>{{art.TITLE}}</b> <br> 
-				<a class ="mat-card-art-image" [routerLink]="['/arts/author', art.AUTHOR_ID]">{{ art.AUTHOR }}</a> 
-				/ {{art.DATE}} 
+				<a title="Article Author" class ="mat-card-art-image" [routerLink]="['/arts/author', art.AUTHOR_ID]">{{ art.AUTHOR }}</a> 
+				/ <span title="Article Date">{{art.DATE}} </span>
 			</mat-card-content> 
 		</div>
 		</mat-card>
