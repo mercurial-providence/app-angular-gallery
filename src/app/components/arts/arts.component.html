@@ -1,68 +1,112 @@
-
-
-
-<!-- <button mat-raised-button (click)="fetchArts(pagination.pageRoute,pagination.pageID,'1','50')" >First</button>
-<button mat-raised-button (click)="fetchArts(pagination.pageRoute,pagination.pageID,pagination.pageCurr-1,'50')">Prev</button>
-<button mat-raised-button (click)="fetchArts(pagination.pageRoute,pagination.pageID,pagination.pageCurr+1,'50')">Next</button>
-<button mat-raised-button (click)="fetchArts(pagination.pageRoute,pagination.pageID,pagination.pageTotal,'50')" >Last</button>
-
-<h6>{{ arts.pagination | json }}</h6>
-<h4>{{ pagination.pageRouteData.records | json }}</h4>
-<h4>Currently viewing, {{ pagination.pageRoute | titlecase }}</h4> -->
-
-<div style="display: flex;
-width: 100%;
-align-items: center;
-justify-content: center;
-min-height: 5em;
-margin: 4em 0;
-text-align: center;"
-*ngIf="!infoLoading&&!artsLoading">
-		  
-  <button mat-mini-fab (click)="fetchArts(pagination.pageRoute, pagination.pageID, pagination.pageCurr -1, pagination.pageSize)" 
-	*ngIf="pagination.pageCurr!=1"
-	style="    margin-right: auto;
-    cursor: pointer;
-    background-color: inherit;
-    color: #666;" matRipple>
-	<mat-icon>navigate_before</mat-icon>
-  </button>
-  <mat-card style="position: absolute;
-	left: 50%;
-	transform: translate(-50%, 0px);
-	box-shadow: none;
-	background: none;">
-	<h2>ARTS / {{pagination.pageRoute | uppercase}} / {{ pagination.pageRouteData.records[0][pagination.pageRoute.toUpperCase()] | uppercase}} (#{{pagination.totalElement}})</h2>
-	<div style="display: flex;
-    justify-content: center;
-    align-content: center;">
-	<mat-form-field>
-		<mat-label>Page</mat-label>
-		<mat-select [(ngModel)]="pagination.pageCurr">
-			<mat-option 
-			*ngFor="let item of [].constructor(pagination.pageTotal); let i = index" [value]="i+1"
-			(click)="fetchArts(pagination.pageRoute, pagination.pageID, i+1, pagination.pageSize)">
-			Page {{i+1}}
-			</mat-option>
-		</mat-select>
-	</mat-form-field>
-	<h3 style="margin-left:1em"> of {{pagination.pageTotal}} (#{{pagination.pageElement}})</h3>
+<div class="arts-info"
+	 *ngIf="!infoLoading">
+	<div>
+		<a mat-flat-button 
+		(click)="getFilteredArts(artComData.pageRoute.substr(0, 2)+'='+artComData.pageID, 1, artComData.pageSize)">
+			<h2>INFO / {{artComData.pageRoute | uppercase}} / {{ artComData.pageRouteData.records[0][artComData.pageRoute.toUpperCase()] | uppercase}}</h2>
+		</a>
 	</div>
-  </mat-card>
-  <button mat-mini-fab (click)="fetchArts(pagination.pageRoute, pagination.pageID, pagination.pageCurr +1, pagination.pageSize)" 
-	*ngIf="pagination.pageCurr!=pagination.pageTotal"
-	style="    margin-left: auto;
-    cursor: pointer;
-    background-color: inherit;
-    color: #666;">
-	<mat-icon>navigate_next</mat-icon>
-  </button>
-
+	<div class="arts-info-data">
+		<div class="image-holder" 
+		[ngStyle]="{'background-image':'url('+dataService.dataServerURL + artComData.pageRouteData.records[0]?.FIMAGE+')'}"
+		>
+				
+		</div>
+		<div *ngFor="let eles of artComData.pageRouteData.records">
+<!-- 			<ul *ngIf="artComData.pageRoute!='author'" >
+					<li *ngFor="let ele of eles.AUTHOR" class="arts-info-list">
+						<a mat-flat-button [routerLink]="['/arts/author', ele.ID]">{{ele.VALUE | titlecase}}</a>
+					</li>
+			</ul> -->
+			<div class="arts-info-cats" *ngIf="artComData.pageRoute!='form'">
+				<h4>Form</h4>
+				<ul  >
+						<li *ngFor="let ele of eles.FORM" class="arts-info-list">
+							<a mat-flat-button 
+							(click)="getFilteredArts(artComData.pageRoute.substr(0, 2)+'='+artComData.pageID+'&fo='+ele.ID,1,artComData.pageSize)">
+							{{ele.VALUE | titlecase}}</a>
+						</li>
+				</ul>
+			</div>
+			<div class="arts-info-cats" *ngIf="artComData.pageRoute!='school'">
+				<h4>School</h4>
+				<ul  >
+						<li *ngFor="let ele of eles.SCHOOL" class="arts-info-list">
+							<a mat-flat-button 
+							(click)="getFilteredArts(artComData.pageRoute.substr(0, 2)+'='+artComData.pageID+'&sc='+ele.ID,1,artComData.pageSize)">
+							{{ele.VALUE | titlecase}}</a>
+						</li>
+				</ul>
+			</div>
+<!-- 			<ul *ngIf="artComData.pageRoute!='location'" >
+					<li *ngFor="let ele of eles.LOCATION" class="arts-info-list">
+						<a mat-flat-button [routerLink]="['/arts/location', ele.ID]">{{ele.VALUE | titlecase}}</a>
+					</li>
+			</ul> -->
+			<div class="arts-info-cats" *ngIf="artComData.pageRoute!='timeframe'">
+				<h4>Timeframe</h4>
+				<ul  >
+						<li *ngFor="let ele of eles.TIMEFRAME" class="arts-info-list">
+							<a mat-flat-button 
+							(click)="getFilteredArts(artComData.pageRoute.substr(0, 2)+'='+artComData.pageID+'&ti='+ele.ID,1,artComData.pageSize)">{{ele.VALUE | titlecase}}</a>
+						</li>
+				</ul>
+			</div>
+			<div class="arts-info-cats" *ngIf="artComData.pageRoute!='type'">
+				<h4>Type</h4>
+				<ul  >
+						<li *ngFor="let ele of eles.TYPE" class="arts-info-list">
+							<a mat-flat-button 
+							(click)="getFilteredArts(artComData.pageRoute.substr(0, 2)+'='+artComData.pageID+'&ty='+ele.ID,1,artComData.pageSize)">{{ele.VALUE | titlecase}}</a>
+						</li>
+				</ul>
+			</div>
+		
+		</div>
+	</div>
 </div>
 
 
 
 
+
+
+
+<div class="navigation-bar" *ngIf="!infoLoading&&!artsLoading">
+  <!-- (click)="fetchArts(artComData.pageRoute, artComData.pageID, artComData.pageCurr -1, artComData.pageSize)"  -->
+  <button mat-mini-fab 
+  	(click)="getFilteredArts(activeFilter, artComData.pageCurr-1, artComData.pageSize)" 
+	*ngIf="artComData.pageCurr!=1" 
+	style="margin-right: auto;" 
+	class="nav-button" matRipple>
+	<mat-icon>navigate_before</mat-icon>
+  </button>
+  <mat-card class="nav-header">
+	<h2>ARTS / {{artComData.pageRoute | uppercase}} / {{ artComData.pageRouteData.records[0][artComData.pageRoute.toUpperCase()] | uppercase}} (#{{artComData.totalElement}})</h2>
+	<div class="nav-paginator">
+	<mat-form-field>
+		<mat-label>Page</mat-label>
+		<mat-select [(ngModel)]="artComData.pageCurr">
+			<mat-option 
+			*ngFor="let item of [].constructor(artComData.pageTotal); let i = index" [value]="i+1"
+			(click)="getFilteredArts(activeFilter, i+1, artComData.pageSize)">
+			<!-- (click)="fetchArts(artComData.pageRoute, artComData.pageID, i+1, artComData.pageSize)" -->
+			Page {{i+1}}
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
+	<h3 style="margin-left:1em"> of {{artComData.pageTotal}} (#{{artComData.pageElement}})</h3>
+	</div>
+  </mat-card>
+  <!-- (click)="fetchArts(artComData.pageRoute, artComData.pageID, artComData.pageCurr +1, artComData.pageSize)" -->
+  <button mat-mini-fab 
+  	(click)="getFilteredArts(activeFilter, artComData.pageCurr+1, artComData.pageSize)" 
+	*ngIf="artComData.pageCurr!=artComData.pageTotal"
+	style="    margin-left: auto;"
+	class="nav-button" matRipple>
+	<mat-icon>navigate_next</mat-icon>
+  </button>
+</div>
 <!-- 
 	Reduce [useImagesLoaded]="true" from 
 	'<ngx-masonry [useImagesLoaded]="true" [options]='
@@ -70,13 +114,15 @@ text-align: center;"
 -->
 <app-spinner *ngIf="infoLoading||artsLoading"></app-spinner>
 
+
+
 <ngx-masonry  
 		[useImagesLoaded]="true"
 		[options]= "{ 
-					transitionDuration: 0,
+					transitionDuration: 0.5,
 					horizontalOrder: true
 					}"
-		*ngIf="!infoLoading&&!artsLoading">
+		*ngIf="!infoLoading&&!artsLoading" [@fadeIn]>
 
 	<div ngxMasonryItem class="masonry-item" *ngFor="let art of arts.records">
 
@@ -98,7 +144,13 @@ text-align: center;"
 			<mat-card-content>
 				<b>{{art.TITLE}}</b> <br> 
 				<a title="Article Author" class ="mat-card-art-image" [routerLink]="['/arts/author', art.AUTHOR_ID]">{{ art.AUTHOR }}</a> 
-				/ <span title="Article Date">{{art.DATE}} </span>
+				/ <span title="Article Date">{{art.DATE}} </span><br>
+				<span title="Technique">{{art.TECHNIQUE | titlecase}}</span> <br>
+				<a title="Art School" class ="mat-card-art-image" [routerLink]="['/arts/school', art.SCHOOL_ID]">{{art.SCHOOL | titlecase}}</a> /
+				<a title="Art Form" class ="mat-card-art-image" [routerLink]="['/arts/form', art.FORM_ID]">{{art.FORM | titlecase}}</a> /
+				<a title="Art Type" class ="mat-card-art-image" [routerLink]="['/arts/type', art.TYPE_ID]">{{art.TYPE | titlecase}}</a> /
+				<a title="Timeframe of this Article" class ="mat-card-art-image" [routerLink]="['/arts/timeframe', art.TIMEFRAME_ID]">{{art.TIMEFRAME}}</a> /
+				<a title="Location of this Article" class ="mat-card-art-image" [routerLink]="['/arts/location', art.LOCATION_ID]">{{art.LOCATION | titlecase}}</a>
 			</mat-card-content> 
 		</div>
 		</mat-card>

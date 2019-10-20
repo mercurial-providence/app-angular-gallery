@@ -5,11 +5,16 @@ import { RawImportData } from 'src/app/models/common/raw-import-data';
 import { DataService } from 'src/app/services/data.service';
 import { retryWhen, delay, take, retry } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { trigger } from '@angular/animations';
+import { fadeIn } from '../plugins/animations/animations';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  animations : [
+    trigger('fadeIn', fadeIn())
+  ]
 })
 export class HomeComponent implements OnInit {
   private displayImage:RawImportData<Artdata> = new RawImportData();

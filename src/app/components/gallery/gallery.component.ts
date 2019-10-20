@@ -13,11 +13,16 @@ import { RawImportData } from 'src/app/models/common/raw-import-data';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HeaderComponent } from '../nav/header/header.component';
 import { Title } from '@angular/platform-browser';
+import { transition, style, animate, trigger } from '@angular/animations';
+import { fadeIn } from '../plugins/animations/animations';
 
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
-  styleUrls: ['./gallery.component.scss']
+  styleUrls: ['./gallery.component.scss'],
+  animations : [
+    trigger('fadeIn', fadeIn())
+  ]
 })
 export class GalleryComponent implements OnInit {
 
@@ -52,66 +57,70 @@ export class GalleryComponent implements OnInit {
 
   }
 
-  populateAuthor(ele, id, page, limit){
+  populateAuthor(ele:string, id:any, page:any, limit:any){
     this.activatedAlpha=ele;
-    this.data.getInfoAPI<RawImportData<Author>>(ele?'author/'+ele:'author', id, page, limit)
+    this.data.getInfoAPI<RawImportData<Author>>(ele?'author/'+ele:'author', id.toString(), page.toString(), limit.toString())
     .subscribe(
      (data: RawImportData<Author>)=>{
        this.authors=data;
        this.whatAmI = "Author";
        this.auLoaded=true;
-     }/* ,
-     error => {
-        console.log("I am capable of handling errors here, \
-                   but i don't have to, as because my DataService is doing it for me"
-                   +error); 
-     } */
+     } ,
+        // Because of this, DataService is not throwing error.
+        err => {throw("Can't connect to Server.")}
+        //err => console.error(err) 
+        //err => {throw(err)}
      ); 
  } 
-   populateLocation(id, page, limit){
-   this.data.getInfoAPI<RawImportData<Location>>('location', id, page, limit)
+   populateLocation(id:any, page:any, limit:any){
+   this.data.getInfoAPI<RawImportData<Location>>('location', id.toString(), page.toString(), limit.toString())
    .subscribe(
      (data: RawImportData<Location>)=>{
      this.locations=data;
      this.whatAmI = "Location";
      this.loLoaded=true;
-   }); 
+   },
+   err => {throw("Can't connect to Server.")}); 
  } 
-   populateSchool(id, page, limit){
-   this.data.getInfoAPI<RawImportData<School>>('school', id, page, limit)
+   populateSchool(id:any, page:any, limit:any){
+   this.data.getInfoAPI<RawImportData<School>>('school', id.toString(), page.toString(), limit.toString())
    .subscribe(
      (data: RawImportData<School>)=>{
      this.schools=data;
      this.whatAmI = "School";
      this.scLoaded=true;
-   }); 
+   },
+   err => {throw("Can't connect to Server.")}); 
  }   
-    populateTimeframe(id, page, limit){
-   this.data.getInfoAPI<RawImportData<Timeframe>>('timeframe', id, page, limit)
+    populateTimeframe(id:any, page:any, limit:any){
+   this.data.getInfoAPI<RawImportData<Timeframe>>('timeframe', id.toString(), page.toString(), limit.toString())
    .subscribe(
      (data: RawImportData<Timeframe>)=>{
      this.timeframes=data;
      this.whatAmI = "Timeframe";
      this.tiLoaded=true;
-   }); 
+   },
+   err => {throw("Can't connect to Server.")}); 
  }   
-    populateType(id, page, limit){
-   this.data.getInfoAPI<RawImportData<Type>>('type', id, page, limit)
+    populateType(id:any, page:any, limit:any){
+   this.data.getInfoAPI<RawImportData<Type>>('type', id.toString(), page.toString(), limit.toString())
    .subscribe(
      (data: RawImportData<Type>)=>{
      this.types=data;
      this.whatAmI = "Type";
      this.tyLoaded=true;
-   }); 
+   },
+   err => {throw("Can't connect to Server.")}); 
  }   
-    populateForm(id, page, limit){
-   this.data.getInfoAPI<RawImportData<Form>>('form', id, page, limit)
+    populateForm(id:any, page:any, limit:any){
+   this.data.getInfoAPI<RawImportData<Form>>('form', id.toString(), page.toString(), limit.toString())
    .subscribe(
      (data: RawImportData<Form>)=>{
      this.forms=data;
      this.whatAmI = "Form";
      this.foLoaded=true;
-   }); 
+   },
+   err => {throw("Can't connect to Server.")}); 
  }
 
  getAuthors(){
@@ -133,3 +142,4 @@ export class GalleryComponent implements OnInit {
   return this.forms.records.filter((item) => +item.COUNT != 0);
  }
 }
+

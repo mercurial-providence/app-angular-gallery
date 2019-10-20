@@ -1,5 +1,5 @@
 <h2>Gallery!</h2>
-<app-spinner *ngIf="!foLoaded && !tyLoaded && !scLoaded && !tiLoaded && !auLoaded"></app-spinner>
+<app-spinner *ngIf="!foLoaded && !tyLoaded && !scLoaded && !tiLoaded && !auLoaded" [@fadeIn]></app-spinner>
 
 <!-- <mat-grid-list cols="5" rowHeight="1:1" gutterSize="1em">
 	<mat-grid-tile *ngFor="let form of forms.records" >
@@ -13,7 +13,7 @@
 
 	</mat-grid-tile>
 	</mat-grid-list> -->
-	<div *ngIf="auLoaded">
+	<div *ngIf="auLoaded" [@fadeIn]>
 		<h2>Authors</h2>
 		<section  class="gallery-cat">
 			<mat-card class="gallery-cat-small-card" 
@@ -48,42 +48,29 @@
           {{authors.pagination | json}}
         </div>
  -->
-        <div style="display: flex;
-        width: 100%;
-        align-items: center;
-        justify-content: center;
-        min-height: 5em;
-        margin: 1em 0;">
+        <div style="margin: 1em 0;" class="navigation-bar">
                   
           <button mat-mini-fab (click)="populateAuthor(activatedAlpha, '', +authors.pagination.page -1, pagesize)" 
-            *ngIf="authors.pagination.page!=1"
-            style="    margin-right: auto;
-			cursor: pointer;
-			background-color: inherit;
-			color: #666;" matRipple>
+			*ngIf="authors.pagination.page!=1"
+			class="nav-button"
+			style="margin-right: auto;" matRipple>
             <mat-icon>navigate_before</mat-icon>
           </button>
-          <mat-card style="position: absolute;
-            left: 50%;
-            transform: translate(-50%, 0px);
-            box-shadow: none;
-            background: none;">
+          <mat-card class="nav-header">
             <h2>Authors / {{activatedAlpha | uppercase}}</h2>
           </mat-card>
           <button mat-mini-fab (click)="populateAuthor(activatedAlpha, '', +authors.pagination.page +1, pagesize)" 
-            *ngIf="authors.pagination.page!=authors.pagination.totalpages"
-            style="    margin-left: auto;
-			cursor: pointer;
-			background-color: inherit;
-			color: #666;" matRipple>
+			*ngIf="authors.pagination.page!=authors.pagination.totalpages"
+			class="nav-button"
+            style="margin-left: auto;" matRipple>
             <mat-icon>navigate_next</mat-icon>
           </button>
         </div>
        <section  class="gallery-cat" >
 	     <mat-card *ngFor="let author of getAuthors()" class="gallery-aut-card" [routerLink]="['/arts/author', author.ID]" matRipple>
-         <div style="    display: flex;
-         align-items: center;
-         justify-content: flex-start;">
+         <div style="display: flex;
+					align-items: center;
+					justify-content: flex-start;">
           <span><mat-icon>account_circle</mat-icon></span>
 		  <div style="margin: 0 1em;">
 			<span><strong>{{author.AUTHOR}}</strong></span><br>
@@ -98,7 +85,7 @@
 
 
 
-	<div *ngIf="foLoaded">
+	<div *ngIf="foLoaded" [@fadeIn]>
 		<h2>Forms</h2>
 		<section  class="gallery-cat" >
 			<mat-card class="gallery-cat-card" [ngClass]="{'hidden': !+form.COUNT}" [routerLink]="['/arts/form', form.ID]" *ngFor="let form of getForms()" matRipple>
@@ -118,7 +105,7 @@
 		</section>
 	</div>
 
-	<div *ngIf="tyLoaded">
+	<div *ngIf="tyLoaded" [@fadeIn]>
 		<h2>Type</h2>
 		<section  class="gallery-cat" >
 			<mat-card class="gallery-cat-card" [ngClass]="{'hidden': !+type.COUNT}" [routerLink]="['/arts/type', type.ID]" *ngFor="let type of getTypes()" matRipple>
@@ -138,7 +125,7 @@
 		</section>
 	</div>
 
-	<div *ngIf="scLoaded">
+	<div *ngIf="scLoaded" [@fadeIn]>
 		<h2>School</h2>
 		<section  class="gallery-cat" >
 			<mat-card class="gallery-cat-card" [ngClass]="{'hidden': !+school.COUNT}" [routerLink]="['/arts/school', school.ID]" *ngFor="let school of getSchools()" matRipple>
@@ -158,7 +145,7 @@
 		</section>
 	</div>
 
-	<div *ngIf="tiLoaded">
+	<div *ngIf="tiLoaded" [@fadeIn]>
 		<h2>Timeframe</h2>
 		<section  class="gallery-cat" >
 			<mat-card class="gallery-cat-card"  [routerLink]="['/arts/timeframe', timeframe.ID]" *ngFor="let timeframe of getTimeframes()" matRipple>

@@ -1,8 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { retryWhen, mergeMap, finalize, share, shareReplay, retry } from 'rxjs/operators';
+import { HttpClient, HttpParams, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { retryWhen, mergeMap, finalize, share, shareReplay, retry, catchError } from 'rxjs/operators';
 import { Observable, throwError, of, timer, observable } from 'rxjs';
 
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':'application/json; charset=utf-8'
+  })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +53,44 @@ category  : type      & id  : '' or 1,2,3...
     );
     
   }
+
+/* 
+This function fetches all the info from API /info/{category}/{id}
+category  : author    & id  : '' or 1,2,3... or a,b,c...
+category  : form      & id  : '' or 1,2,3...
+category  : location  & id  : '' or 1,2,3...
+category  : school    & id  : '' or 1,2,3...
+category  : timeframe & id  : '' or 1,2,3...
+category  : type      & id  : '' or 1,2,3...
+ */            
+public getDetailInfoAPI<T>(category:string, id:string = "", page:string = "1", limit:string = "10"){
+  var callURL : string = '';
   
+  if(!!id.trim()){
+    //id: something is set
+    if(isNaN(+id) || +id <= 0){
+      //id: Invalid value, can not continue
+      return throwError("API Parameter is invalid.");
+    }else{
+      //id: Valid vallue, a positive integer
+      callURL = this.apiUrl+'/detailinfo/'+category+'/'+id;
+    }
+  }else{
+    //id: empty string
+    callURL = this.apiUrl+'/detailinfo/'+category;
+  }
+  return this.http.get<T>(callURL,{
+    params: new HttpParams()
+      .set('page', page)
+      .set('limit', limit)
+  }).pipe(
+    retryWhen(genericRetryStrategy({maxRetryAttempts: 5, scalingDuration: 100})),
+    shareReplay(1)
+  );
+  
+}  
+
+
 /* 
 This function fetches all the info from API /info/{category}/{id}
 category  : all       & id  : '' or 1,2,3...
@@ -75,7 +117,6 @@ category  : type      & id  : 1,2,3...
       //id: empty string
       callURL = this.apiUrl+'/art/'+category;
     }
-
     return this.http.get<T>(callURL,{
       params: new HttpParams()
         .set('page', page)
@@ -86,7 +127,7 @@ category  : type      & id  : 1,2,3...
       );
   }
 
-  public search<T>(query:string = "", page:string = "1", limit:string = "10") {
+  public search<T>(query:string, page:string = "1", limit:string = "10") {
     if(!!query.trim()){
       //id: something is set
       return this.http.get<T>(this.apiUrl+'/search',{
@@ -99,7 +140,23 @@ category  : type      & id  : 1,2,3...
           shareReplay(1)
       );
     }
+  }
 
+  public filter<T>(
+    query:string="0",
+    page:string = "1", 
+    limit:string = "10") {
+    if(!!query.trim()){
+      //id: something is set
+      return this.http.get<T>(this.apiUrl+'/filter?'+query,{
+        params: new HttpParams()
+        .set('page', page)
+        .set('limit', limit)
+        }).pipe(
+          retryWhen(genericRetryStrategy({maxRetryAttempts: 5, scalingDuration: 100})),
+          shareReplay(1)
+      );
+    }
   }
 
 /* This function is not throwing error because I am catching this error in it's 
@@ -110,6 +167,27 @@ observable in HomeComponent */
       retryWhen(genericRetryStrategy({maxRetryAttempts: 5, scalingDuration: 100})),
       shareReplay(1)
     );
+  }
+
+  public putLog(category:string, value:string){
+//  You can add new argument in header like,
+//  httpOptions.headers = httpOptions.headers.set('Authorization', 'my-new-auth-token');
+
+    const body = JSON.stringify({category: category, value: value});
+
+    return this.http.put<any>(this.apiUrl+'/log', body, httpOptions)
+    .subscribe(
+      data  => {
+        console.log('PUT Request is successful.');
+      },
+      (err: HttpErrorResponse) => {
+        if (err.error instanceof Error) {
+            console.log('Client-side error occured.');
+        } else {
+            console.log('Server-side error occured.');
+        }
+    });
+      
   }
 }
 

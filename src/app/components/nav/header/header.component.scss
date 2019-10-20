@@ -40,3 +40,11 @@
       font-weight: bold;
     }
   }
+
+  mat-toolbar{
+    mat-toolbar-row{
+      button{
+        height:64px;
+      }
+    }
+  }

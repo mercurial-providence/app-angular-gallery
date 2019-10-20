@@ -8,13 +8,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ErrorComponent implements OnInit {
   
-  error:any;
+  private errorMessage:string;
 
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      this.error = params; 
+      this.errorMessage = params.error; 
     });
   }
 

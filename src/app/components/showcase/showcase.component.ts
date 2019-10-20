@@ -18,12 +18,12 @@ export class ShowcaseComponent implements OnInit {
   constructor(private dataService: DataService,private route: ActivatedRoute) { }
 
   ngOnInit() {
-      this.route.params.subscribe(params => {
+    this.route.params.subscribe(params => {
       this.activatedRouteID = +params.id;
     });
     this.fetchArts('all',this.activatedRouteID,'1','1');
   }
-  fetchArts(route:string ='all', id:any, page:any, limit:any){
+  fetchArts(route:string, id:any, page:any, limit:any){
     this.dataService.getArtsAPI(route, id.toString(), page.toString(), limit.toString())
     .subscribe((data: RawImportData<Artdata>)=>{
       if(data){

@@ -10,28 +10,25 @@ import { Author } from 'src/app/models/author';
 import { Form } from 'src/app/models/form';
 import { School } from 'src/app/models/school';
 import { Timeframe } from 'src/app/models/timeframe';
+import { trigger } from '@angular/animations';
+import { fadeIn } from '../plugins/animations/animations';
 
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
-  styleUrls: ['./filter.component.scss']
+  styleUrls: ['./filter.component.scss'],
+  animations : [
+    trigger('fadeIn', fadeIn())
+  ]
 })
 export class FilterComponent implements OnInit {
 
   constructor(private data: DataService, private router:  Router) { }
-  
-  authors: RawImportData<Author> = new RawImportData();
-  forms: RawImportData<Form> = new RawImportData();
-  schools: RawImportData<School> = new RawImportData();
-  timeframes: RawImportData<Timeframe> = new RawImportData();
-  types: RawImportData<Type> = new RawImportData();
-  locations: RawImportData<Location> = new RawImportData();
 
-  dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = [];
-  whatAmI:string = '';
-  isLoading:boolean = true;
-
+  private dataSource: MatTableDataSource<any>;
+  private displayedColumns: string[] = [];
+  private whatAmI:string = '';
+  private isLoading:boolean = true;
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -41,66 +38,89 @@ export class FilterComponent implements OnInit {
     this.dataSource = new MatTableDataSource();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.populateAuthor("", "1", "999999");
+    this.populateAuthor("", "1", "9999");
 
   }
-  populateAuthor(id, page, limit){
-   	this.data.getInfoAPI<RawImportData<Author>>('author', id, page, limit).subscribe(
+  populateAuthor(id:any, page:any, limit:any){
+    this.isLoading = true;
+
+   	this.data.getInfoAPI<RawImportData<Author>>('author', id.toString(), page.toString(), limit.toString()).subscribe(
       (data: RawImportData<Author>)=>{
-        this.authors=data;
         this.dataSource.data=data.records;
-        this.isLoading = false;
         this.whatAmI = "Author";
         this.displayedColumns=['ID', 'AUTHOR', 'BORN_DIED', 'COUNT'];
-      }/* ,
-      error => {
-         console.log("I am capable of handling errors here, \
-                    but i don't have to, as because my DataService is doing it for me"
-                    +error); 
-      } */
+        this.isLoading = false;
+      }  ,
+        // Because of this, DataService is not throwing error.
+        err => {throw("Can't connect to Server.")}
+        //err => console.error(err) 
+        //err => {throw(err)}
       ); 
   } 
-    populateLocation(id, page, limit){
-    this.data.getInfoAPI<RawImportData<Location>>('location', id, page, limit).subscribe(
+  populateLocation(id:any, page:any, limit:any){
+    this.isLoading = true;
+
+    this.data.getInfoAPI<RawImportData<Location>>('location', id.toString(), page.toString(), limit.toString()).subscribe(
       (data: RawImportData<Location>)=>{
-      this.locations=data;
       this.dataSource.data=data.records;
       this.whatAmI = "Location";
       this.displayedColumns=['ID', 'LOCATION', 'COUNT'];
-    }); 
+      this.isLoading = false;
+
+    },
+    err => {throw("Can't connect to Server.")}); 
   } 
-    populateSchool(id, page, limit){
-    this.data.getInfoAPI<RawImportData<School>>('school', id, page, limit).subscribe(
+  populateSchool(id:any, page:any, limit:any){
+    this.isLoading = true;
+
+    this.data.getInfoAPI<RawImportData<School>>('school', id.toString(), page.toString(), limit.toString()).subscribe(
       (data: RawImportData<School>)=>{
-      this.schools=data;
       this.dataSource.data=data.records;
       this.whatAmI = "School";
       this.displayedColumns=['ID', 'SCHOOL', 'COUNT'];
-    }); 
-  }   populateTimeframe(id, page, limit){
-    this.data.getInfoAPI<RawImportData<Timeframe>>('timeframe', id, page, limit).subscribe(
+      this.isLoading = false;
+
+    },
+    err => {throw("Can't connect to Server.")}); 
+  }   
+  populateTimeframe(id:any, page:any, limit:any){
+    this.isLoading = true;
+
+    this.data.getInfoAPI<RawImportData<Timeframe>>('timeframe', id.toString(), page.toString(), limit.toString()).subscribe(
       (data: RawImportData<Timeframe>)=>{
-      this.timeframes=data;
       this.dataSource.data=data.records;
       this.whatAmI = "Timeframe";
       this.displayedColumns=['ID', 'TIMEFRAME', 'COUNT'];
-    }); 
-  }   populateType(id, page, limit){
-    this.data.getInfoAPI<RawImportData<Type>>('type', id, page, limit).subscribe(
+      this.isLoading = false;
+
+    },
+    err => {throw("Can't connect to Server.")}); 
+  }   
+  populateType(id:any, page:any, limit:any){
+    this.isLoading = true;
+
+    this.data.getInfoAPI<RawImportData<Type>>('type', id.toString(), page.toString(), limit.toString()).subscribe(
       (data: RawImportData<Type>)=>{
-      this.types=data;
       this.dataSource.data=data.records;
       this.whatAmI = "Type";
       this.displayedColumns=['ID', 'TYPE', 'COUNT'];
-    }); 
-  }   populateForm(id, page, limit){
-    this.data.getInfoAPI<RawImportData<Form>>('form', id, page, limit).subscribe(
+      this.isLoading = false;
+
+    },
+    err => {throw("Can't connect to Server.")}); 
+  }   
+  populateForm(id:any, page:any, limit:any){
+    this.isLoading = true;
+
+    this.data.getInfoAPI<RawImportData<Form>>('form', id.toString(), page.toString(), limit.toString()).subscribe(
       (data: RawImportData<Form>)=>{
-      this.forms=data;
       this.dataSource.data=data.records;
       this.whatAmI = "Form";
       this.displayedColumns=['ID', 'FORM', 'COUNT'];
-    }); 
+      this.isLoading = false;
+
+    },
+    err => {throw("Can't connect to Server.")}); 
   } 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();

@@ -1,8 +1,8 @@
 <h2>You are quite meticulous as it seems.</h2>
 <app-spinner *ngIf="isLoading"></app-spinner>
 <!-- [hidden] makes element present but hidden, *ngIf removes the element -->
-<div [hidden] = isLoading>
-	<mat-button-toggle-group name="Category" aria-label="Font Style" >
+<div [hidden] = isLoading [@fadeIn]>
+	<mat-button-toggle-group name="Category" aria-label="Category" >
 		<mat-button-toggle value="author" (click)="populateAuthor('','1','999999')" checked>Author</mat-button-toggle>
 		<mat-button-toggle value="form" (click)="populateForm('','1','999999')">Form</mat-button-toggle>
 		<mat-button-toggle value="location" (click)="populateLocation('','1','999999')">Location</mat-button-toggle>
@@ -28,7 +28,7 @@
 			<!-- Progress Column -->
 			<ng-container matColumnDef="AUTHOR">
 				<th mat-header-cell *matHeaderCellDef mat-sort-header> AUTHOR </th>
-				<td mat-cell *matCellDef="let row"> {{row.AUTHOR}} </td>
+				<td mat-cell *matCellDef="let row"> {{row.AUTHOR }} </td>
 			</ng-container>
 			<!-- Progress Column -->
 			<ng-container matColumnDef="BORN_DIED">
@@ -41,11 +41,11 @@
 			</ng-container>
 			<ng-container matColumnDef="LOCATION">
 				<th mat-header-cell *matHeaderCellDef mat-sort-header> LOCATION </th>
-				<td mat-cell *matCellDef="let row"> {{row.LOCATION}} </td>
+				<td mat-cell *matCellDef="let row"> {{row.LOCATION | titlecase}} </td>
 			</ng-container>
 			<ng-container matColumnDef="SCHOOL">
 				<th mat-header-cell *matHeaderCellDef mat-sort-header> SCHOOL </th>
-				<td mat-cell *matCellDef="let row"> {{row.SCHOOL}} </td>
+				<td mat-cell *matCellDef="let row"> {{row.SCHOOL | titlecase}} </td>
 			</ng-container>
 			<ng-container matColumnDef="TIMEFRAME">
 				<th mat-header-cell *matHeaderCellDef mat-sort-header> TIMEFRAME </th>

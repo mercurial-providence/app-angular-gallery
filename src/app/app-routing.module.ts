@@ -18,7 +18,6 @@ const routes: Routes = [
   { path: 'gallery', component: GalleryComponent },
   { path: 'arts', 
     children: [
-      { path: '', component: ArtsComponent, data :{ name:"all" } },
       { path: 'author/:id', component: ArtsComponent, data :{ name:"author" }},
       { path: 'form/:id', component: ArtsComponent, data :{ name:"form" } },
       { path: 'location/:id', component: ArtsComponent, data :{ name:"location" } },

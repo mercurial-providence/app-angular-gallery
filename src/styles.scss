@@ -15,7 +15,6 @@
 
 html, body { 
     height: 100%;  
-    scroll-behavior: smooth;
 }
 body { 
     margin: 0; 
@@ -39,6 +38,9 @@ h1, h2, h3, h4, h5, h6{
 }
 mat-card{
     font-family: var(--tier5-font-stack) !important; 
+}
+.activated-nav{
+    border-bottom: 2px solid var(--activatedColor) !important;
 }
 a{
     text-decoration: none;
@@ -81,16 +83,42 @@ a{
 
 
  /* Tweaking Mat-Table CSS */
+table{
+    width: 100%;
+    font-family: var(--tier3-font-stack) !important; 
     .mat-row{
         cursor: pointer;
+        &:hover{
+            background: rgba($color: #666, $alpha: 0.1);
+        }
     }
-    .mat-row:hover{
-        background: rgba($color: #666, $alpha: 0.1);
-    }
-    table {
-        width: 100%;
-        font-family: var(--tier3-font-stack) !important; 
-    }
+}
 
-
+/*  Navigation Bar Style  */
+.navigation-bar{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    min-height: 5em;
+    margin: 4em 0;
+    text-align: center;
+    .nav-button{
+        cursor: pointer;
+        background-color: inherit;
+        color: #666;
+    }
+    .nav-header{
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0px);
+        box-shadow: none;
+        background: none;
+        .nav-paginator{
+            display: flex;
+            justify-content: center;
+            align-content: center;
+        }
+    }
+}
     

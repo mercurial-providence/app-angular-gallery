@@ -14,10 +14,10 @@
                 </span>
                 <!-- <span class="spacer"></span> -->
                 <span>
-                <button mat-button routerLink="/">Home</button>
-                <button mat-button routerLink="/gallery">Gallery</button>
-                <button mat-button routerLink="/filter">Filter</button>
-                <button mat-button routerLink="/search">Search</button>
+                <button mat-button [routerLinkActive]="['activated-nav']" [routerLinkActiveOptions]="{ exact: true }" routerLink="/home">Home</button>
+                <button mat-button [routerLinkActive]="['activated-nav']" routerLink="/gallery">Gallery</button>
+                <button mat-button [routerLinkActive]="['activated-nav']" routerLink="/filter">Filter</button>
+                <button mat-button [routerLinkActive]="['activated-nav']" routerLink="/search">Search</button>
 
 
                 <!-- THIRD BUTTON -->

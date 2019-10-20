@@ -16,7 +16,6 @@ export class Artdata {
 	SCHOOL:string;
 	TIMEFRAME:string;
 	TYPE:string;
-
 	constructor(){
 	}
 }

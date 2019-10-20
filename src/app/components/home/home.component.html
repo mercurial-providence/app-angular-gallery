@@ -1,5 +1,5 @@
 <div >
-      <div class="TDShadowText main-text" matRipple>
+      <div class="TDShadowText main-text" >
             <span>Mercurial Gallery of Art</span>
       </div>
 </div>
@@ -10,7 +10,7 @@
       [routerLink]="['/arts/showcase', art.ID]" 
       *ngFor="let art of displayImage.records"
       style="width: 40rem;margin: auto;box-shadow: none;background: none;" matRipple>
-      <div *ngIf="!isLoading">
+      <div *ngIf="!isLoading" [@fadeIn]>
 <!--       <mat-card-header>
             <mat-card-title><h3>Picture of the Day!</h3></mat-card-title>
       </mat-card-header> -->
