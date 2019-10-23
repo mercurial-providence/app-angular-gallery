@@ -29,6 +29,12 @@ import { HelpComponent } from './components/info/help/help.component';
 import { LegalComponent } from './components/info/legal/legal.component';
 import { MaterialModule } from './modules/material/material.module';
 import { NehalComponent } from './components/info/nehal/nehal.component';
+import { FormsComponent } from './components/gallery/forms/forms.component';
+import { TypesComponent } from './components/gallery/types/types.component';
+import { SchoolsComponent } from './components/gallery/schools/schools.component';
+import { AuthorsComponent } from './components/gallery/authors/authors.component';
+import { LocationsComponent } from './components/gallery/locations/locations.component';
+import { TimeframesComponent } from './components/gallery/timeframes/timeframes.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +56,12 @@ import { NehalComponent } from './components/info/nehal/nehal.component';
     HelpComponent,
     LegalComponent,
     NehalComponent,
+    FormsComponent,
+    TypesComponent,
+    SchoolsComponent,
+    AuthorsComponent,
+    LocationsComponent,
+    TimeframesComponent,
     
   ],
   imports: [

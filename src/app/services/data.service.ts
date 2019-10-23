@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { retryWhen, mergeMap, finalize, share, shareReplay, retry, catchError } from 'rxjs/operators';
 import { Observable, throwError, of, timer, observable } from 'rxjs';
+import { GlobalVariables } from '../utils/globalvars';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -20,9 +21,9 @@ export class DataService {
   public dataServerURL: string = 'http://localhost/';
   public domainAddress: string = 'https://providenceart.000webhostapp.com'; */
 
-  private apiUrl: string = 'http://localhost/api-slim-php/public/api';
-  public dataServerURL: string = 'http://localhost/';
-  public domainAddress: string = 'https://providenceart.000webhostapp.com';
+  private apiUrl: string = GlobalVariables.BASE_API_URL;
+  public dataServerURL: string = GlobalVariables.BASE_DATA_SERVER;
+  public domainAddress: string = GlobalVariables.BASE_DOMAIN_ADDRS;
 
   /* 
   This function fetches all the info from API /info/{category}/{id}

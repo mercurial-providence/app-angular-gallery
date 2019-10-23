@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { RawImportData } from 'src/app/models/common/raw-import-data';
 import { Artdata } from 'src/app/models/artdata';
+import { GlobalVariables } from 'src/app/utils/globalvars';
 
 @Component({
   selector: 'app-search',
@@ -64,7 +65,7 @@ export class SearchRawData extends Artdata{
 export class SearchQueryData {
   searchQuery:string; //Search Query
   searchData: RawImportData<SearchRawData>;
-  pageSize:number = 25; //Total elements in a Page to fetch
+  pageSize:number = +GlobalVariables.SEARCH_PAGE_SIZE; //Total elements in a Page to fetch
   pageCurr: number =  1;  //Current Page Number
   pageTotal: number = 0;  //Total Pages Found
   pageElement: number = 0;  //Total elements found in page

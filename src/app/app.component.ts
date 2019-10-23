@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router,NavigationEnd, NavigationStart, NavigationCancel, NavigationError } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,5 +12,4 @@ export class AppComponent {
   static appTitle(): string {
     return this.title;
   }
-
 }

@@ -24,9 +24,9 @@
   
   .mat-toolbar{
     h2{
-      font-family: var(--tier1-font-stack);
-      font-size: 1.3em;
-      font-weight: bold;
+      font-family: var(--usedH-font-stack);
+      font-size: 1.5rem;
+      /* font-weight: bold; */
     }
   }
 
@@ -36,7 +36,7 @@
     height: auto;
     white-space: pre-wrap;
     h1,h2,h3,h4{
-      font-family: var(--tier5-font-stack) !important; 
+      font-family: var(--used-font-stack) !important; 
       font-weight: bold;
     }
   }

@@ -5,6 +5,7 @@ import { RawImportData } from 'src/app/models/common/raw-import-data';
 import { ActivatedRoute } from '@angular/router';
 import { trigger } from '@angular/animations';
 import { fadeIn } from '../plugins/animations/animations';
+import { GlobalVariables } from 'src/app/utils/globalvars';
 
 @Component({
   selector: 'app-arts',
@@ -35,10 +36,29 @@ export class ArtsComponent implements OnInit {
         this.artComData.pageRoute = data.name;
       });
       this.activeFilter=this.artComData.pageRoute.substr(0, 2)+'='+this.artComData.pageID;
-      //this.fetchArts(this.artComData.pageRoute,this.artComData.pageID,this.artComData.pageCurr,this.artComData.pageSize);
-      //this.fetchInfo(this.artComData.pageRoute,this.artComData.pageID,this.artComData.pageCurr,this.artComData.pageSize);
-      this.getFilteredArts(this.activeFilter,this.artComData.pageCurr,this.artComData.pageSize)
-      this.fetchDetailInfo(this.artComData.pageRoute,this.artComData.pageID,this.artComData.pageCurr,this.artComData.pageSize);
+      this.route.data
+        .subscribe(data => {
+          this.arts=data.arts.arts;
+          this.artComData.pageCurr = +this.arts.pagination.page;
+          this.artComData.pageTotal = +this.arts.pagination.totalpages;
+          this.artComData.totalElement = +this.arts.pagination.count;
+          this.artComData.pageElement = +this.arts.records.length;
+          this.artsLoading = false;
+
+          this.artComData.pageRouteData = data.arts.info;
+          this.infoLoading = false;
+        },
+        // Because of this, DataService is not throwing error.
+        err => {
+          this.artsLoading = false;
+          throw("Can't connect to Server.");
+        }
+        //err => console.error(err) 
+        //err => {throw(err)}
+      );
+
+//      this.getFilteredArts(this.activeFilter,this.artComData.pageCurr,this.artComData.pageSize)
+//      this.fetchDetailInfo(this.artComData.pageRoute,this.artComData.pageID,this.artComData.pageCurr,this.artComData.pageSize);
   }
 
   fetchArts(route:string, id:number, page:number, limit:number){
@@ -116,7 +136,6 @@ export class ArtsComponent implements OnInit {
         //err => console.error(err) 
         //err => {throw(err)}
     ); 
-
   }
 
   isInfoLoading():boolean{
@@ -183,7 +202,7 @@ export class ArtComponentData {
   pageID: number;
   pageRoute: string;
   pageRouteData: RawImportData<any>;
-  pageSize:number = 25;
+  pageSize:number = +GlobalVariables.ARTS_PAGE_SIZE; //If change pagesize, change also in ArtsResolver
   pageCurr: number = 1;
   pageTotal: number;
   pageElement: number;

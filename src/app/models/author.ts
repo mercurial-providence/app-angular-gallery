@@ -5,4 +5,5 @@ export class Author {
 	SCHOOL_ID:string;
 	SCHOOL:string;
 	COUNT:string;
+	
 }

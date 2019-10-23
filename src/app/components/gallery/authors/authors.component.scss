@@ -1,0 +1,14 @@
+.gallery-aut-card{
+    min-width: 20em;
+    padding: 1em;
+}
+
+.gallery-cat-small-card{
+    flex: 1 1 0px;
+    text-align: center;
+    background: transparent;
+    min-width: 3.2rem;
+    color: var(--themeColor);
+    cursor: pointer;
+    flex-grow: 1;
+}

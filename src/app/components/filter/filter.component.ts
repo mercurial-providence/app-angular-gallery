@@ -5,7 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { Type } from 'src/app/models/type';
 import { RawImportData } from 'src/app/models/common/raw-import-data';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Author } from 'src/app/models/author';
 import { Form } from 'src/app/models/form';
 import { School } from 'src/app/models/school';
@@ -24,7 +24,7 @@ import { fadeIn } from '../plugins/animations/animations';
 
 export class FilterComponent implements OnInit {
 
-  constructor(private data: DataService, private router: Router) { }
+  constructor(private data: DataService, private router: Router, private aRoute: ActivatedRoute) { }
 
   private dataSource: MatTableDataSource<any>;
   private displayedColumns: string[] = [];
@@ -37,25 +37,37 @@ export class FilterComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   ngOnInit() {
-    console.log("NGINIT"+this.debug++);
-
     this.dataSource = new MatTableDataSource();
-    this.populateAuthor("", "1", "9999");
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    //this.populateAuthor("", "1", "9999");
+    
+    this.aRoute.data
+      .subscribe(data => {
+        this.dataSource.data = data.tableData.records;
+        this.whatAmI = "Author";
+        this.displayedColumns = ['ID', 'AUTHOR', 'BORN_DIED', 'SCHOOL', 'COUNT'];
+        this.isLoading = false;
+    
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+    } ,
+        // Because of this, DataService is not throwing error.
+        err => {throw("Can't connect to Server.")}
+        //err => console.error(err) 
+        //err => {throw(err)}
+    ); 
+
+    
 
 
-  }
-  ngAfterViewInit(){
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+
   }
 
 
   populateAuthor(id: any, page: any, limit: any) {
     this.isLoading = true;
 
-    this.data.getInfoAPI<RawImportData<Author>>('author', id.toString(), page.toString(), limit.toString()).subscribe(
+    this.data.getInfoAPI<RawImportData<Author>>('author', id.toString(), page.toString(), limit.toString())
+    .subscribe(
       (data: RawImportData<Author>) => {
         this.dataSource.data = data.records;
         this.whatAmI = "Author";
@@ -71,7 +83,8 @@ export class FilterComponent implements OnInit {
   populateLocation(id: any, page: any, limit: any) {
     this.isLoading = true;
 
-    this.data.getInfoAPI<RawImportData<Location>>('location', id.toString(), page.toString(), limit.toString()).subscribe(
+    this.data.getInfoAPI<RawImportData<Location>>('location', id.toString(), page.toString(), limit.toString())
+    .subscribe(
       (data: RawImportData<Location>) => {
         this.dataSource.data = data.records;
         this.whatAmI = "Location";
@@ -84,7 +97,8 @@ export class FilterComponent implements OnInit {
   populateSchool(id: any, page: any, limit: any) {
     this.isLoading = true;
 
-    this.data.getInfoAPI<RawImportData<School>>('school', id.toString(), page.toString(), limit.toString()).subscribe(
+    this.data.getInfoAPI<RawImportData<School>>('school', id.toString(), page.toString(), limit.toString())
+    .subscribe(
       (data: RawImportData<School>) => {
         this.dataSource.data = data.records;
         this.whatAmI = "School";
@@ -97,7 +111,8 @@ export class FilterComponent implements OnInit {
   populateTimeframe(id: any, page: any, limit: any) {
     this.isLoading = true;
 
-    this.data.getInfoAPI<RawImportData<Timeframe>>('timeframe', id.toString(), page.toString(), limit.toString()).subscribe(
+    this.data.getInfoAPI<RawImportData<Timeframe>>('timeframe', id.toString(), page.toString(), limit.toString())
+    .subscribe(
       (data: RawImportData<Timeframe>) => {
         this.dataSource.data = data.records;
         this.whatAmI = "Timeframe";
@@ -109,11 +124,10 @@ export class FilterComponent implements OnInit {
   }
   populateType(id: any, page: any, limit: any) {
 
-    console.log("POPULATE"+this.debug++);
-
     this.isLoading = true;
 
-    this.data.getInfoAPI<RawImportData<Type>>('type', id.toString(), page.toString(), limit.toString()).subscribe(
+    this.data.getInfoAPI<RawImportData<Type>>('type', id.toString(), page.toString(), limit.toString())
+    .subscribe(
       (data: RawImportData<Type>) => {
         this.dataSource.data = data.records;
         this.whatAmI = "Type";
@@ -126,7 +140,8 @@ export class FilterComponent implements OnInit {
   populateForm(id: any, page: any, limit: any) {
     this.isLoading = true;
 
-    this.data.getInfoAPI<RawImportData<Form>>('form', id.toString(), page.toString(), limit.toString()).subscribe(
+    this.data.getInfoAPI<RawImportData<Form>>('form', id.toString(), page.toString(), limit.toString())
+    .subscribe(
       (data: RawImportData<Form>) => {
         this.dataSource.data = data.records;
         this.whatAmI = "Form";
@@ -154,32 +169,24 @@ export class FilterComponent implements OnInit {
     return this.displayedColumns;
   }
   tabClick(event: any) {
-    console.log(event.index);
     switch (event.index) {
       case 0: 
       this.populateAuthor('','1','999999');
-      console.log('Author');
-
         break;
       case 1: 
       this.populateForm('','1','999999');
-      console.log('Form');
         break;
       case 2: 
       this.populateLocation('','1','999999');
-      console.log('Location');
         break;
       case 3: 
       this.populateSchool('','1','999999');
-      console.log('School');
         break;
       case 4: 
       this.populateTimeframe('','1','999999');
-      console.log('Timeframe');
         break;
       case 5: 
       this.populateType('','1','999999');
-      console.log('Type'); 
         break;
 
     }

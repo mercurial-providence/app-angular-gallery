@@ -22,13 +22,14 @@ export class ErrorhandlerService implements ErrorHandler{
 
       } else {
         // Handle Http Error (error.status === 403, 404...)
-        this.errorMessage=error.message ? error.message : error.toString();
+        //this.errorMessage=error.message ? error.message : error.toString();
+        this.errorMessage="Can't connect to Server."
         ngZone.run(() => router.navigate(['/error'], { queryParams: {error: this.errorMessage} })).then();
       }
     } else {
       // Handle Client Error (Angular Error, ReferenceError...)
-      //router.navigate(['/error'], { queryParams: {error: error} });
-      this.errorMessage=error.message ? error.message : error.toString();
+      //this.errorMessage=error.message ? error.message : error.toString();
+      this.errorMessage="Possible application error."
       ngZone.run(() => router.navigate(['/error'], { queryParams: {error: this.errorMessage} })).then();
     }
       // Log the error anyway

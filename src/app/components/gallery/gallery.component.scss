@@ -1,53 +1,5 @@
-.gallery-cat{
+.headwrapper{
     display: flex;
     justify-content: space-between;
-    align-items: normal;
-    flex-wrap: wrap;
-    flex-direction: row;
+    align-items: center;
 }
-
-.gallery-cat-card, .gallery-aut-card{
-    flex: 1 1 0px;
-    padding: 2em;
-    text-align: justify;
-    background: transparent;
-    box-shadow: none;
-    min-width: 10rem;
-    color: var(--themeColor);
-    cursor: pointer;
-    &:hover{
-/*         background: rgba($color: #666, $alpha: 0.1);
- */    }
-}
-
-.gallery-aut-card{
-    min-width: 20em;
-    padding: 1em;
-}
-
-.gallery-cat-small-card{
-    flex: 1 1 0px;
-    text-align: center;
-    background: transparent;
-    min-width: 3.5rem;
-    color: var(--themeColor);
-    cursor: pointer;
-    flex-grow: 1;
-}
-
-.gallery-cat-small-author-card{
-    flex: 1 1 0px;
-    text-align: center;
-    background: transparent;
-    min-width: 3.5rem;
-    color: var(--themeColor);
-    cursor: pointer;
-    flex-grow: 1;
-}
-
-.gal-mat-card-image{
-    height: 12rem;
-    object-fit: cover;
-    border-radius: 0.5em;
-}
-

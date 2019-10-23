@@ -1,6 +1,6 @@
 <h2>Gallery!</h2>
 <app-spinner
-	*ngIf="!isFormLoaded() && !isTypeLoaded() && !isSchoolLoaded() && !isTimeframeLoaded() && !isAuthorLoaded()"
+	*ngIf="!everythingLoaded()"
 	[@fadeIn]></app-spinner>
 
 <!-- <mat-grid-list cols="5" rowHeight="1:1" gutterSize="1em">
@@ -16,12 +16,20 @@
 	</mat-grid-tile>
 	</mat-grid-list> -->
 
+<div  [@fadeIn]>
 
+		<div class="headwrapper">
+				<div><h2>Authors</h2></div>
+				<div><a mat-flat-button [routerLink]="['/gallery/authors']">View All</a></div>
+</div>
 
 
 <div *ngIf="isFormLoaded()" [@fadeIn]>
-	<h2>Forms</h2>
-	<section class="gallery-cat horscroll ">
+	<div class="headwrapper">
+		<div><h2>Forms</h2></div>
+		<div><a mat-flat-button [routerLink]="['/gallery/forms']">View All</a></div>
+	</div>
+	<section class="gallery-cat horscroll full-width">
 		<mat-card class="gallery-cat-card" [ngClass]="{'hidden': !+form.COUNT}" [routerLink]="['/arts/form', form.ID]"
 			*ngFor="let form of getForms()" matRipple>
 			<div *ngIf="form.COUNT">
@@ -39,8 +47,12 @@
 </div>
 
 <div *ngIf="isTypeLoaded()" [@fadeIn]>
-	<h2>Type</h2>
-	<section class="gallery-cat horscroll">
+		<div class="headwrapper">
+				<div><h2>Type</h2></div>
+				<div><a mat-flat-button [routerLink]="['/gallery/types']">View All</a></div>
+		</div>
+	
+	<section class="gallery-cat horscroll full-width">
 		<mat-card class="gallery-cat-card" [ngClass]="{'hidden': !+type.COUNT}" [routerLink]="['/arts/type', type.ID]"
 			*ngFor="let type of getTypes()" matRipple>
 			<div *ngIf="type.COUNT">
@@ -57,8 +69,12 @@
 </div>
 
 <div *ngIf="isSchoolLoaded()" [@fadeIn]>
-	<h2>School</h2>
-	<section class="gallery-cat horscroll">
+		<div class="headwrapper">
+				<div><h2>School</h2></div>
+				<div><a mat-flat-button [routerLink]="['/gallery/schools']">View All</a></div>
+		</div>
+	
+	<section class="gallery-cat horscroll full-width">
 		<mat-card class="gallery-cat-card" [ngClass]="{'hidden': !+school.COUNT}"
 			[routerLink]="['/arts/school', school.ID]" *ngFor="let school of getSchools()" matRipple>
 			<div *ngIf="school.COUNT">
@@ -75,8 +91,12 @@
 </div>
 
 <div *ngIf="isTimeframeLoaded()" [@fadeIn]>
-	<h2>Timeframe</h2>
-	<section class="gallery-cat horscroll">
+	
+	<div class="headwrapper">
+			<div><h2>Timeframe</h2></div>
+			<div><a mat-flat-button [routerLink]="['/gallery/timeframes']">View All</a></div>
+	</div>
+	<section class="gallery-cat horscroll full-width">
 		<mat-card class="gallery-cat-card" [routerLink]="['/arts/timeframe', timeframe.ID]"
 			*ngFor="let timeframe of getTimeframes()" matRipple>
 			<div>
@@ -92,87 +112,25 @@
 	</section>
 </div>
 
-<div *ngIf="isAuthorLoaded()" [@fadeIn] >
-	<h2>Authors</h2>
+<div *ngIf="isLocationLoaded()" [@fadeIn]>
+		<div class="headwrapper">
+				<div><h2>Locations</h2></div>
+				<div><a mat-flat-button [routerLink]="['/gallery/locations']">View All</a></div>
 
-
-	<mat-expansion-panel>
-		<mat-expansion-panel-header>
-			<mat-panel-title>
-				List of Authors
-			</mat-panel-title>
-			<mat-panel-description>
-				<i>Click to expand / collapse</i>
-			</mat-panel-description>
-		</mat-expansion-panel-header>
-		<section class="gallery-cat">
-			<mat-card class="gallery-cat-small-card" *ngFor="let alpha of getAlphabets()"
-				(click)="reqAuthorbyAlpha(alpha)" matRipple>
-				{{alpha | uppercase}}
-			</mat-card>
-
-			<!-- 
-			<div style="width:100%;padding: 1em;">
-			  <div style="display:flex;">
-						
-			   <mat-card (click)="populateAuthor(activatedAlpha, '', +authors.pagination.page -1, pagesize)" 
-			   *ngIf="authors.pagination.page!=1"
-			   style="margin-right:auto;cursor: pointer;" matRipple>
-			   <mat-icon>navigate_before</mat-icon>
-			  </mat-card>
-						<mat-card (click)="populateAuthor(activatedAlpha, '', +authors.pagination.page +1, pagesize)" 
-			   *ngIf="authors.pagination.page!=authors.pagination.totalpages"
-			   style="margin-left:auto;cursor: pointer;" matRipple>
-			   <mat-icon>navigate_next</mat-icon>
-						</mat-card>
-			  </div>
+		</div>
 	
-						<ul style="display: flex;
-						flex-flow: column wrap;
-						max-height: 20em;
-						align-content: space-between">
-							<li *ngFor="let author of authors.records" 
-							  style="flex: 1 0 calc(33% - 10px);    min-width: 15em;">{{author.AUTHOR}}</li>
-			  </ul>
-			  {{authors.pagination | json}}
+	<section class="gallery-cat horscroll full-width">
+		<mat-card class="gallery-cat-card"  [ngClass]="{'hidden': !+location.COUNT}"
+			[routerLink]="['/arts/location', location.ID]" *ngFor="let location of getLocations()" matRipple>
+			<div>
+				<img mat-card-image src="{{getDataServerURL() + location?.FIMAGE}}" alt="{{ location.LOCATION }}"
+					class="gal-mat-card-image" title="Location / {{ location.LOCATION | titlecase }}"
+					onerror="this.src='assets/imgs/inf.jpg'">
+				<mat-card-content>
+					<b>{{location.LOCATION | titlecase}}</b> <br>
+					<b>#{{location.COUNT}} Articles</b>
+				</mat-card-content>
 			</div>
-	 -->
-
-
-			<div style="margin: 1em 0;display: flex;" class="navigation-bar">
-
-				<button mat-mini-fab (click)="reqPrevPageAuthor()" *ngIf="!isFirstPageAuthor()" class="nav-button"
-					style="margin-right: auto;" matRipple>
-					<mat-icon>navigate_before</mat-icon>
-				</button>
-				<mat-card class="nav-header">
-					<h2>Authors / {{getActivatedAlpha() | uppercase}}</h2>
-				</mat-card>
-				<button mat-mini-fab (click)="reqNextPageAuthor()" *ngIf="!isLastPageAuthor()" class="nav-button"
-					style="margin-left: auto;" matRipple>
-					<mat-icon>navigate_next</mat-icon>
-				</button>
-			</div>
-			<section class="gallery-cat">
-				<mat-card *ngFor="let author of getAuthors()" class="gallery-aut-card"
-					[routerLink]="['/arts/author', author.ID]" matRipple>
-					<div style="display: flex;
-						align-items: center;
-						justify-content: flex-start;">
-						<span>
-							<mat-icon>account_circle</mat-icon>
-						</span>
-						<div style="margin: 0 1em;">
-							<span><strong>{{author.AUTHOR}}</strong></span><br>
-							<span>{{author.BORN_DIED}} / {{author.SCHOOL}} / #{{author.COUNT}} Articles</span>
-						</div>
-					</div>
-				</mat-card>
-			</section>
-
-		</section>
-	</mat-expansion-panel>
-
-
-
+		</mat-card>
+	</section>
 </div>
