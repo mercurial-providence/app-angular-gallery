@@ -11,6 +11,7 @@ export class Artdata {
 	TECHNIQUE:string;
 	URL:string;
 	AUTHOR:string;
+	BORN_DIED:string;
 	FORM:string;
 	LOCATION:string;
 	SCHOOL:string;

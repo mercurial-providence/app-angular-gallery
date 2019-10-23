@@ -18,4 +18,7 @@ export class ErrorComponent implements OnInit {
     });
   }
 
+  getErrorMessage():string{
+    return this.errorMessage;
+  }
 }

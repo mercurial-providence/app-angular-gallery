@@ -10,7 +10,7 @@ import { Artdata } from 'src/app/models/artdata';
 })
 export class SearchComponent implements OnInit {
 
-  private searchQueryData:SearchQueryData = new SearchQueryData;
+  public searchQueryData:SearchQueryData = new SearchQueryData;
   private searchGroup:any;
 
   constructor(private dataService:DataService) { }
@@ -54,6 +54,9 @@ export class SearchComponent implements OnInit {
     }
   }
 
+  getDataServerURL():string{
+    return this.dataService.dataServerURL;
+  }
 }
 export class SearchRawData extends Artdata{
   FOUND_IN:string;

@@ -1,124 +1,197 @@
-@import '@angular/material/prebuilt-themes/indigo-pink.css';
-@import url('https://fonts.googleapis.com/css?family=Cinzel|Cinzel+Decorative|Lora|Merriweather:400,700|Playfair+Display&display=swap');
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+@import url("https://fonts.googleapis.com/css?family=Cinzel|Cinzel+Decorative|Lora|Merriweather:400,700|Playfair+Display&display=swap");
 :root {
-    --themeColor: #666;
-    --bodyColor:  #fff;
-    --activatedColor: rgb(25,93,153);
-    --standoutColor: rgb(18,66,109);
-    --tier1-font-stack: 'Cinzel Decorative', cursive;
-    --tier2-font-stack: 'Cinzel', serif;
-    --tier3-font-stack: 'Merriweather', serif;
-    --tier5-font-stack: 'Lora', serif;
-    --tier4-font-stack: 'Playfair Display', serif;
-    
+  --themeColor: #666;
+  --bodyColor: #fff;
+  --activatedColor: rgb(25, 93, 153);
+  --standoutColor: rgb(18, 66, 109);
+  --tier1-font-stack: "Cinzel Decorative", "Georgia", cursive;
+  --tier2-font-stack: "Cinzel", "Georgia", serif;
+  --tier3-font-stack: "Merriweather", "Georgia", serif;
+  --tier5-font-stack: "Lora", "Georgia", serif;
+  --tier4-font-stack: "Playfair Display", "Georgia", serif;
 }
 
-html, body { 
-    height: 100%;  
+html,
+body {
+  height: 100%;
 }
-body { 
-    margin: 0; 
-    font-family: var(--tier5-font-stack); 
-    user-select: none !important;
+body {
+  margin: 0;
+  font-family: var(--tier5-font-stack);
+  user-select: none !important;
 }
-.hidden{
-    display: none !important;
-    visibility: hidden !important;
+.hidden {
+  display: none !important;
+  visibility: hidden !important;
 }
-.container{
-    margin: 2rem 6rem 4rem 6rem;
+.container {
+  margin: 2rem 6rem 4rem 6rem;
 }
-button{
-    font-family: var(--tier2-font-stack) !important;
+button {
+  font-family: var(--tier2-font-stack) !important;
 }
-h1, h2, h3, h4, h5, h6{
-    color: var(--activatedColor);
-    font-family: var(--tier5-font-stack); 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--activatedColor);
+  font-family: var(--tier5-font-stack);
+}
+p {
+  font-family: var(--tier5-font-stack);
+}
+mat-card {
+  font-family: var(--tier5-font-stack) !important;
+}
+.activated-nav {
+  border-bottom: 4px solid var(--activatedColor) !important;
+  color: var(--activatedColor);
+}
+a {
+  text-decoration: none;
+  color: var(--activatedColor) !important;
+  &:hover {
+    text-decoration: underline;
+    color: var(--standoutColor);
+  }
+  &:visited {
+  }
+}
+.full-width {
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  max-width: 100vw;
+  position: relative;
+  right: 50%;
+  width: 100vw;
+  > :first-child{
+    margin-left: 10vw;
+  }
+  > :last-child{
+    margin-right: 10vw;
+  }  
+}
 
-}
-mat-card{
-    font-family: var(--tier5-font-stack) !important; 
-}
-.activated-nav{
-    border-bottom: 2px solid var(--activatedColor) !important;
-}
-a{
-    text-decoration: none;
-    color: var(--activatedColor) !important;
-    &:hover{
-        text-decoration: underline;
-        color: var(--standoutColor);
 
-    }
-    &:visited{
-    }
-}
+
 /* Tweaking Angular Material Spinner Color */
-    .mat-progress-spinner circle, .mat-spinner circle, mat-progress-bar .mat-progress-bar-fill::after {
-        stroke: var(--standoutColor);
-        background-color: var(--activatedColor) !important;
+.mat-progress-spinner circle,
+.mat-spinner circle,
+mat-progress-bar .mat-progress-bar-fill::after {
+  stroke: var(--standoutColor);
+  background-color: var(--activatedColor) !important;
+}
 
-    }
+/* Tweaking ng2-angular-view CSS */
+.iv-snap-view {
+  visibility: visible !important;
+  opacity: 1;
+}
+.image-gallery-2 {
+  visibility: hidden;
+}
+.options-image-viewer {
+  visibility: visible !important;
+  background: var(--themeColor);
+}
+.iv-loader {
+  visibility: visible;
+}
+.image-container,
+.image-gallery-2 {
+  height: 450px !important;
+}
 
- /* Tweaking ng2-angular-view CSS */
-    .iv-snap-view{
-        visibility: visible !important;
-        opacity: 1;
+/* Tweaking Mat-Table CSS */
+table {
+  width: 100%;
+  font-family: var(--tier3-font-stack) !important;
+  .mat-row {
+    cursor: pointer;
+    &:hover {
+      background: rgba($color: #666, $alpha: 0.1);
     }
-    .image-gallery-2{
-        visibility: hidden;
-    }
-    .options-image-viewer{
-        visibility: visible !important;
-        background: var(--themeColor);
-    }
-    .iv-loader{
-        visibility: visible;
-    }
-    .image-container, .image-gallery-2{
-        height: 450px !important;
-        
-    }
-  
-
-
- /* Tweaking Mat-Table CSS */
-table{
-    width: 100%;
-    font-family: var(--tier3-font-stack) !important; 
-    .mat-row{
-        cursor: pointer;
-        &:hover{
-            background: rgba($color: #666, $alpha: 0.1);
-        }
-    }
+  }
 }
 
 /*  Navigation Bar Style  */
-.navigation-bar{
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    min-height: 5em;
-    margin: 4em 0;
-    text-align: center;
-    .nav-button{
-        cursor: pointer;
-        background-color: inherit;
-        color: #666;
+.navigation-bar {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  min-height: 5em;
+  margin: 4em 0;
+  text-align: center;
+  .nav-button {
+    cursor: pointer;
+    background-color: inherit;
+    color: #666;
+  }
+  .nav-header {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0px);
+    box-shadow: none;
+    background: none;
+    .nav-paginator {
+      display: flex;
+      justify-content: center;
+      align-content: center;
     }
-    .nav-header{
-        position: absolute;
-        left: 50%;
-        transform: translate(-50%, 0px);
-        box-shadow: none;
-        background: none;
-        .nav-paginator{
-            display: flex;
-            justify-content: center;
-            align-content: center;
-        }
-    }
+  }
 }
-    
+
+/* Use a media query to add a breakpoint at 800px: */
+@media screen and (max-width: 800px) {
+  .container {
+    margin: 1rem 2rem 2rem 2rem;
+  }
+  .footer-content {
+    padding: 1rem 1rem !important;
+  }
+  .horscroll {
+    flex-wrap: nowrap !important;
+    overflow-x: scroll;
+  }
+
+  .gallery-cat-card {
+    min-width: 4rem !important;
+    padding: 1.2rem !important;
+  }
+  .gal-mat-card-image {
+    height: 6rem !important;
+  }
+  .gallery-cat-small-card {
+    min-width: 1.5rem !important;
+  }
+  .gallery-aut-card {
+    width: auto !important;
+  }
+  .navigation-bar .nav-header .nav-paginator {
+    display: flex;
+    flex-flow: column;
+  }
+  .navigation-bar {
+    margin: 2em 0 8em 0;
+  }
+  .masonry-item {
+    min-width: calc(50% - 1em) !important;
+  }
+  body {
+    font-size: 0.8rem !important;
+  }
+  .main-text {
+    font-size: 3em !important;
+  }
+  .iv-snap-view {
+    visibility: hidden !important;
+    opacity: 0;
+  }
+  td {
+    font-size: 0.7rem !important;
+  }
+}

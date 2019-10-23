@@ -18,6 +18,7 @@ import { fadeIn } from '../plugins/animations/animations';
 export class ArtsComponent implements OnInit {
 
   private activeFilter:string;
+  public activeSubFilter:string = 'All';
   arts: RawImportData<Artdata> = new RawImportData();
   infoLoading:boolean = true;
   artsLoading:boolean = true;
@@ -53,7 +54,10 @@ export class ArtsComponent implements OnInit {
       
     } ,
         // Because of this, DataService is not throwing error.
-        err => {throw("Can't connect to Server.")}
+        err => {
+          this.artsLoading = false;
+          throw("Can't connect to Server.");
+        }
         //err => console.error(err) 
         //err => {throw(err)}
     ); 
@@ -69,7 +73,10 @@ export class ArtsComponent implements OnInit {
         this.artComData.pageRouteData = data;
         this.infoLoading = false;
       },
-      err => {throw("Can't connect to Server.")}
+      err => {
+        this.infoLoading = false;
+        throw("Can't connect to Server.");
+      }
     ); 
   }
 
@@ -81,9 +88,11 @@ export class ArtsComponent implements OnInit {
       (data: RawImportData<Artdata>)=>{
         this.artComData.pageRouteData = data;
         this.infoLoading = false;
-        console.log(this.artComData.pageRouteData.records[0]);
       },
-      err => {throw("Can't connect to Server.")}
+      err => {
+        this.infoLoading = false;
+        throw("Can't connect to Server.");
+      }
     ); 
   }
 
@@ -100,13 +109,74 @@ export class ArtsComponent implements OnInit {
         this.artsLoading = false;
     } ,
         // Because of this, DataService is not throwing error.
-        err => {throw("Can't connect to Server.")}
+        err => {
+          this.artsLoading = false;
+          throw("Can't connect to Server.");
+        }
         //err => console.error(err) 
         //err => {throw(err)}
     ); 
 
   }
 
+  isInfoLoading():boolean{
+    return this.infoLoading;
+  }
+  isArtsLoading():boolean{
+    return this.artsLoading;
+  }
+  getDataserverURL():string{
+    return this.dataService.dataServerURL;
+  }
+  getPrevPage(){
+    this.getFilteredArts(this.activeFilter, this.artComData.pageCurr-1, this.artComData.pageSize);  
+  }
+  getNextPage(){
+    this.getFilteredArts(this.activeFilter, this.artComData.pageCurr+1, this.artComData.pageSize);  
+  }
+  getThisPage(page:number){
+    this.getFilteredArts(this.activeFilter, page, this.artComData.pageSize);  
+  }
+  getFetchedData(){
+    return this.artComData;
+  }
+  getPaginatorData():string{
+    var marker = (this.artComData.pageCurr-1)*this.artComData.pageSize;
+    return (marker+1)+" - "+(marker+(this.artComData.pageElement))+" of "+this.artComData.totalElement;
+  }
+
+  fetchFilteredArts(page:any, route:string='', id:number=0){
+    let base=this.artComData.pageRoute.substr(0, 2)+'='+this.artComData.pageID;
+    if( !!route.trim() && id>0 ) base += '&'+route.substr(0, 2)+'='+id;
+    this.getFilteredArts(base, +page, this.artComData.pageSize)
+  }
+  onClick(event:string) {
+    this.activeSubFilter = event;
+  }
+
+  compareValues(key, order='asc') {
+    return function(a, b) {
+      if(!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+        // property doesn't exist on either object
+        return 0;
+      }
+  
+      const varA = (typeof a[key] === 'string') ?
+        a[key].toUpperCase() : a[key];
+      const varB = (typeof b[key] === 'string') ?
+        b[key].toUpperCase() : b[key];
+  
+      let comparison = 0;
+      if (varA > varB) {
+        comparison = 1;
+      } else if (varA < varB) {
+        comparison = -1;
+      }
+      return (
+        (order == 'desc') ? (comparison * -1) : comparison
+      );
+    };
+  }
 }
 
 export class ArtComponentData {

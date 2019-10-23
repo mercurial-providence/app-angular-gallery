@@ -1,25 +1,92 @@
 <h2>You are quite meticulous as it seems.</h2>
-<app-spinner *ngIf="isLoading"></app-spinner>
 <!-- [hidden] makes element present but hidden, *ngIf removes the element -->
-<div [hidden] = isLoading [@fadeIn]>
-	<mat-button-toggle-group name="Category" aria-label="Category" >
-		<mat-button-toggle value="author" (click)="populateAuthor('','1','999999')" checked>Author</mat-button-toggle>
-		<mat-button-toggle value="form" (click)="populateForm('','1','999999')">Form</mat-button-toggle>
-		<mat-button-toggle value="location" (click)="populateLocation('','1','999999')">Location</mat-button-toggle>
-		<mat-button-toggle value="school" (click)="populateSchool('','1','999999')">School</mat-button-toggle>
-		<mat-button-toggle value="timeframe" (click)="populateTimeframe('','1','999999')">Timeframe</mat-button-toggle>
-		<mat-button-toggle value="type" (click)="populateType('','1','999999')">Type</mat-button-toggle>
-	</mat-button-toggle-group>
+<mat-tab-group (selectedTabChange)="tabClick($event)"  [@fadeIn]>
+	<mat-tab label="Author Table" >
+		<app-spinner *ngIf="isPageLoading()"></app-spinner>
+<div  [ngClass]="{'hidden': isPageLoading()}">
+		<mat-form-field style="margin-top: 1rem;">
+			<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+		</mat-form-field>
+		<div class="mat-elevation-z8" style="margin: 1em;">
+			<table mat-table #dataTable [dataSource]="getDatasource()" matSort>
+				<!-- ID Column -->
+				<ng-container matColumnDef="ID">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+					<td mat-cell *matCellDef="let row"> {{row.ID}} </td>
+				</ng-container>
+				<!-- Progress Column -->
+				<ng-container matColumnDef="AUTHOR">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header> AUTHOR </th>
+					<td mat-cell *matCellDef="let row"> {{row.AUTHOR }} </td>
+				</ng-container>
+				<!-- Progress Column -->
+				<ng-container matColumnDef="BORN_DIED">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header> BORN - DIED </th>
+					<td mat-cell *matCellDef="let row"> {{row.BORN_DIED}} </td>
+				</ng-container>
+				<ng-container matColumnDef="FORM">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header> FORM </th>
+					<td mat-cell *matCellDef="let row"> {{row.FORM | titlecase}} </td>
+				</ng-container>
+				<ng-container matColumnDef="LOCATION">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header> LOCATION </th>
+					<td mat-cell *matCellDef="let row"> {{row.LOCATION | titlecase}} </td>
+				</ng-container>
+				<ng-container matColumnDef="SCHOOL">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header> SCHOOL </th>
+					<td mat-cell *matCellDef="let row"> {{row.SCHOOL | titlecase}} </td>
+				</ng-container>
+				<ng-container matColumnDef="TIMEFRAME">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header> TIMEFRAME </th>
+					<td mat-cell *matCellDef="let row"> {{row.TIMEFRAME}} </td>
+				</ng-container>
+				<ng-container matColumnDef="TYPE">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header> TYPE </th>
+					<td mat-cell *matCellDef="let row"> {{row.TYPE | titlecase}} </td>
+				</ng-container>
+				<ng-container matColumnDef="COUNT">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header> TOTAL ARTS </th>
+					<td mat-cell *matCellDef="let row"> {{row.COUNT}} </td>
+				</ng-container>
+				<tr mat-header-row *matHeaderRowDef="getDisplayedColumns()"></tr>
+				<tr mat-row *matRowDef="let row; columns: getDisplayedColumns();"
+					[routerLink]="['/arts', whatAmI | lowercase, row.ID]">
+				</tr>
+			</table>
+			<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+		</div>
+	</div>
+<!-- 		<div *ngIf="!isPageLoading()"><ng-container *ngTemplateOutlet="tabContent"></ng-container></div>
+ -->	</mat-tab>
+<!-- 	<mat-tab label="Form">
+		<app-spinner *ngIf="isPageLoading()"></app-spinner>
+		<div *ngIf="!isPageLoading()"><ng-container *ngTemplateOutlet="tabContent"></ng-container></div>
+	</mat-tab>
+	<mat-tab label="Location">
+		<app-spinner *ngIf="isPageLoading()"></app-spinner>
+		<div *ngIf="!isPageLoading()"><ng-container *ngTemplateOutlet="tabContent"></ng-container></div>
+	</mat-tab>
+	<mat-tab label="School">
+		<app-spinner *ngIf="isPageLoading()"></app-spinner>
+		<div *ngIf="!isPageLoading()"><ng-container *ngTemplateOutlet="tabContent"></ng-container></div>
+	</mat-tab>
+	<mat-tab label="Timeframe">
+		<app-spinner *ngIf="isPageLoading()"></app-spinner>
+		<div *ngIf="!isPageLoading()"><ng-container *ngTemplateOutlet="tabContent"></ng-container></div>
+	</mat-tab>
+	<mat-tab label="Author">
+		<app-spinner *ngIf="isPageLoading()"></app-spinner>
+		<div *ngIf="!isPageLoading()"><ng-container *ngTemplateOutlet="tabContent"></ng-container></div>
+	</mat-tab>
+ -->	
+</mat-tab-group>
 
-	<br><br>
+<ng-template #tabContent>
 	<mat-form-field>
 		<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
 	</mat-form-field>
-
-	<div class="mat-elevation-z8"  >
-
-		<table mat-table  [dataSource]="dataSource" matSort>
-
+	<div class="mat-elevation-z8">
+		<table mat-table #dataTable [dataSource]="getDatasource()" matSort>
 			<!-- ID Column -->
 			<ng-container matColumnDef="ID">
 				<th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
@@ -59,16 +126,11 @@
 				<th mat-header-cell *matHeaderCellDef mat-sort-header> TOTAL ARTS </th>
 				<td mat-cell *matCellDef="let row"> {{row.COUNT}} </td>
 			</ng-container>
-
-			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-			<tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/arts', whatAmI | lowercase, row.ID]">
+			<tr mat-header-row *matHeaderRowDef="getDisplayedColumns()"></tr>
+			<tr mat-row *matRowDef="let row; columns: getDisplayedColumns();"
+				[routerLink]="['/arts', whatAmI | lowercase, row.ID]">
 			</tr>
 		</table>
 		<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 	</div>
-
-</div>
-
-
-
-
+</ng-template>

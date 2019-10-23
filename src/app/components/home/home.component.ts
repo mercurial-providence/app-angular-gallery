@@ -35,7 +35,15 @@ export class HomeComponent implements OnInit {
         err => {throw("Can't connect to Server.")}
         //err => console.error(err) 
         //err => {throw(err)}
-      );
-} 
-
+      ); 
+  } 
+  getdataServerURL():string{
+    return this.dataService.dataServerURL;
+  }
+  isPageLoading():boolean{
+    return this.isLoading;
+  }
+  getFetchedArts():RawImportData<Artdata>{
+    return this.displayImage;
+  }
 }

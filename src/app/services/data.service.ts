@@ -5,7 +5,7 @@ import { Observable, throwError, of, timer, observable } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':'application/json; charset=utf-8'
+    'Content-Type': 'application/json; charset=utf-8'
   })
 };
 
@@ -13,181 +13,187 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class DataService {
+  
   constructor(private http: HttpClient) { }
 
-  private apiUrl:string = 'http://localhost/api-slim-php/public/api';
-  public dataServerURL:string = 'http://localhost/';
-  
-/* 
-This function fetches all the info from API /info/{category}/{id}
-category  : author    & id  : '' or 1,2,3... or a,b,c...
-category  : form      & id  : '' or 1,2,3...
-category  : location  & id  : '' or 1,2,3...
-category  : school    & id  : '' or 1,2,3...
-category  : timeframe & id  : '' or 1,2,3...
-category  : type      & id  : '' or 1,2,3...
- */            
-  public getInfoAPI<T>(category:string, id:string = "", page:string = "1", limit:string = "10"){
-    var callURL : string = '';
-    
-    if(!!id.trim()){
+/*   private apiUrl: string = 'http://localhost/api-slim-php/public/api';
+  public dataServerURL: string = 'http://localhost/';
+  public domainAddress: string = 'https://providenceart.000webhostapp.com'; */
+
+  private apiUrl: string = 'http://localhost/api-slim-php/public/api';
+  public dataServerURL: string = 'http://localhost/';
+  public domainAddress: string = 'https://providenceart.000webhostapp.com';
+
+  /* 
+  This function fetches all the info from API /info/{category}/{id}
+  category  : author    & id  : '' or 1,2,3... or a,b,c...
+  category  : form      & id  : '' or 1,2,3...
+  category  : location  & id  : '' or 1,2,3...
+  category  : school    & id  : '' or 1,2,3...
+  category  : timeframe & id  : '' or 1,2,3...
+  category  : type      & id  : '' or 1,2,3...
+   */
+  public getInfoAPI<T>(category: string, id: string = "", page: string = "1", limit: string = "10") {
+    var callURL: string = '';
+
+    if (!!id.trim()) {
       //id: something is set
-      if(isNaN(+id) || +id <= 0){
+      if (isNaN(+id) || +id <= 0) {
         //id: Invalid value, can not continue
         return throwError("API Parameter is invalid.");
-      }else{
+      } else {
         //id: Valid vallue, a positive integer
-        callURL = this.apiUrl+'/info/'+category+'/'+id;
+        callURL = this.apiUrl + '/info/' + category + '/' + id;
       }
-    }else{
+    } else {
       //id: empty string
-      callURL = this.apiUrl+'/info/'+category;
+      callURL = this.apiUrl + '/info/' + category;
     }
-    return this.http.get<T>(callURL,{
+    return this.http.get<T>(callURL, {
       params: new HttpParams()
         .set('page', page)
         .set('limit', limit)
     }).pipe(
-      retryWhen(genericRetryStrategy({maxRetryAttempts: 5, scalingDuration: 100})),
+      retryWhen(genericRetryStrategy({ maxRetryAttempts: 5, scalingDuration: 100 })),
       shareReplay(1)
     );
-    
+
   }
 
-/* 
-This function fetches all the info from API /info/{category}/{id}
-category  : author    & id  : '' or 1,2,3... or a,b,c...
-category  : form      & id  : '' or 1,2,3...
-category  : location  & id  : '' or 1,2,3...
-category  : school    & id  : '' or 1,2,3...
-category  : timeframe & id  : '' or 1,2,3...
-category  : type      & id  : '' or 1,2,3...
- */            
-public getDetailInfoAPI<T>(category:string, id:string = "", page:string = "1", limit:string = "10"){
-  var callURL : string = '';
-  
-  if(!!id.trim()){
-    //id: something is set
-    if(isNaN(+id) || +id <= 0){
-      //id: Invalid value, can not continue
-      return throwError("API Parameter is invalid.");
-    }else{
-      //id: Valid vallue, a positive integer
-      callURL = this.apiUrl+'/detailinfo/'+category+'/'+id;
-    }
-  }else{
-    //id: empty string
-    callURL = this.apiUrl+'/detailinfo/'+category;
-  }
-  return this.http.get<T>(callURL,{
-    params: new HttpParams()
-      .set('page', page)
-      .set('limit', limit)
-  }).pipe(
-    retryWhen(genericRetryStrategy({maxRetryAttempts: 5, scalingDuration: 100})),
-    shareReplay(1)
-  );
-  
-}  
+  /* 
+  This function fetches all the info from API /info/{category}/{id}
+  category  : author    & id  : '' or 1,2,3... or a,b,c...
+  category  : form      & id  : '' or 1,2,3...
+  category  : location  & id  : '' or 1,2,3...
+  category  : school    & id  : '' or 1,2,3...
+  category  : timeframe & id  : '' or 1,2,3...
+  category  : type      & id  : '' or 1,2,3...
+   */
+  public getDetailInfoAPI<T>(category: string, id: string = "", page: string = "1", limit: string = "10") {
+    var callURL: string = '';
 
-
-/* 
-This function fetches all the info from API /info/{category}/{id}
-category  : all       & id  : '' or 1,2,3...
-category  : author    & id  : 1,2,3... 
-category  : form      & id  : 1,2,3... 
-category  : location  & id  : 1,2,3... 
-category  : school    & id  : 1,2,3... 
-category  : timeframe & id  : 1,2,3... 
-category  : type      & id  : 1,2,3... 
- */   
-  public getArtsAPI<T>(category:string, id:string = "", page:string = "1", limit:string = "10"){
-    var callURL : string = '';
-
-    if(!!id.trim()){
+    if (!!id.trim()) {
       //id: something is set
-      if(isNaN(+id) || +id <= 0){
-        //can not continue
+      if (isNaN(+id) || +id <= 0) {
+        //id: Invalid value, can not continue
         return throwError("API Parameter is invalid.");
-      }else{
-        //id: a positive integer
-        callURL = this.apiUrl+'/art/'+category+'/'+id;
+      } else {
+        //id: Valid vallue, a positive integer
+        callURL = this.apiUrl + '/detailinfo/' + category + '/' + id;
       }
-    }else{
+    } else {
       //id: empty string
-      callURL = this.apiUrl+'/art/'+category;
+      callURL = this.apiUrl + '/detailinfo/' + category;
     }
-    return this.http.get<T>(callURL,{
+    return this.http.get<T>(callURL, {
       params: new HttpParams()
         .set('page', page)
         .set('limit', limit)
-      }).pipe(
-        retryWhen(genericRetryStrategy({maxRetryAttempts: 5, scalingDuration: 100})),
-        shareReplay(1)
-      );
+    }).pipe(
+      retryWhen(genericRetryStrategy({ maxRetryAttempts: 5, scalingDuration: 100 })),
+      shareReplay(1)
+    );
+
   }
 
-  public search<T>(query:string, page:string = "1", limit:string = "10") {
-    if(!!query.trim()){
+
+  /* 
+  This function fetches all the info from API /info/{category}/{id}
+  category  : all       & id  : '' or 1,2,3...
+  category  : author    & id  : 1,2,3... 
+  category  : form      & id  : 1,2,3... 
+  category  : location  & id  : 1,2,3... 
+  category  : school    & id  : 1,2,3... 
+  category  : timeframe & id  : 1,2,3... 
+  category  : type      & id  : 1,2,3... 
+   */
+  public getArtsAPI<T>(category: string, id: string = "", page: string = "1", limit: string = "10") {
+    var callURL: string = '';
+
+    if (!!id.trim()) {
       //id: something is set
-      return this.http.get<T>(this.apiUrl+'/search',{
+      if (isNaN(+id) || +id <= 0) {
+        //can not continue
+        return throwError("API Parameter is invalid.");
+      } else {
+        //id: a positive integer
+        callURL = this.apiUrl + '/art/' + category + '/' + id;
+      }
+    } else {
+      //id: empty string
+      callURL = this.apiUrl + '/art/' + category;
+    }
+    return this.http.get<T>(callURL, {
+      params: new HttpParams()
+        .set('page', page)
+        .set('limit', limit)
+    }).pipe(
+      retryWhen(genericRetryStrategy({ maxRetryAttempts: 5, scalingDuration: 100 })),
+      shareReplay(1)
+    );
+  }
+
+  public search<T>(query: string, page: string = "1", limit: string = "10") {
+    if (!!query.trim()) {
+      //id: something is set
+      return this.http.get<T>(this.apiUrl + '/search', {
         params: new HttpParams()
           .set('q', query)
           .set('page', page)
           .set('limit', limit)
-        }).pipe(
-          retryWhen(genericRetryStrategy({maxRetryAttempts: 5, scalingDuration: 100})),
-          shareReplay(1)
+      }).pipe(
+        retryWhen(genericRetryStrategy({ maxRetryAttempts: 5, scalingDuration: 100 })),
+        shareReplay(1)
       );
     }
   }
 
   public filter<T>(
-    query:string="0",
-    page:string = "1", 
-    limit:string = "10") {
-    if(!!query.trim()){
+    query: string = "0",
+    page: string = "1",
+    limit: string = "10") {
+    if (!!query.trim()) {
       //id: something is set
-      return this.http.get<T>(this.apiUrl+'/filter?'+query,{
+      return this.http.get<T>(this.apiUrl + '/filter?' + query, {
         params: new HttpParams()
-        .set('page', page)
-        .set('limit', limit)
-        }).pipe(
-          retryWhen(genericRetryStrategy({maxRetryAttempts: 5, scalingDuration: 100})),
-          shareReplay(1)
+          .set('page', page)
+          .set('limit', limit)
+      }).pipe(
+        retryWhen(genericRetryStrategy({ maxRetryAttempts: 5, scalingDuration: 100 })),
+        shareReplay(1)
       );
     }
   }
 
-/* This function is not throwing error because I am catching this error in it's 
-observable in HomeComponent */
+  /* This function is not throwing error because I am catching this error in it's 
+  observable in HomeComponent */
   public getRandomArt<T>() {
-    return this.http.get<T>(this.apiUrl+'/random')
-    .pipe(
-      retryWhen(genericRetryStrategy({maxRetryAttempts: 5, scalingDuration: 100})),
-      shareReplay(1)
-    );
+    return this.http.get<T>(this.apiUrl + '/random')
+      .pipe(
+        retryWhen(genericRetryStrategy({ maxRetryAttempts: 5, scalingDuration: 100 })),
+        shareReplay(1)
+      );
   }
 
-  public putLog(category:string, value:string){
-//  You can add new argument in header like,
-//  httpOptions.headers = httpOptions.headers.set('Authorization', 'my-new-auth-token');
+  public putLog(category: string, value: string) {
+    //  You can add new argument in header like,
+    //  httpOptions.headers = httpOptions.headers.set('Authorization', 'my-new-auth-token');
 
-    const body = JSON.stringify({category: category, value: value});
+    const body = JSON.stringify({ category: category, value: value });
 
-    return this.http.put<any>(this.apiUrl+'/log', body, httpOptions)
-    .subscribe(
-      data  => {
-        console.log('PUT Request is successful.');
-      },
-      (err: HttpErrorResponse) => {
-        if (err.error instanceof Error) {
+    return this.http.put<any>(this.apiUrl + '/log', body, httpOptions)
+      .subscribe(
+        data => {
+          console.log('PUT Request is successful.');
+        },
+        (err: HttpErrorResponse) => {
+          if (err.error instanceof Error) {
             console.log('Client-side error occured.');
-        } else {
+          } else {
             console.log('Server-side error occured.');
-        }
-    });
-      
+          }
+        });
+
   }
 }
 
@@ -213,7 +219,7 @@ export const genericRetryStrategy = ({
       }
       console.log(
         `Attempt ${retryAttempt}: retrying in ${retryAttempt *
-          scalingDuration}ms`
+        scalingDuration}ms`
       );
       // retry after 1s, 2s, etc...
       return timer(retryAttempt * scalingDuration);

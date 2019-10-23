@@ -1,9 +1,14 @@
 .masonry-item{ 
-    width: 17rem; 
+    width: calc(25% - 1em);
+    min-width: 14em;
     margin: 0.4rem;
 }
 .mat-card-image{
     cursor: pointer !important;
+}
+.transcard{
+    background: none;
+    box-shadow: none;
 }
 a{
     background: none;

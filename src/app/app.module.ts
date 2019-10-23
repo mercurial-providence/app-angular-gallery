@@ -7,7 +7,6 @@ import { HomeComponent } from './components/home/home.component';
 import { GalleryComponent } from './components/gallery/gallery.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './modules/material/material.module';
 import { NavComponent } from './components/nav/nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FilterComponent } from './components/filter/filter.component';
@@ -25,6 +24,11 @@ import { ErrorhandlerService } from './services/errorhandler.service';
 import { ErrorComponent } from './components/error/error.component';
 import { FormsModule } from '@angular/forms';
 import { SearchComponent } from './components/search/search.component';
+import { AboutComponent } from './components/info/about/about.component';
+import { HelpComponent } from './components/info/help/help.component';
+import { LegalComponent } from './components/info/legal/legal.component';
+import { MaterialModule } from './modules/material/material.module';
+import { NehalComponent } from './components/info/nehal/nehal.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +46,10 @@ import { SearchComponent } from './components/search/search.component';
     SpinnerComponent,
     ErrorComponent,
     SearchComponent,
+    AboutComponent,
+    HelpComponent,
+    LegalComponent,
+    NehalComponent,
     
   ],
   imports: [
@@ -59,7 +67,7 @@ import { SearchComponent } from './components/search/search.component';
     BrowserAnimationsModule,
     FormsModule
   ],
-  providers: [DataService , SidenavService, {provide: ErrorHandler, useClass: ErrorhandlerService}],
+  providers: [DataService, SidenavService, { provide: ErrorHandler, useClass: ErrorhandlerService }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

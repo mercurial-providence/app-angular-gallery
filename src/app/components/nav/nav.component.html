@@ -10,9 +10,9 @@
 			       type="button"
 			       aria-label="Toggle sidenav"
 			       mat-icon-button
-			       (click)="drawer.toggle()"
-			       style="margin:12px 16px;"
-			       [autofocus]="false">
+				   (click)="drawer.toggle()"
+				   onclick="this.blur()"
+			       style="margin:12px 16px;">
 			       <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
 		       </button>
 		       <mat-divider></mat-divider>
