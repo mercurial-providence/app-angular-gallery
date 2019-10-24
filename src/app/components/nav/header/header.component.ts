@@ -3,6 +3,7 @@ import { AppComponent } from 'src/app/app.component';
 import { NavComponent } from '../nav.component';
 import { SidenavService } from 'src/app/services/sidenav.service';
 import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
+import { GlobalVariables } from 'src/app/utils/globalvars';
 
 @Component({
   selector: 'app-header',
@@ -14,13 +15,13 @@ export class HeaderComponent implements OnInit {
   appTitle:string = "";
 
   ngOnInit() {
-    this.appTitle = AppComponent.appTitle();
+    this.appTitle = GlobalVariables.APP_TITLE;
   }
   toggleDrawer(){
     this.sidenavService.toggle();
   }
 
-  private loading:boolean = false;
+  public loading:boolean = false;
   constructor(router:Router,private sidenavService: SidenavService) {
     router.events.subscribe(event => {
 

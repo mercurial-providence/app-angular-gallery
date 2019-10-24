@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RawImportData } from 'src/app/models/common/raw-import-data';
 import { Artdata } from 'src/app/models/artdata';
 import { DataService } from 'src/app/services/data.service';
+import { GlobalVariables } from 'src/app/utils/globalvars';
 
 @Component({
   selector: 'app-showcase',
@@ -21,8 +22,21 @@ export class ShowcaseComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.activatedRouteID = +params.id;
     });
-    this.fetchArts('all',this.activatedRouteID,'1','1');
+    //this.fetchArts('all',this.activatedRouteID,'1','1');
+
+    this.route.data.subscribe(data => {
+        this.activatedRouteArt=data.arts;
+        this.artURL=GlobalVariables.BASE_DATA_SERVER+this.activatedRouteArt.records['0'].URL;
+        },
+        // Because of this, DataService is not throwing error.
+        err => {
+          throw("Can't connect to Server.");
+        }
+        //err => console.error(err) 
+        //err => {throw(err)}
+    );
   }
+  
   fetchArts(route:string, id:any, page:any, limit:any){
     this.dataService.getArtsAPI(route, id.toString(), page.toString(), limit.toString())
     .subscribe((data: RawImportData<Artdata>)=>{

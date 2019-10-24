@@ -181,12 +181,12 @@ table {
 }
 
 /* Use a media query to add a breakpoint at 800px: */
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 641px) {
   .container {
-    margin: 1rem 2rem 2rem 2rem;
+    margin: 1rem 0.5rem 2rem 0.5rem;
   }
   .footer-content {
-    padding: 1rem 1rem !important;
+    padding: 1rem 0.5rem !important;
   }
   .gallery-cat-card {
     min-width: 4rem !important;
@@ -209,7 +209,7 @@ table {
     margin: 2em 0 8em 0;
   }
   .masonry-item {
-    min-width: calc(50% - 1em) !important;
+    min-width: calc(100% - 1em) !important;
   }
   body {
     font-size: 0.8rem !important;
@@ -223,5 +223,11 @@ table {
   }
   td {
     font-size: 0.7rem !important;
+  }
+  .mat-toolbar{
+    h2{
+      font-size: 1.1rem !important;
+      /* font-weight: bold; */
+    }
   }
 }

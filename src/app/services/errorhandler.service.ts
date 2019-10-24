@@ -28,8 +28,8 @@ export class ErrorhandlerService implements ErrorHandler{
       }
     } else {
       // Handle Client Error (Angular Error, ReferenceError...)
-      //this.errorMessage=error.message ? error.message : error.toString();
-      this.errorMessage="Possible application error."
+      this.errorMessage=error.message ? error.message : error.toString();
+      //this.errorMessage="Possible application error."
       ngZone.run(() => router.navigate(['/error'], { queryParams: {error: this.errorMessage} })).then();
     }
       // Log the error anyway

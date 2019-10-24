@@ -30,6 +30,7 @@ import { DataService } from './services/data.service';
 import { ErrorhandlerService } from './services/errorhandler.service';
 import { SidenavService } from './services/sidenav.service';
 import { ArtsResolverService } from './resolvers/arts-resolver.service';
+import { ShowcaseResolverService } from './resolvers/showcase-resolver.service';
 
 
 
@@ -58,7 +59,7 @@ const routes: Routes = [
       { path: 'school/:id', component: ArtsComponent, data: { name: "school" } ,resolve: { arts: ArtsResolverService }},
       { path: 'timeframe/:id', component: ArtsComponent, data: { name: "timeframe" } ,resolve: { arts: ArtsResolverService }},
       { path: 'type/:id', component: ArtsComponent, data: { name: "type" } ,resolve: { arts: ArtsResolverService }},
-      { path: 'showcase/:id', component: ShowcaseComponent },
+      { path: 'showcase/:id', component: ShowcaseComponent, resolve: { arts: ShowcaseResolverService } },
     ]
   },
   { path: 'filter', component: FilterComponent, resolve: { tableData: FilterResolverService } },
@@ -94,7 +95,8 @@ const routes: Routes = [
     GTimeframeResolverService,
     GSchoolResolverService,
     GLocationResolverService,
-    ArtsResolverService]
+    ArtsResolverService,
+    ShowcaseResolverService]
 })
 export class AppRoutingModule { }
 

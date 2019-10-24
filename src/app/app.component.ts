@@ -8,8 +8,5 @@ import { Router,NavigationEnd, NavigationStart, NavigationCancel, NavigationErro
 
 })
 export class AppComponent {
-  static title: string= 'Mercurial Gallery of Art';
-  static appTitle(): string {
-    return this.title;
-  }
+
 }
