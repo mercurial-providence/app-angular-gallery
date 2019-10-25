@@ -35,6 +35,8 @@ import { SchoolsComponent } from './components/gallery/schools/schools.component
 import { AuthorsComponent } from './components/gallery/authors/authors.component';
 import { LocationsComponent } from './components/gallery/locations/locations.component';
 import { TimeframesComponent } from './components/gallery/timeframes/timeframes.component';
+import { ScrollingModule} from '@angular/cdk/scrolling';
+
 
 @NgModule({
   declarations: [
@@ -77,7 +79,8 @@ import { TimeframesComponent } from './components/gallery/timeframes/timeframes.
     NgxMasonryModule,
     ImageViewerModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    ScrollingModule
   ],
   providers: [DataService, SidenavService, { provide: ErrorHandler, useClass: ErrorhandlerService }],
   bootstrap: [AppComponent]

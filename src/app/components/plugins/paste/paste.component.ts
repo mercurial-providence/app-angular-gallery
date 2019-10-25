@@ -3,6 +3,10 @@ import { Component } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
 import { SafeUrl } from "@angular/platform-browser";
 import { MatSliderChange } from '@angular/material/slider';
+import { DataService } from 'src/app/services/data.service';
+import { RawImportData } from 'src/app/models/common/raw-import-data';
+import { Artdata } from 'src/app/models/artdata';
+import { GlobalVariables } from 'src/app/utils/globalvars';
 
 // ----------------------------------------------------------------------------------- //
 // ----------------------------------------------------------------------------------- //
@@ -12,23 +16,39 @@ import { MatSliderChange } from '@angular/material/slider';
     host: {
         "(window:paste)": "handlePaste( $event )"
     },
-    styleUrls: [ "./paste.component.scss" ],
+    styleUrls: ["./paste.component.scss"],
     templateUrl: './paste.component.html'
 })
 export class PasteComponent {
 
+    arts: RawImportData<Artdata> = new RawImportData();
+
+    ngOnInit() {
+        this.dataService.getArtsAPI<RawImportData<Artdata>>('all', '', '1', '99')
+            .subscribe((data: RawImportData<Artdata>) => {
+                this.arts = data;
+            },
+                err => {
+                    throw ("Can't connect to Server.");
+                }
+            );
+    }
     onInputChange(event: MatSliderChange) {
         console.log("This is emitted as the thumb slides");
         console.log(event.value);
     }
 
+    getDataserverURL(): string {
+        return GlobalVariables.BASE_DATA_SERVER;
+    }
     public imageUrls: SafeUrl[];
 
     private lastObjectUrl: string;
     private sanitizer: DomSanitizer;
 
     // I initialize the app component.
-    constructor( sanitizer: DomSanitizer ) {
+    constructor(sanitizer: DomSanitizer,
+        public dataService: DataService) {
 
         this.sanitizer = sanitizer;
 
@@ -42,11 +62,11 @@ export class PasteComponent {
     // ---
 
     // I handle the paste event on the Window (see host bindings).
-    public handlePaste( event: ClipboardEvent ) : void {
+    public handlePaste(event: ClipboardEvent): void {
 
-        var pastedImage = this.getPastedImage( event );
+        var pastedImage = this.getPastedImage(event);
 
-        if ( ! pastedImage ) {
+        if (!pastedImage) {
 
             return;
 
@@ -60,15 +80,15 @@ export class PasteComponent {
         // --
         // NOTE: One the Image is rendered in the DOM, releasing the Object URL will not
         // affect the rendering.
-        if ( this.lastObjectUrl ) {
+        if (this.lastObjectUrl) {
 
-            URL.revokeObjectURL( this.lastObjectUrl );
+            URL.revokeObjectURL(this.lastObjectUrl);
 
         }
 
         // At this point, the "pastedImage" is a File object, which is a specialized type
         // of "Blob". We can now generate a "blob:" URL using the given File.
-        this.lastObjectUrl = URL.createObjectURL( pastedImage );
+        this.lastObjectUrl = URL.createObjectURL(pastedImage);
 
         // By default, Angular WILL NOT TRUST this "blob:" style URLs. However, since we
         // know these are going to be expected, we can use the DOM Sanitizer to bypass
@@ -76,7 +96,7 @@ export class PasteComponent {
         // --
         // NOTE: The sanitizer doesn't return Strings - it returns SafeUrls. 
         this.imageUrls.unshift(
-            this.sanitizer.bypassSecurityTrustUrl( this.lastObjectUrl )
+            this.sanitizer.bypassSecurityTrustUrl(this.lastObjectUrl)
         );
 
     }
@@ -86,31 +106,31 @@ export class PasteComponent {
     // ---
 
     // I return the first Image File from the given paste event (or null).
-    private getPastedImage( event: ClipboardEvent ) : File | null {
+    private getPastedImage(event: ClipboardEvent): File | null {
 
         // NOTE: I am not very familiar with the Paste Event. As such, I am probably
         // being more cautious here than I need to be. However, in an abundance of
         // caution, I am checking each part of the targeted object path.
         if (
-            event.clipboardData && 
-            event.clipboardData.files && 
+            event.clipboardData &&
+            event.clipboardData.files &&
             event.clipboardData.files.length &&
-            this.isImageFile( event.clipboardData.files[ 0 ] )
-            ) {
+            this.isImageFile(event.clipboardData.files[0])
+        ) {
 
-            return( event.clipboardData.files[ 0 ] );
+            return (event.clipboardData.files[0]);
 
         }
 
-        return( null );
+        return (null);
 
     }
 
 
     // I determine if the given File is an Image (according do its Mime-Type).
-    private isImageFile( file: File ) : boolean {
+    private isImageFile(file: File): boolean {
 
-        return( file.type.search( /^image\//i ) === 0 );
+        return (file.type.search(/^image\//i) === 0);
 
     }
 

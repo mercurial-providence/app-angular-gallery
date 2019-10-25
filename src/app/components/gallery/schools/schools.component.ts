@@ -5,6 +5,7 @@ import { RawImportData } from 'src/app/models/common/raw-import-data';
 import { School } from 'src/app/models/school';
 import { DataService } from 'src/app/services/data.service';
 import { ActivatedRoute } from '@angular/router';
+import { GlobalVariables } from 'src/app/utils/globalvars';
 
 @Component({
   selector: 'app-schools',
@@ -47,6 +48,6 @@ export class SchoolsComponent implements OnInit {
     return this.scLoaded;
   }
   getDataServerURL():string{
-    return this.data.dataServerURL; 
-   }
+    return GlobalVariables.BASE_DATA_SERVER;
+  }
 }

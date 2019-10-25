@@ -5,6 +5,7 @@ import { DataService } from 'src/app/services/data.service';
 import { trigger } from '@angular/animations';
 import { fadeIn } from '../../plugins/animations/animations';
 import { ActivatedRoute } from '@angular/router';
+import { GlobalVariables } from 'src/app/utils/globalvars';
 
 @Component({
   selector: 'app-forms',
@@ -48,6 +49,6 @@ export class FormsComponent implements OnInit {
     return this.foLoaded;
   }
   getDataServerURL():string{
-    return this.data.dataServerURL; 
-   }
+    return GlobalVariables.BASE_DATA_SERVER;
+  }
 }

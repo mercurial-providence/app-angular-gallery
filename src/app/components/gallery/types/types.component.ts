@@ -6,6 +6,7 @@ import { trigger } from '@angular/animations';
 import { fadeIn } from '../../plugins/animations/animations';
 import { Type } from 'src/app/models/type';
 import { ActivatedRoute } from '@angular/router';
+import { GlobalVariables } from 'src/app/utils/globalvars';
 
 @Component({
   selector: 'app-types',
@@ -51,6 +52,6 @@ export class TypesComponent implements OnInit {
     return this.tyLoaded;
   }
   getDataServerURL():string{
-    return this.data.dataServerURL; 
-   }
+    return GlobalVariables.BASE_DATA_SERVER;
+  }
 }

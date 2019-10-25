@@ -160,7 +160,7 @@ table {
 }
 .horscroll {
   flex-wrap: nowrap !important;
-  overflow-x: scroll;
+  overflow-x: hidden;
 }
 .full-width {
   left: 50%;
@@ -171,7 +171,7 @@ table {
   right: 50%;
   width: 99vw;
   &::before {
-    content: "";
+    content: '';
     flex: 0 0 5vw;
   }
   &::after {
@@ -180,6 +180,11 @@ table {
   }
 }
 
+
+.mat-tab-list{
+  margin:auto !important;
+  flex-grow: 0 !important;
+}
 /* Use a media query to add a breakpoint at 800px: */
 @media screen and (max-width: 641px) {
   .container {

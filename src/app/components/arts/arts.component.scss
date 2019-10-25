@@ -11,6 +11,11 @@
     background: none;
     box-shadow: none;
 }
+.mat-grid-imgs{
+    object-fit: cover;
+    height: inherit;
+    width: 100%;
+}
 a{
     background: none;
     &:hover{

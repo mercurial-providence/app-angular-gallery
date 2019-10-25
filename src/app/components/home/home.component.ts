@@ -7,6 +7,7 @@ import { retryWhen, delay, take, retry } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { trigger } from '@angular/animations';
 import { fadeIn } from '../plugins/animations/animations';
+import { GlobalVariables } from 'src/app/utils/globalvars';
 
 @Component({
   selector: 'app-home',
@@ -38,7 +39,7 @@ export class HomeComponent implements OnInit {
       ); 
   } 
   getdataServerURL():string{
-    return this.dataService.dataServerURL;
+    return GlobalVariables.BASE_DATA_SERVER;
   }
   isPageLoading():boolean{
     return this.isLoading;

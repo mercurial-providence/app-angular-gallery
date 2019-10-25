@@ -5,6 +5,7 @@ import { fadeIn } from '../../plugins/animations/animations';
 import { DataService } from 'src/app/services/data.service';
 import { RawImportData } from 'src/app/models/common/raw-import-data';
 import { ActivatedRoute } from '@angular/router';
+import { GlobalVariables } from 'src/app/utils/globalvars';
 
 @Component({
   selector: 'app-timeframes',
@@ -46,6 +47,6 @@ export class TimeframesComponent implements OnInit {
     return this.tiLoaded;
   }
   getDataServerURL():string{
-    return this.data.dataServerURL; 
+    return GlobalVariables.BASE_DATA_SERVER;
   }
 }

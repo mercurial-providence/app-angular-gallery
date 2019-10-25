@@ -3,3 +3,25 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.navigator{
+    display: flex;
+    left: 50%;
+    margin-left: -46vw;
+    margin-right: -44vw;
+    max-width: 91vw;
+    position: absolute;
+    right: 50%;
+    width: 91vw;
+    margin-top: 9.7rem;
+    .nav-button{
+        z-index: 99;
+        background: whitesmoke;
+        color: var(--themecolor);
+    }
+}
+
+.view-all{
+    background: none;
+    text-decoration: none;
+}

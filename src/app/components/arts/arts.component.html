@@ -70,16 +70,14 @@
 	<mat-card class="transcard">
 		<mat-card-title>
 			<h4>ARTS / {{getFetchedData().pageRoute | uppercase}}
-					/ {{ getFetchedData().pageRouteData.records[0][getFetchedData().pageRoute.toUpperCase()] | uppercase}}
-					/ {{ activeSubFilter | uppercase }}
-					(#{{getFetchedData().totalElement}})
+				/ {{ getFetchedData().pageRouteData.records[0][getFetchedData().pageRoute.toUpperCase()] | uppercase}}
+				/ {{ activeSubFilter | uppercase }}
+				(#{{getFetchedData().totalElement}})
 			</h4>
 		</mat-card-title>
 		<mat-card-content style="display: flex;">
-			<button mat-mini-fab (click)="getPrevPage()" 
-				style="margin-right: auto;"
-				[ngClass]="{'hidden': getFetchedData().pageCurr==1}"
-				class="nav-button" matRipple>
+			<button mat-mini-fab (click)="getPrevPage()" style="margin-right: auto;"
+				[ngClass]="{'hidden': getFetchedData().pageCurr==1}" class="nav-button" matRipple>
 				<mat-icon>navigate_before</mat-icon>
 			</button>
 			<div class="nav-header">
@@ -98,7 +96,7 @@
 					</h3>
 				</div>
 			</div>
-			<button mat-mini-fab (click)="getNextPage()" 
+			<button mat-mini-fab (click)="getNextPage()"
 				[ngClass]="{'hidden': getFetchedData().pageCurr==getFetchedData().pageTotal}"
 				style="    margin-left: auto;" class="nav-button" matRipple>
 				<mat-icon>navigate_next</mat-icon>
@@ -113,46 +111,56 @@
 -->
 <app-spinner *ngIf="isInfoLoading()||isArtsLoading()"></app-spinner>
 
+<mat-tab-group [@fadeIn] *ngIf="!(isInfoLoading()||isArtsLoading())">
+	<mat-tab label="Card Layout">
 
-
-<ngx-masonry [useImagesLoaded]="true" [options]="{ 
+		<ngx-masonry [useImagesLoaded]="true" [options]="{ 
 					transitionDuration: 0.5,
 					horizontalOrder: true
-					}" *ngIf="!(isInfoLoading()||isArtsLoading())" [@fadeIn]>
+					}"  [@fadeIn]>
 
-	<div ngxMasonryItem class="masonry-item" *ngFor="let art of arts.records">
+			<div ngxMasonryItem class="masonry-item" *ngFor="let art of arts.records">
 
-		<mat-card class="art-card" [routerLink]="['/arts/showcase', art.ID]" matRipple>
-			<div>
-				<img mat-card-image src="{{ getDataserverURL() + art.URL }}" alt="{{ art.TITLE }}"
-					onerror="this.src='assets/imgs/inf.jpg'">
-				<!-- 			
-			<mat-card-header>
-				<mat-card-title>{{ art.TITLE }}</mat-card-title>
-				<mat-card-subtitle><a class ="mat-card-art-image" [routerLink]="['/arts/author', art.AUTHOR_ID]">{{ art.AUTHOR }}</a></mat-card-subtitle>
-			</mat-card-header>
-			<mat-card-content>
-				{{art.TECHNIQUE}} / {{art.SCHOOL}} / {{art.FORM}} / {{art.TYPE}} / {{art.LOCATION}}
-			</mat-card-content> 
--->
-				<mat-card-content>
-					<b>{{art.TITLE}}</b> <br>
-					<a title="Article Author" class="mat-card-art-image"
-						[routerLink]="['/arts/author', art.AUTHOR_ID]">{{ art.AUTHOR }}</a>
-					/ <span title="Article Date">{{art.DATE}} </span><br>
-					<span title="Technique">{{art.TECHNIQUE | titlecase}}</span> <br>
-					<a title="Art School" class="mat-card-art-image"
-						[routerLink]="['/arts/school', art.SCHOOL_ID]">{{art.SCHOOL | titlecase}}</a> /
-					<a title="Art Form" class="mat-card-art-image"
-						[routerLink]="['/arts/form', art.FORM_ID]">{{art.FORM | titlecase}}</a> /
-					<a title="Art Type" class="mat-card-art-image"
-						[routerLink]="['/arts/type', art.TYPE_ID]">{{art.TYPE | titlecase}}</a> /
-					<a title="Timeframe of this Article" class="mat-card-art-image"
-						[routerLink]="['/arts/timeframe', art.TIMEFRAME_ID]">{{art.TIMEFRAME}}</a> /
-					<a title="Location of this Article" class="mat-card-art-image"
-						[routerLink]="['/arts/location', art.LOCATION_ID]">{{art.LOCATION | titlecase}}</a>
-				</mat-card-content>
+				<mat-card class="art-card" [routerLink]="['/arts/showcase', art.ID]" matRipple>
+					<div>
+						<img mat-card-image src="{{ getDataserverURL() + art.URL }}" alt="{{ art.TITLE }}"
+							onerror="this.src='assets/imgs/inf.jpg'">
+						<mat-card-content>
+							<b>{{art.TITLE}}</b> <br>
+							<a title="Article Author" class="mat-card-art-image"
+								[routerLink]="['/arts/author', art.AUTHOR_ID]">{{ art.AUTHOR }}</a>
+							/ <span title="Article Date">{{art.DATE}} </span>
+<!-- 							
+							<br>
+							<span title="Technique">{{art.TECHNIQUE | titlecase}}</span> <br>
+							<a title="Art School" class="mat-card-art-image"
+								[routerLink]="['/arts/school', art.SCHOOL_ID]">{{art.SCHOOL | titlecase}}</a> /
+							<a title="Art Form" class="mat-card-art-image"
+								[routerLink]="['/arts/form', art.FORM_ID]">{{art.FORM | titlecase}}</a> /
+							<a title="Art Type" class="mat-card-art-image"
+								[routerLink]="['/arts/type', art.TYPE_ID]">{{art.TYPE | titlecase}}</a> /
+							<a title="Timeframe of this Article" class="mat-card-art-image"
+								[routerLink]="['/arts/timeframe', art.TIMEFRAME_ID]">{{art.TIMEFRAME}}</a> /
+							<a title="Location of this Article" class="mat-card-art-image"
+								[routerLink]="['/arts/location', art.LOCATION_ID]">{{art.LOCATION | titlecase}}</a>
+ -->
+						</mat-card-content>
+					</div>
+				</mat-card>
 			</div>
-		</mat-card>
-	</div>
-</ngx-masonry>
+		</ngx-masonry>
+	</mat-tab>
+	<mat-tab label="Grid Layout">
+
+		<mat-grid-list 
+			[cols]="breakpoint" 
+			gutterSize="5" 
+			rowHeight="1:1" 
+			(window:resize)="onResize($event)">
+			<mat-grid-tile *ngFor="let art of arts.records">
+				<img class="mat-grid-imgs" src="{{ getDataserverURL() + art.URL }}" alt="{{ art.TITLE }}"
+					onerror="this.src='assets/imgs/inf.jpg'" [routerLink]="['/arts/showcase', art.ID]">
+			</mat-grid-tile>
+		</mat-grid-list>
+	</mat-tab>
+</mat-tab-group>

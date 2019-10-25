@@ -9,7 +9,7 @@
  <mat-card class="art-card" 
       [routerLink]="['/arts/showcase', art.ID]" 
       *ngFor="let art of getFetchedArts().records"
-      style="max-width:40em;margin: auto;box-shadow: none;background: none;" matRipple>
+      style="max-width:40em;margin: auto;box-shadow: none;background: none;" >
       <div *ngIf="!isPageLoading()" [@fadeIn]>
 <!--       <mat-card-header>
             <mat-card-title><h3>Picture of the Day!</h3></mat-card-title>

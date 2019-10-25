@@ -5,6 +5,7 @@ import { trigger } from '@angular/animations';
 import { fadeIn } from '../../plugins/animations/animations';
 import { Location } from 'src/app/models/location';
 import { ActivatedRoute } from '@angular/router';
+import { GlobalVariables } from 'src/app/utils/globalvars';
 
 @Component({
   selector: 'app-locations',
@@ -38,8 +39,8 @@ export class LocationsComponent implements OnInit {
     return this.locations.records.filter((item) => +item.COUNT != 0);
    }
    getDataServerURL():string{
-    return this.data.dataServerURL; 
-   }
+    return GlobalVariables.BASE_DATA_SERVER;
+  }
    populateLocation(id:any, page:any, limit:any){
     this.data.getInfoAPI<RawImportData<Location>>('location', id.toString(), page.toString(), limit.toString())
     .subscribe(

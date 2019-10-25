@@ -56,7 +56,7 @@ export class SearchComponent implements OnInit {
   }
 
   getDataServerURL():string{
-    return this.dataService.dataServerURL;
+    return GlobalVariables.BASE_DATA_SERVER;
   }
 }
 export class SearchRawData extends Artdata{
