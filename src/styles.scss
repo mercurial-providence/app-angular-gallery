@@ -231,8 +231,17 @@ table {
   }
   .mat-toolbar{
     h2{
-      font-size: 1.1rem !important;
+      font-size: 1.6rem !important;
       /* font-weight: bold; */
     }
+  }
+  .navigator{
+    display: none;
+    visibility: hidden;
+
+  }
+  .horscroll {
+   
+    overflow-x: scroll;
   }
 }
