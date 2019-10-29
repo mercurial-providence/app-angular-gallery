@@ -23,7 +23,6 @@ text-shadow:0 1px 0 #ccc,
                 font-variant: inherit;
                 color: var(--bodyColor);
                 padding: 0.5em 0;
-                cursor: pointer;
                 user-select:none;
                 text-align: center;
                 letter-spacing: 5px;
@@ -46,7 +45,7 @@ text-shadow:0 1px 0 #ccc,
 
     background-repeat:repeat-x;
     background-position:0 0;
-    font-size:200px;
+    font-size:8rem;
     text-transform:uppercase;
     text-align:center;
     color:transparent;
@@ -56,41 +55,6 @@ text-shadow:0 1px 0 #ccc,
     background-clip:text;
     -webkit-text-fill-color:transparent;
     margin:0;
-    -webkit-animation:BackgroundAnimated 15s linear infinite;
-    -moz-animation:BackgroundAnimated 15s linear infinite;
-    -ms-animation:BackgroundAnimated 15s linear infinite;
-    -o-animation:BackgroundAnimated 15s linear infinite;
-    animation:BackgroundAnimated 15s linear infinite;
-}
-    @keyframes BackgroundAnimated {
-    from {
-        background-position:0 0
-    }
-    to {
-        background-position:100% 0
-    }
-}
-    @-webkit-keyframes BackgroundAnimated {
-    from {
-        background-position:0 0
-    }
-    to {
-        background-position:100% 0
-    }
-}
-    @-ms-keyframes BackgroundAnimated {
-    from {
-        background-position:0 0
-    }
-    to {
-        background-position:100% 0
-    }
-}
-    @-moz-keyframes BackgroundAnimated {
-    from {
-        background-position:0 0
-    }
-    to {
-        background-position:100% 0
-    }
+    line-height: 1;
+
 }

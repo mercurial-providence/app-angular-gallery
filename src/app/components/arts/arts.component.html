@@ -66,7 +66,7 @@
 
 
 
-<div class="navigation-bar" *ngIf="!isInfoLoading()&&!isArtsLoading()">
+<div class="navigation-bar" *ngIf="!isInfoLoading()&&!isArtsLoading()" id="nav">
 	<mat-card class="transcard">
 		<mat-card-title>
 			<h4>ARTS / {{getFetchedData().pageRoute | uppercase}}
@@ -82,7 +82,7 @@
 			</button>
 			<div class="nav-header">
 				<div class="nav-paginator">
-					<mat-form-field>
+					<mat-form-field class="input-list">
 						<mat-label>Page</mat-label>
 						<mat-select [(ngModel)]="getFetchedData().pageCurr">
 							<mat-option *ngFor="let item of [].constructor(getFetchedData().pageTotal); let i = index"
@@ -121,10 +121,11 @@
 
 			<div ngxMasonryItem class="masonry-item" *ngFor="let art of arts.records">
 
-				<mat-card class="art-card" [routerLink]="['/arts/showcase', art.ID]" matRipple>
+				<mat-card class="art-card"  matRipple>
 					<div>
 						<img mat-card-image src="{{ getDataserverURL() + art.URL }}" alt="{{ art.TITLE }}"
-							onerror="this.src='assets/imgs/inf.jpg'">
+							onerror="this.src='assets/imgs/inf.jpg'"
+							[routerLink]="['/arts/showcase', art.ID]">
 						<mat-card-content>
 							<b>{{art.TITLE}}</b> <br>
 							<a title="Article Author" class="mat-card-art-image"

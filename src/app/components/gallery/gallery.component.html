@@ -1,6 +1,9 @@
+
+
+
 <h2>Gallery! - Browse among various categories available.</h2>
 <app-spinner *ngIf="!everythingLoaded()" [@fadeIn]></app-spinner>
-<div [@fadeIn]>
+<div class="divider" [@fadeIn]>
 
 	<div class="headwrapper">
 		<div>
@@ -10,7 +13,7 @@
 	</div>
 </div>
 
-	<div *ngIf="isFormLoaded()" [@fadeIn]>
+	<div *ngIf="isFormLoaded()" class="divider" [@fadeIn]>
 			<div class="navigator">
 				<button mat-fab class="nav-button"
 					style="margin-right: auto;" 
@@ -47,7 +50,7 @@
 		</section>
 	</div>
 
-	<div *ngIf="isTypeLoaded()" [@fadeIn]>
+	<div *ngIf="isTypeLoaded()" class="divider" [@fadeIn]>
 		<div class="navigator">
 			<button mat-fab class="nav-button"
 				style="margin-right: auto;" 
@@ -83,7 +86,7 @@
 		</section>
 	</div>
 
-	<div *ngIf="isSchoolLoaded()" [@fadeIn]>
+	<div *ngIf="isSchoolLoaded()" class="divider" [@fadeIn]>
 			<div class="navigator">
 				<button mat-fab class="nav-button"
 					style="margin-right: auto;" 
@@ -119,7 +122,7 @@
 		</section>
 	</div>
 
-	<div *ngIf="isTimeframeLoaded()" [@fadeIn]>
+	<div *ngIf="isTimeframeLoaded()" class="divider" [@fadeIn]>
 			<div class="navigator">
 				<button mat-fab class="nav-button"
 					style="margin-right: auto;" 
@@ -154,7 +157,7 @@
 		</section>
 	</div>
 
-	<div *ngIf="isLocationLoaded()" [@fadeIn]>
+	<div *ngIf="isLocationLoaded()" class="divider" [@fadeIn]>
 			<div class="navigator">
 				<button mat-fab class="nav-button"
 					style="margin-right: auto;" 

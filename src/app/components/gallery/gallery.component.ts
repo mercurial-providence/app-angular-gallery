@@ -14,10 +14,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { HeaderComponent } from '../nav/header/header.component';
 import { Title } from '@angular/platform-browser';
 import { transition, style, animate, trigger } from '@angular/animations';
-import { fadeIn } from '../plugins/animations/animations';
+import { fadeIn, slideInOut } from '../plugins/animations/animations';
 import { GlobalVariables } from 'src/app/utils/globalvars';
 import { interval } from 'rxjs';
 import { takeWhile, tap } from 'rxjs/operators';
+import smoothscroll from 'smoothscroll-polyfill';
 
 @Component({
   selector: 'app-gallery',
@@ -35,7 +36,6 @@ export class GalleryComponent implements OnInit {
   private timeframes: RawImportData<Timeframe> = new RawImportData();
   private types: RawImportData<Type> = new RawImportData();
   private locations: RawImportData<Location> = new RawImportData();
-  private whatAmI: string = '';
   private auLoaded: boolean = false;
   private foLoaded: boolean = false;
   private scLoaded: boolean = false;
@@ -47,17 +47,44 @@ export class GalleryComponent implements OnInit {
   private activatedAlpha: string = this.alphabets[0];
   private pagesize: string = '18';
 
-  constructor(private data: DataService, private titleService: Title) { }
+  constructor(private data: DataService, private titleService: Title, private route: ActivatedRoute) { }
   ngOnInit() {
+    smoothscroll.polyfill();
+    document.querySelector('header').scrollIntoView({ behavior: 'smooth' });
     /* this.titleService.setTitle( "Gallery" ); */
-    //this.populateLocation("", "1", "10");
-    this.populateSchool("", "1", "10");
-    this.populateTimeframe("", "1", "10");
-    this.populateType("", "1", "10");
-    this.populateForm("", "1", "10");
-    this.populateLocation("", "1", "10");
+    /* 
+        this.populateSchool("", "1", "10");
+        this.populateTimeframe("", "1", "10");
+        this.populateType("", "1", "10");
+        this.populateForm("", "1", "10");
+        this.populateLocation("", "1", "10");
+    */
 
+    this.route.data
+      .subscribe(data => {
+        this.forms = data.gallery.form;
+        this.foLoaded = true;
 
+        this.locations = data.gallery.location;
+        this.loLoaded = true;
+
+        this.schools = data.gallery.school;
+        this.scLoaded = true;
+
+        this.timeframes = data.gallery.timeframe;
+        this.tiLoaded = true;
+
+        this.types = data.gallery.type;
+        this.tyLoaded = true;
+      },
+        // Because of this, DataService is not throwing error.
+        err => {
+
+          throw ("Can't connect to Server.");
+        }
+        //err => console.error(err) 
+        //err => {throw(err)}
+      );
   }
 
   populateAuthor(ele: string, id: any, page: any, limit: any) {
@@ -66,7 +93,6 @@ export class GalleryComponent implements OnInit {
       .subscribe(
         (data: RawImportData<Author>) => {
           this.authors = data;
-          this.whatAmI = "Author";
           this.auLoaded = true;
         },
         // Because of this, DataService is not throwing error.
@@ -80,7 +106,6 @@ export class GalleryComponent implements OnInit {
       .subscribe(
         (data: RawImportData<Location>) => {
           this.locations = data;
-          this.whatAmI = "Location";
           this.loLoaded = true;
         },
         err => { throw ("Can't connect to Server.") });
@@ -90,7 +115,6 @@ export class GalleryComponent implements OnInit {
       .subscribe(
         (data: RawImportData<School>) => {
           this.schools = data;
-          this.whatAmI = "School";
           this.scLoaded = true;
         },
         err => { throw ("Can't connect to Server.") });
@@ -100,7 +124,6 @@ export class GalleryComponent implements OnInit {
       .subscribe(
         (data: RawImportData<Timeframe>) => {
           this.timeframes = data;
-          this.whatAmI = "Timeframe";
           this.tiLoaded = true;
         },
         err => { throw ("Can't connect to Server.") });
@@ -110,7 +133,6 @@ export class GalleryComponent implements OnInit {
       .subscribe(
         (data: RawImportData<Type>) => {
           this.types = data;
-          this.whatAmI = "Type";
           this.tyLoaded = true;
         },
         err => { throw ("Can't connect to Server.") });
@@ -120,7 +142,6 @@ export class GalleryComponent implements OnInit {
       .subscribe(
         (data: RawImportData<Form>) => {
           this.forms = data;
-          this.whatAmI = "Form";
           this.foLoaded = true;
         },
         err => { throw ("Can't connect to Server.") });
@@ -194,27 +215,17 @@ export class GalleryComponent implements OnInit {
   }
 
   scrollLeft(el: Element) {
-    const animTimeMs = 400;
-    const pixelsToMove = 315;
-    const stepArray = [0.001, 0.021, 0.136, 0.341, 0.341, 0.136, 0.021, 0.001];
-    interval(animTimeMs / 8)
-      .pipe(
-        takeWhile(value => value < 8),
-        tap(value => el.scrollLeft -= (pixelsToMove * stepArray[value])),
-      )
-      .subscribe();
+
+    el.scrollBy({ top: 0, left: -400, behavior: 'smooth' });
+
   }
 
   scrollRight(el: Element) {
-    const animTimeMs = 400;
-    const pixelsToMove = 315;
-    const stepArray = [0.001, 0.021, 0.136, 0.341, 0.341, 0.136, 0.021, 0.001];
-    interval(animTimeMs / 8)
-      .pipe(
-        takeWhile(value => value < 8),
-        tap(value => el.scrollLeft += (pixelsToMove * stepArray[value])),
-      )
-      .subscribe();
+
+    el.scrollBy({ top: 0, left: 400, behavior: 'smooth' });
+
   }
+
+
 }
 

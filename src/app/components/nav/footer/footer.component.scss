@@ -1,6 +1,7 @@
 .footer-content {
   padding: 1em 4em;
-  background: #ddd;
+  background: url(../../../../assets/imgs/footer.png);
+  background-repeat: repeat;
 
 
 }
@@ -19,14 +20,16 @@
 .footer-columns {
   flex: 1 1 0px;
   padding: 2em;
-  text-align: justify;
   background: transparent;
   box-shadow: none;
   min-width: 200px;
+  line-height: 1.2em;
 }
 
 .footer-links {
   margin: 2em;
+  font-family: var(--usedH-font-stack);
+    font-weight: bold;
 }
 .footer-links-anchor{
   margin-left: 1em;

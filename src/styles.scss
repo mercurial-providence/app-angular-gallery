@@ -1,28 +1,30 @@
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
-/* @import url("https://fonts.googleapis.com/css?family=Cinzel|Cinzel+Decorative|Lora|Merriweather:400,700|Playfair+Display&display=swap"); */
-@import url("https://fonts.googleapis.com/css?family=Audiowide|Lobster|Roboto&display=swap");
+@import url('https://fonts.googleapis.com/css?family=EB+Garamond|Inconsolata&display=swap');
+
 :root {
   --themeColor: #666;
   --bodyColor: #fff;
   --activatedColor: rgb(25, 93, 153);
   --standoutColor: rgb(18, 66, 109);
-  --tier1-font-stack: "Cinzel Decorative", "Georgia", cursive;
-  --tier2-font-stack: "Cinzel", "Georgia", serif;
-  --tier3-font-stack: "Merriweather", "Georgia", serif;
-  --tier5-font-stack: "Lora", "Georgia", serif;
-  --tier4-font-stack: "Playfair Display", "Georgia", serif;
-  --used-font-stack: "Roboto", sans-serif;
-  --usedH-font-stack: "Audiowide", cursive;
+  --used-font-stack: 'Inconsolata', monospace;
+  --usedH-font-stack:  'EB Garamond', serif;
 }
 
 html,
 body {
   height: 100%;
+  scroll-behavior: smooth;
+
 }
 body {
   margin: 0;
   font-family: var(--used-font-stack);
   user-select: none !important;
+  line-height: 1.5em;
+}
+.mat-drawer-content{
+  background: url(assets/imgs/back.png);
+  background-repeat: repeat;
 }
 .hidden {
   display: none !important;
@@ -185,6 +187,58 @@ table {
   margin:auto !important;
   flex-grow: 0 !important;
 }
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-transition: "color 9999s ease-out, background-color 9999s ease-out";
+    -webkit-transition-delay: 9999s;
+}
+
+.scrollTop {
+
+    display: inline-block !important;
+    background-color: #fff !important;
+    text-align: center !important;
+    border-radius: 4px !important;
+    position: fixed !important;
+    bottom: 30px;
+    right: 30px;
+    transition: background-color 0.3s, opacity 0.5s, visibility 0.5s !important;
+    z-index: 1000;
+    opacity: 0.3 !important;
+
+  &::after {
+    //content: "\f077";
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 2em;
+    line-height: 50px;
+    color: #fff;
+  }
+  &:hover {
+    cursor: pointer;
+    background-color: #333;
+    opacity: 1 !important;
+  }
+  &:active {
+    background-color: #555;
+    opacity: 1 !important;
+
+  }
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+}
+
+
+
+
+
+
 /* Use a media query to add a breakpoint at 800px: */
 @media screen and (max-width: 641px) {
   .container {
@@ -231,9 +285,15 @@ table {
   }
   .mat-toolbar{
     h2{
-      font-size: 1.6rem !important;
+      font-size: 1rem !important;
       /* font-weight: bold; */
     }
+  }
+  .navlinks{
+    font-size: 0.6rem !important;
+    font-family: monospace;
+    letter-spacing: 1px !important;
+    margin-left: 1px !important;
   }
   .navigator{
     display: none;

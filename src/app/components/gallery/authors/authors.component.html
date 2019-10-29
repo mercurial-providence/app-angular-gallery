@@ -24,9 +24,9 @@
                 <mat-icon>navigate_next</mat-icon>
             </button>
         </div>
-        <section class="gallery-cat">
+        <section class="gallery-cat" >
             <mat-card *ngFor="let author of getAuthors()" class="gallery-aut-card"
-                [routerLink]="['/arts/author', author.ID]" matRipple>
+                [routerLink]="['/arts/author', author.ID]" matRipple [@fadeIn]>
                 <div style="display: flex;
                             align-items: center;
                             justify-content: flex-start;">

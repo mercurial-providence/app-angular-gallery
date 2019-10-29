@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.appTitle = GlobalVariables.APP_TITLE;
+
   }
   toggleDrawer(){
     this.sidenavService.toggle();
@@ -23,6 +24,8 @@ export class HeaderComponent implements OnInit {
 
   public loading:boolean = false;
   constructor(router:Router,private sidenavService: SidenavService) {
+
+
     router.events.subscribe(event => {
 
       switch(true){

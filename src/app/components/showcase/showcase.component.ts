@@ -4,6 +4,7 @@ import { RawImportData } from 'src/app/models/common/raw-import-data';
 import { Artdata } from 'src/app/models/artdata';
 import { DataService } from 'src/app/services/data.service';
 import { GlobalVariables } from 'src/app/utils/globalvars';
+import smoothscroll from 'smoothscroll-polyfill';
 
 @Component({
   selector: 'app-showcase',
@@ -19,6 +20,8 @@ export class ShowcaseComponent implements OnInit {
   constructor(private dataService: DataService,private route: ActivatedRoute) { }
 
   ngOnInit() {
+    smoothscroll.polyfill();
+    document.querySelector('header').scrollIntoView({ behavior: 'smooth' });
     this.route.params.subscribe(params => {
       this.activatedRouteID = +params.id;
     });

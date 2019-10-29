@@ -31,6 +31,7 @@ import { ErrorhandlerService } from './services/errorhandler.service';
 import { SidenavService } from './services/sidenav.service';
 import { ArtsResolverService } from './resolvers/arts-resolver.service';
 import { ShowcaseResolverService } from './resolvers/showcase-resolver.service';
+import { GalleryResolverService } from './resolvers/gallery-resolver.service';
 
 
 
@@ -40,7 +41,7 @@ const routes: Routes = [
   {
     path: 'gallery',
     children: [
-      { path: '', component: GalleryComponent },
+      { path: '', component: GalleryComponent, resolve: { gallery: GalleryResolverService } },
       { path: 'authors', component: AuthorsComponent, resolve: { authors: GAuthorResolverService } },
       { path: 'forms', component: FormsComponent, resolve: { forms: GFormResolverService } },
       { path: 'locations', component: LocationsComponent, resolve: { locations: GLocationResolverService } },

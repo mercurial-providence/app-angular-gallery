@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { trigger } from '@angular/animations';
 import { fadeIn } from '../plugins/animations/animations';
 import { GlobalVariables } from 'src/app/utils/globalvars';
+import smoothscroll from 'smoothscroll-polyfill';
 
 @Component({
   selector: 'app-arts',
@@ -28,6 +29,9 @@ export class ArtsComponent implements OnInit {
   constructor(private dataService: DataService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    smoothscroll.polyfill();
+    document.querySelector('header').scrollIntoView({ behavior: 'smooth' });
+
     this.route.params
       .subscribe(params => {
         this.artComData.pageID = +params.id;
@@ -179,6 +183,9 @@ export class ArtsComponent implements OnInit {
   }
   onClick(event: string) {
     this.activeSubFilter = event;
+    
+    document.querySelector('#nav').scrollIntoView({ behavior: 'smooth' });
+
   }
 
   compareValues(key, order = 'asc') {

@@ -25,3 +25,11 @@
     background: none;
     text-decoration: none;
 }
+
+.divider{
+    box-shadow: 0em 1em 1em -1em rgba(0, 0, 0, .25);
+    padding: 5rem 0;
+    &:last-child{
+        box-shadow: none;
+    }
+}

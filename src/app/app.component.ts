@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, ElementRef } from '@angular/core';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+
 import { Router,NavigationEnd, NavigationStart, NavigationCancel, NavigationError } from '@angular/router';
 
 @Component({
@@ -9,4 +11,10 @@ import { Router,NavigationEnd, NavigationStart, NavigationCancel, NavigationErro
 })
 export class AppComponent {
 
+  isShow: boolean;
+  topPosToStartShowing = 100;
+
+  goToTop(){
+    document.querySelector('header').scrollIntoView({ behavior: 'smooth' });
+  }
 }
