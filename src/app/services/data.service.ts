@@ -6,7 +6,7 @@ import { GlobalVariables } from '../utils/globalvars';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type': 'application/json; charset=utf-8'
+    'Content-Type':'application/json'
   })
 };
 
@@ -192,6 +192,7 @@ export class DataService {
             console.log('Client-side error occured.');
           } else {
             console.log('Server-side error occured.');
+            
           }
         });
 

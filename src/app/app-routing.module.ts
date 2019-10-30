@@ -32,6 +32,7 @@ import { SidenavService } from './services/sidenav.service';
 import { ArtsResolverService } from './resolvers/arts-resolver.service';
 import { ShowcaseResolverService } from './resolvers/showcase-resolver.service';
 import { GalleryResolverService } from './resolvers/gallery-resolver.service';
+import { ContactComponent } from './components/info/contact/contact.component';
 
 
 
@@ -74,6 +75,7 @@ const routes: Routes = [
       { path: 'about', component: AboutComponent, data: { name: "about" } },
       { path: 'help', component: HelpComponent, data: { name: "help" } },
       { path: 'legal', component: LegalComponent, data: { name: "legal" } },
+      { path: 'contact', component: ContactComponent, data: { name: "contact" } },
       { path: 'nehal', component: NehalComponent, data: { name: "nehal" } }
     ]
   },

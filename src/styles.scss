@@ -1,5 +1,22 @@
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
-@import url('https://fonts.googleapis.com/css?family=EB+Garamond|Inconsolata&display=swap');
+/* 
+@font-face {
+  font-family: "Inconsolata";
+  src: url("https://yoursite.com/css/fonts/CustomFont.eot");
+  src: url("https://yoursite.com/css/fonts/CustomFont.woff") format("woff"),
+  url("https://yoursite.com/css/fonts/CustomFont.otf") format("opentype"),
+  url("https://yoursite.com/css/fonts/CustomFont.svg#filename") format("svg");
+  }
+ */
+/* 
+ @font-face {
+  font-family: "Inconsolata";
+  src: url("../src/assets/fonts/InconsolataRegular.woff2") format("woff");
+  }
+  @font-face {
+  font-family: "EB Garamond";
+  src: url("../src/assets/fonts/EBGaramondRegular.woff2") format("woff");
+  } */
 
 :root {
   --themeColor: #666;

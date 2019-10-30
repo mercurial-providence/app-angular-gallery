@@ -15,6 +15,7 @@ import { fadeIn } from '../plugins/animations/animations';
 import { Artdata } from 'src/app/models/artdata';
 import { GlobalVariables } from 'src/app/utils/globalvars';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import smoothscroll from 'smoothscroll-polyfill';
 
 @Component({
   selector: 'app-filter',
@@ -48,6 +49,8 @@ export class FilterComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   ngOnInit() {
+    smoothscroll.polyfill();
+    document.querySelector('header').scrollIntoView({ behavior: 'smooth' });
     this.dataSource = new MatTableDataSource();
     //this.populateAuthor("", "1", "9999");
 
@@ -69,13 +72,11 @@ export class FilterComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    console.log("Yakiro");
     this.populateForm('', 1, 999);
     //this.populateLocation('', 1, 9999);
     this.populateSchool('', 1, 999);
     this.populateTimeframe('', 1, 999);
     this.populateType('', 1, 999);
-    console.log(this.filterData);
   }
 
 
@@ -156,11 +157,7 @@ export class FilterComponent implements OnInit {
     return this.displayedColumns;
   }
   summonTheBeast() {
-    console.log(this.filterData.filter);
-    console.log(this.filterData.getQuery());
-
     this.filterData.fetchData(this.data, this._snackBar);
-
   }
 
   onResize(event) {
@@ -229,7 +226,6 @@ export class FilterData {
             throw ("Can't connect to Server.");
           }
         );
-      console.log(this);
     }
   }
   public getNextPage(dataService: DataService) {
@@ -243,7 +239,6 @@ export class FilterData {
             throw ("Can't connect to Server.");
           }
         );
-      console.log(this);
     }
   }
   public getPrevPage(dataService: DataService) {
@@ -257,7 +252,6 @@ export class FilterData {
             throw ("Can't connect to Server.");
           }
         );
-      console.log(this);
     }
   }
 }

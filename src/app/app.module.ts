@@ -36,7 +36,8 @@ import { AuthorsComponent } from './components/gallery/authors/authors.component
 import { LocationsComponent } from './components/gallery/locations/locations.component';
 import { TimeframesComponent } from './components/gallery/timeframes/timeframes.component';
 import { ScrollingModule} from '@angular/cdk/scrolling';
-
+import { ContactComponent } from './components/info/contact/contact.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { ScrollingModule} from '@angular/cdk/scrolling';
     AuthorsComponent,
     LocationsComponent,
     TimeframesComponent,
+    ContactComponent,
     
   ],
   imports: [
@@ -80,7 +82,8 @@ import { ScrollingModule} from '@angular/cdk/scrolling';
     ImageViewerModule,
     BrowserAnimationsModule,
     FormsModule,
-    ScrollingModule
+    ScrollingModule,
+    ReactiveFormsModule
   ],
   providers: [DataService, SidenavService, { provide: ErrorHandler, useClass: ErrorhandlerService }],
   bootstrap: [AppComponent]
