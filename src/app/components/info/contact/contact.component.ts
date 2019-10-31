@@ -3,6 +3,7 @@ import { DataService } from 'src/app/services/data.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl, Validators } from '@angular/forms';
 import smoothscroll from 'smoothscroll-polyfill';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-contact',
@@ -46,11 +47,26 @@ export class ContactInfo {
   }
   public send(dataService: DataService, _snackBar: MatSnackBar) {
     if (!!this.value.trim()&&!!this.name.trim()) {
-      dataService.putLog(this.category, encodeURI(this.value.toString()));
-      this.flush();
-      _snackBar.open("Message Delivered.", "Ok", {
-        duration: 5000,
-      });
+      dataService.putLog(this.category, encodeURI(this.value.toString()))
+      .subscribe(
+        data => {
+          this.flush();
+          _snackBar.open("Message Delivered.", "Ok", {
+            duration: 5000,
+          });
+        },
+        (err: HttpErrorResponse) => {
+          if (err.error instanceof Error) {
+            _snackBar.open("Message Delivery Failed.", "Ok", {
+              duration: 5000,
+            });
+          } else {
+            _snackBar.open("Connection Error. Message Delivery Failed.", "Ok", {
+              duration: 5000,
+            });
+          }
+        });
+
     }
 
   }

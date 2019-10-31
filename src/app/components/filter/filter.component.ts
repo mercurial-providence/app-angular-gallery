@@ -226,6 +226,10 @@ export class FilterData {
             throw ("Can't connect to Server.");
           }
         );
+    }else{
+      _snackBar.open("Filter to Search.", "Ok", {
+        duration: 2000,
+      });
     }
   }
   public getNextPage(dataService: DataService) {

@@ -3,7 +3,9 @@
         <p>To, </p>
         <h3>Mercurial</h3>
     </div>
-    <div class="contact-comp">
+
+    
+    <div class="contact-comp" style="display: flex;">
         <label>Subject:</label>
         <mat-radio-group aria-labelledby="subject" [(ngModel)]="contactInfo.category">
             <mat-radio-button value="message" class="contact-radio">Message</mat-radio-button>
@@ -26,8 +28,8 @@
             </mat-form-field>
     </div>
     <div style="margin: 0 4rem;">
-        <button mat-icon-button (click)="summonTheDemon()" matRipple>
-            <mat-icon style="color: #666;">send</mat-icon>
+        <button mat-icon-button (click)="summonTheDemon()"  >
+            <mat-icon style="color: rgb(25, 93, 153);">send</mat-icon>
         </button>
     </div>
 </div>

@@ -4,22 +4,22 @@ import { retryWhen, mergeMap, finalize, share, shareReplay, retry, catchError } 
 import { Observable, throwError, of, timer, observable } from 'rxjs';
 import { GlobalVariables } from '../utils/globalvars';
 
-const httpOptions = {
+/* const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':'application/json'
   })
-};
+}; */
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  
+
   constructor(private http: HttpClient) { }
 
-/*   private apiUrl: string = 'http://localhost/api-slim-php/public/api';
-  public dataServerURL: string = 'http://localhost/';
-  public domainAddress: string = 'https://providenceart.000webhostapp.com'; */
+  /*   private apiUrl: string = 'http://localhost/api-slim-php/public/api';
+    public dataServerURL: string = 'http://localhost/';
+    public domainAddress: string = 'https://providenceart.000webhostapp.com'; */
 
   private apiUrl: string = GlobalVariables.BASE_API_URL;
   public dataServerURL: string = GlobalVariables.BASE_DATA_SERVER;
@@ -181,21 +181,15 @@ export class DataService {
     //  httpOptions.headers = httpOptions.headers.set('Authorization', 'my-new-auth-token');
 
     const body = JSON.stringify({ category: category, value: value });
+    const params = new HttpParams().set("category", category).set("value", value);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      params: params
+    };
 
-    return this.http.put<any>(this.apiUrl + '/log', body, httpOptions)
-      .subscribe(
-        data => {
-          console.log('PUT Request is successful.');
-        },
-        (err: HttpErrorResponse) => {
-          if (err.error instanceof Error) {
-            console.log('Client-side error occured.');
-          } else {
-            console.log('Server-side error occured.');
-            
-          }
-        });
-
+    return this.http.put<any>(this.apiUrl + '/logger', body, httpOptions);
   }
 }
 
