@@ -47,7 +47,7 @@ export class ContactInfo {
   }
   public send(dataService: DataService, _snackBar: MatSnackBar) {
     if (!!this.value.trim()&&!!this.name.trim()) {
-      dataService.putLog(this.category, encodeURI(this.value.toString()))
+      dataService.putLog(this.category, encodeURI(this.name.toString()+':'+this.value.toString()))
       .subscribe(
         data => {
           this.flush();

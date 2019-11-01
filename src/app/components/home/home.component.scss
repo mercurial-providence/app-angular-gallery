@@ -1,60 +1,71 @@
-
-.TDShadowText{
-text-shadow:0 1px 0 #ccc, 
-            0 2px 0 #c9c9c9,
-            0 3px 0 #bbb,
-            0 4px 0 #b9b9b9,
-            0 5px 0 #aaa,
-            0 6px 1px rgba(0,0,0,.1),
-            0 0 5px rgba(0,0,0,.1),
-            0 1px 3px rgba(0,0,0,.3),
-            0 3px 5px rgba(0,0,0,.2),
-            0 5px 10px rgba(0,0,0,.25),
-            0 10px 10px rgba(0,0,0,.2),
-            0 20px 20px rgba(0,0,0,.15);
+.TDShadowText {
+  text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, 0.1),
+    0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2),
+    0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.15);
 }
-.main-text{
-
-                font-family: var(--usedH-font-stack);
-                font-size: 4em;
-                font-style: normal;
-                line-height: normal;
-                font-weight: 400;
-                font-variant: inherit;
-                color: var(--bodyColor);
-                padding: 0.5em 0;
-                user-select:none;
-                text-align: center;
-                letter-spacing: 5px;
-                -webkit-font-smoothing:antialiased;
-
+.main-text {
+  font-family: var(--usedH-font-stack);
+  font-size: 4em;
+  font-style: normal;
+  line-height: normal;
+  font-weight: 400;
+  font-variant: inherit;
+  color: var(--bodyColor);
+  padding: 0.5em 0;
+  user-select: none;
+  text-align: center;
+  letter-spacing: 5px;
+  -webkit-font-smoothing: antialiased;
 }
 
-
-.center{
-    position: absolute;
-    left: 50%;
-    top: 30%;
-    transform: translate(-50%,-50%);
-    width:100%;
-
+.center {
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  transform: translate(-50%, -50%);
+  width: 100%;
 }
 
 .bgClip {
-    background:url('https://www.wga.hu/detail/v/vermeer/03b/22pearl1.jpg');
+  background: url("https://www.wga.hu/detail/v/vermeer/03b/22pearl1.jpg");
 
-    background-repeat:none;
-    background-position:0 0;
-    font-size:8rem;
-    text-transform:uppercase;
-    text-align:center;
-    color:transparent;
-    -webkit-font-smoothing:antialiased;
-    -webkit-background-clip:text;
-    -moz-background-clip:text;
-    background-clip:text;
-    -webkit-text-fill-color:transparent;
-    margin:0;
-    line-height: 1;
+  background-repeat: none;
+  background-position: 0 0;
+  font-size: 8rem;
+  text-transform: uppercase;
+  text-align: center;
+  color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+  line-height: 1;
+}
 
+.home-item {
+  box-shadow: none;
+  background: none;
+  max-height: 100vh;
+  overflow: hidden;
+  padding: 0;
+  width: calc(100% + 12rem);
+  transform: translate(-6rem, 0);
+  img:first-child{
+    max-height: 100vh;
+    height:100vh; 
+    object-fit: cover;
+  }
+  mat-card-content{
+    position: absolute;
+    bottom: 0%;
+    padding: 2rem 2rem;
+    width: calc(100% - 4rem);
+    color: var(--bodyColor);
+    background: rgba(0,0,0,0.5);
+    a{
+      color: var(--bodyColor) !important;
+    }
+  }
 }

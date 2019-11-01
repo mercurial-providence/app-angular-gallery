@@ -8,7 +8,7 @@
 		<mat-card class="gallery-cat-card" [ngClass]="{'hidden': !+type.COUNT}" [routerLink]="['/arts/type', type.ID]"
 			*ngFor="let type of getTypes()" matRipple>
 			<div *ngIf="type.COUNT">
-				<img mat-card-image src="{{getDataServerURL() + type?.FIMAGE}}" alt="{{ type.TYPE }}"
+				<img appLazyLoad mat-card-image src="{{getDataServerURL()+ 'preview/' + type?.FIMAGE}}" alt="{{ type.TYPE }}"
 					class="gal-mat-card-image" title="Type / {{ type.TYPE | titlecase }}"
 					onerror="this.src='assets/imgs/inf.jpg'">
 				<mat-card-content>

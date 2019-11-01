@@ -6,8 +6,8 @@ import { DataService } from './data.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ErrorhandlerService implements ErrorHandler{
-  private errorMessage:string = "";
+export class ErrorhandlerService implements ErrorHandler {
+  private errorMessage: string = "";
 
   constructor(private injector: Injector) { }
   handleError(error: Error | HttpErrorResponse) {
@@ -18,22 +18,30 @@ export class ErrorhandlerService implements ErrorHandler{
       // Server or connection error happened
       if (!navigator.onLine) {
         // Handle offline error
-        this.errorMessage=error.message ? error.message : error.toString();
+        this.errorMessage = error.message ? error.message : error.toString();
 
       } else {
         // Handle Http Error (error.status === 403, 404...)
-        //this.errorMessage=error.message ? error.message : error.toString();
-        this.errorMessage="Can't connect to Server."
-        ngZone.run(() => router.navigate(['/error'], { queryParams: {error: this.errorMessage} })).then();
+        this.errorMessage = error.message ? error.message : error.toString();
+        //this.errorMessage = "Can't connect to Server."
+        ngZone.run(() => router.navigate(['/error'], { queryParams: { error: this.errorMessage } })).then();
       }
     } else {
       // Handle Client Error (Angular Error, ReferenceError...)
-      this.errorMessage=error.message ? error.message : error.toString();
+      this.errorMessage = error.stack.toString();
+      //this.errorMessage = error.message ? error.message : error.toString();
       //this.errorMessage="Possible application error."
-      ngZone.run(() => router.navigate(['/error'], { queryParams: {error: this.errorMessage} })).then();
+      ngZone.run(() => router.navigate(['/error'], { queryParams: { error: this.errorMessage } })).then();
     }
-      // Log the error anyway
-      console.error('It happens: ', error);
-      dataService.putLog('error', error.toString());
+    
+    // Log the error anyway
+    dataService.putLog('error', this.errorMessage).subscribe(
+      data => {
+        console.log("Logged.");
+      },
+      (err: HttpErrorResponse) => {
+        console.log("Log Failed.");
+      });
+    console.error('It happens: ', error);
   }
 }

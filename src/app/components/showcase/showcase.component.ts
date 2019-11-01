@@ -29,7 +29,7 @@ export class ShowcaseComponent implements OnInit {
 
     this.route.data.subscribe(data => {
         this.activatedRouteArt=data.arts;
-        this.artURL=GlobalVariables.BASE_DATA_SERVER+this.activatedRouteArt.records['0'].URL;
+        this.artURL=GlobalVariables.BASE_DATA_SERVER+'art/'+this.activatedRouteArt.records['0'].URL;
         },
         // Because of this, DataService is not throwing error.
         err => {

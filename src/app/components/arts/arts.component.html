@@ -117,21 +117,20 @@
 		<ngx-masonry [useImagesLoaded]="true" [options]="{ 
 					transitionDuration: 0.5,
 					horizontalOrder: true
-					}"  [@fadeIn]>
+					}" [@fadeIn]>
 
 			<div ngxMasonryItem class="masonry-item" *ngFor="let art of arts.records">
 
-				<mat-card class="art-card"  matRipple>
+				<mat-card class="art-card" matRipple>
 					<div>
-						<img mat-card-image src="{{ getDataserverURL() + art.URL }}" alt="{{ art.TITLE }}"
-							onerror="this.src='assets/imgs/inf.jpg'"
-							[routerLink]="['/arts/showcase', art.ID]">
+						<img mat-card-image src="{{ getDataserverURL()+ 'art/' + art.URL }}" alt="{{ art.TITLE }}"
+							onerror="this.src='assets/imgs/inf.jpg'" [routerLink]="['/arts/showcase', art.ID]">
 						<mat-card-content>
 							<b>{{art.TITLE}}</b> <br>
 							<a title="Article Author" class="mat-card-art-image"
 								[routerLink]="['/arts/author', art.AUTHOR_ID]">{{ art.AUTHOR }}</a>
 							/ <span title="Article Date">{{art.DATE}} </span>
-<!-- 							
+							<!-- 							
 							<br>
 							<span title="Technique">{{art.TECHNIQUE | titlecase}}</span> <br>
 							<a title="Art School" class="mat-card-art-image"
@@ -153,13 +152,9 @@
 	</mat-tab>
 	<mat-tab label="Grid Layout">
 
-		<mat-grid-list 
-			[cols]="breakpoint" 
-			gutterSize="5" 
-			rowHeight="1:1" 
-			(window:resize)="onResize($event)">
+		<mat-grid-list [cols]="breakpoint" gutterSize="5" rowHeight="1:1" (window:resize)="onResize($event)">
 			<mat-grid-tile *ngFor="let art of arts.records">
-				<img class="mat-grid-imgs" src="{{ getDataserverURL() + art.URL }}" alt="{{ art.TITLE }}"
+				<img appLazyLoad class="mat-grid-imgs" src="{{ getDataserverURL()+ 'preview/' + art.URL }}" alt="{{ art.TITLE }}"
 					onerror="this.src='assets/imgs/inf.jpg'" [routerLink]="['/arts/showcase', art.ID]">
 			</mat-grid-tile>
 		</mat-grid-list>

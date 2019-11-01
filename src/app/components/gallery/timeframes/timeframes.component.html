@@ -10,7 +10,7 @@
         [routerLink]="['/arts/timeframe', timeframe.ID]"
             *ngFor="let timeframe of getTimeframes()" matRipple>
             <div>
-                <img mat-card-image src="{{getDataServerURL() + timeframe?.FIMAGE}}" alt="{{ timeframe.TIMEFRAME }}"
+                <img appLazyLoad mat-card-image src="{{getDataServerURL() + 'preview/'+ timeframe?.FIMAGE}}" alt="{{ timeframe.TIMEFRAME }}"
                     class="gal-mat-card-image" title="Timeframe / {{ timeframe.TIMEFRAME | titlecase }}"
                     onerror="this.src='assets/imgs/inf.jpg'">
                 <mat-card-content>

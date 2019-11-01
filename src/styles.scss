@@ -23,7 +23,7 @@
   --bodyColor: #fff;
   --activatedColor: rgb(25, 93, 153);
   --standoutColor: rgb(18, 66, 109);
-  --used-font-stack: 'Inconsolata', monospace;
+  --used-font-stack: 'Lato', sans-serif;//'Inconsolata', monospace;
   --usedH-font-stack:  'EB Garamond', serif;
 }
 
@@ -39,10 +39,7 @@ body {
   user-select: none !important;
   line-height: 1.5em;
 }
-.mat-drawer-content{
-  background: url(assets/imgs/back.png);
-  background-repeat: repeat;
-}
+
 .hidden {
   display: none !important;
   visibility: hidden !important;
@@ -101,14 +98,13 @@ mat-progress-bar .mat-progress-bar-fill::after {
 }
 .options-image-viewer {
   visibility: visible !important;
-  background: var(--themeColor);
 }
 .iv-loader {
   visibility: visible;
 }
 .image-container,
 .image-gallery-2 {
-  height: 450px !important;
+  height: 80vh !important;
 }
 
 /* Tweaking Mat-Table CSS */
@@ -303,6 +299,7 @@ input:-webkit-autofill:active {
   .mat-toolbar{
     h2{
       font-size: 1rem !important;
+      letter-spacing: 1px !important;
       /* font-weight: bold; */
     }
   }
@@ -320,5 +317,10 @@ input:-webkit-autofill:active {
   .horscroll {
    
     overflow-x: scroll;
+  }
+
+  .home-item, .image-viewer-container  {
+    width: calc(100% + 1rem) !important;
+    transform: translate(-0.5rem, 0) !important;
   }
 }

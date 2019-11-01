@@ -38,6 +38,8 @@ import { TimeframesComponent } from './components/gallery/timeframes/timeframes.
 import { ScrollingModule} from '@angular/cdk/scrolling';
 import { ContactComponent } from './components/info/contact/contact.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ParallaxDirective } from './utils/parallax.directive';
+import { LazyloadDirective } from './utils/lazyload.directive';
 
 @NgModule({
   declarations: [
@@ -66,6 +68,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     LocationsComponent,
     TimeframesComponent,
     ContactComponent,
+    ParallaxDirective,
+    LazyloadDirective,
     
   ],
   imports: [

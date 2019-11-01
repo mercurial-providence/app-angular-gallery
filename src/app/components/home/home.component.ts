@@ -13,38 +13,56 @@ import { GlobalVariables } from 'src/app/utils/globalvars';
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  animations : [
+  animations: [
     trigger('fadeIn', fadeIn())
   ]
 })
 export class HomeComponent implements OnInit {
-  private displayImage:RawImportData<Artdata> = new RawImportData();
-  private isLoading:boolean = true;
-  private retryCount:number = 5;
-  constructor(private http:HttpClient, private dataService:DataService) { }
+  private tempRand: RawImportData<Artdata> = new RawImportData<Artdata>();
+
+
+  public displayImage: RawImportData<Artdata> = new RawImportData();
+  private isLoading: boolean = true;
+  private retryCount: number = 5;
+  constructor(private http: HttpClient, private dataService: DataService) { }
 
   ngOnInit() {
-      this.dataService.getRandomArt<RawImportData<Artdata>>()
+    this.fillRandomArt();
+    /* setInterval(() => {
+      this.fillRandomArt();
+    }, 20000); */
+  }
+  getdataServerURL(): string {
+    return GlobalVariables.BASE_DATA_SERVER;
+  }
+  isPageLoading(): boolean {
+    return this.isLoading;
+  }
+  getFetchedArts(): RawImportData<Artdata> {
+    return this.displayImage;
+  }
+
+  fillRandomArt() {
+    console.log("Called");
+    this.dataService.getRandomArt<RawImportData<Artdata>>()
       .subscribe(
         (res: RawImportData<Artdata>) => {
-          if(res){
+          if (res) {
             this.displayImage = res;
-            this.isLoading=false;
+            this.isLoading = false;
           }
         },
         // Because of this, DataService is not throwing error.
-        err => {throw("Can't connect to Server.")}
+        err => { throw ("Can't connect to Server.") }
         //err => console.error(err) 
         //err => {throw(err)}
-      ); 
-  } 
-  getdataServerURL():string{
-    return GlobalVariables.BASE_DATA_SERVER;
+      );
   }
-  isPageLoading():boolean{
-    return this.isLoading;
-  }
-  getFetchedArts():RawImportData<Artdata>{
-    return this.displayImage;
+
+  public async fetchRandomArt(): Promise<RawImportData<Artdata>> {
+    const data = await this.dataService.getRandomArt<RawImportData<Artdata>>().toPromise();
+    this.isLoading = false;
+    console.log(data);
+    return data;
   }
 }

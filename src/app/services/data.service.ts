@@ -184,12 +184,12 @@ export class DataService {
     const params = new HttpParams().set("category", category).set("value", value);
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Accept': 'application/json'
       }),
       params: params
     };
 
-    return this.http.put<any>(this.apiUrl + '/logger', body, httpOptions);
+    return this.http.post<any>(this.apiUrl + '/logger', body, httpOptions);
   }
 }
 
