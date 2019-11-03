@@ -33,6 +33,7 @@ import { ArtsResolverService } from './resolvers/arts-resolver.service';
 import { ShowcaseResolverService } from './resolvers/showcase-resolver.service';
 import { GalleryResolverService } from './resolvers/gallery-resolver.service';
 import { ContactComponent } from './components/info/contact/contact.component';
+import { AdminComponent } from './components/plugins/admin/admin.component';
 
 
 
@@ -67,6 +68,7 @@ const routes: Routes = [
   { path: 'filter', component: FilterComponent, resolve: { tableData: FilterResolverService } },
   { path: 'error', component: ErrorComponent },
   { path: 'paste', component: PasteComponent },
+  { path: 'admin', component: AdminComponent },
   { path: 'search', component: SearchComponent },
   {
     path: 'info',

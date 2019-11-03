@@ -8,7 +8,7 @@
 		<mat-card class="gallery-cat-card"  [ngClass]="{'hidden': !+location.COUNT}"
 			[routerLink]="['/arts/location', location.ID]" *ngFor="let location of getLocations()" matRipple>
 			<div>
-				<img appLazyLoad mat-card-image src="{{getDataServerURL()+ 'preview/' + location?.FIMAGE}}" alt="{{ location.LOCATION }}"
+				<img appLazyLoad mat-card-image src="{{getDataServerURL()+ 'detail_s/' + location?.FIMAGE}}" alt="{{ location.LOCATION }}"
 					class="gal-mat-card-image" title="Location / {{ location.LOCATION | titlecase }}"
 					onerror="this.src='assets/imgs/inf.jpg'">
 				<mat-card-content>

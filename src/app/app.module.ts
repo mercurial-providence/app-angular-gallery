@@ -40,6 +40,7 @@ import { ContactComponent } from './components/info/contact/contact.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ParallaxDirective } from './utils/parallax.directive';
 import { LazyloadDirective } from './utils/lazyload.directive';
+import { AdminComponent } from './components/plugins/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { LazyloadDirective } from './utils/lazyload.directive';
     ContactComponent,
     ParallaxDirective,
     LazyloadDirective,
+    AdminComponent,
     
   ],
   imports: [

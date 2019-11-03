@@ -8,7 +8,7 @@
 		<mat-card class="gallery-cat-card" [ngClass]="{'hidden': !+school.COUNT}"
 			[routerLink]="['/arts/school', school.ID]" *ngFor="let school of getSchools()" matRipple>
 			<div *ngIf="school.COUNT">
-				<img appLazyLoad mat-card-image src="{{getDataServerURL() + 'preview/'+ school?.FIMAGE}}" alt="{{ school.SCHOOL }}"
+				<img appLazyLoad mat-card-image src="{{getDataServerURL() + 'detail_s/'+ school?.FIMAGE}}" alt="{{ school.SCHOOL }}"
 					class="gal-mat-card-image" title="School / {{ school.SCHOOL | titlecase }}"
 					onerror="this.src='assets/imgs/inf.jpg'">
 				<mat-card-content>

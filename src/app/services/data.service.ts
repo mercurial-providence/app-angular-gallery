@@ -166,6 +166,20 @@ export class DataService {
     }
   }
 
+  public getLogs<T>(
+    page: string = "1",
+    limit: string = "10") {
+      return this.http.get<T>(this.apiUrl + '/logs', {
+        params: new HttpParams()
+          .set('page', page)
+          .set('limit', limit)
+      }).pipe(
+        retryWhen(genericRetryStrategy({ maxRetryAttempts: 5, scalingDuration: 100 })),
+        shareReplay(1)
+      );
+
+  }
+
   /* This function is not throwing error because I am catching this error in it's 
   observable in HomeComponent */
   public getRandomArt<T>() {

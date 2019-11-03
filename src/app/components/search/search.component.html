@@ -105,7 +105,7 @@
 
 			<mat-card class="art-card" [routerLink]="['/arts/showcase', art.ID]" matRipple>
 				<div>
-					<img appLazyLoad mat-card-image src="{{ getDataServerURL() + 'art/'+ art.URL }}" alt="{{ art.TITLE }}"
+					<img  mat-card-image src="{{ getDataServerURL() + 'detail_s/'+ art.URL }}" alt="{{ art.TITLE }}"
 						onerror="this.src='assets/imgs/inf.jpg'">
 					<!-- 			
 	     <mat-card-header>

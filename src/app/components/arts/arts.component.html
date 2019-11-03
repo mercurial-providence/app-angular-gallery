@@ -152,10 +152,16 @@
 	</mat-tab>
 	<mat-tab label="Grid Layout">
 
-		<mat-grid-list [cols]="breakpoint" gutterSize="5" rowHeight="1:1" (window:resize)="onResize($event)">
+		<mat-grid-list [cols]="breakpoint" gutterSize="5" rowHeight="1:1" (window:resize)="onResize($event)"
+		style="	font-size: 0.8rem;
+					color: var(--bodyColor);
+					font-family: var(--used-font-stack);">
 			<mat-grid-tile *ngFor="let art of arts.records">
-				<img appLazyLoad class="mat-grid-imgs" src="{{ getDataserverURL()+ 'preview/' + art.URL }}" alt="{{ art.TITLE }}"
+				<img appLazyLoad class="mat-grid-imgs" src="{{ getDataserverURL()+ 'detail_s/' + art.URL }}" alt="{{ art.TITLE }}"
 					onerror="this.src='assets/imgs/inf.jpg'" [routerLink]="['/arts/showcase', art.ID]">
+					<section class="grid-item-info">
+						{{ art.AUTHOR }} / {{art.DATE}}
+					</section>
 			</mat-grid-tile>
 		</mat-grid-list>
 	</mat-tab>

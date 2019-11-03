@@ -1,6 +1,6 @@
 .footer-content {
   padding: 1em 4em;
-background: darkgray;
+background: var(--themeColor);
 
 }
 
@@ -22,6 +22,7 @@ background: darkgray;
   box-shadow: none;
   min-width: 200px;
   line-height: 1.2em;
+  color: var(--bodyColor);
 }
 
 .footer-links {

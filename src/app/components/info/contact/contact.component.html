@@ -18,18 +18,18 @@
     <div class="contact-comp">
         <mat-form-field class="textarea-full-width">
             <textarea matInput matTextareaAutosize matAutosizeMinRows=1 matAutosizeMaxRows=20
-                placeholder="Leave a comment" [(ngModel)]="contactInfo.value"></textarea>
+                placeholder="Leave a comment" [(ngModel)]="contactInfo.value" ></textarea>
         </mat-form-field>
     </div>
     <div class="contact-comp">
         <p>Regards, </p>
             <mat-form-field class="input-half-width">
-                <input matInput placeholder="Your Name"  [(ngModel)]="contactInfo.name">
+                <input matInput placeholder="Your Name"  [(ngModel)]="contactInfo.name" >
             </mat-form-field>
     </div>
     <div style="margin: 0 4rem;">
         <button mat-icon-button (click)="summonTheDemon()"  >
-            <mat-icon style="color: rgb(25, 93, 153);">send</mat-icon>
+            <mat-icon style="color: var(--activatedColor);">send</mat-icon>
         </button>
     </div>
 </div>

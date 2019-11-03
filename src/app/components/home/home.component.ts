@@ -8,6 +8,7 @@ import { throwError } from 'rxjs';
 import { trigger } from '@angular/animations';
 import { fadeIn } from '../plugins/animations/animations';
 import { GlobalVariables } from 'src/app/utils/globalvars';
+import smoothscroll from 'smoothscroll-polyfill';
 
 @Component({
   selector: 'app-home',
@@ -24,13 +25,33 @@ export class HomeComponent implements OnInit {
   public displayImage: RawImportData<Artdata> = new RawImportData();
   private isLoading: boolean = true;
   private retryCount: number = 5;
+  public isSlide: boolean = false;
+  public status: boolean = false;
+  public quotes: Quotes[] = [
+    {quote:'Everything you can imagine is real.',author:'Pablo Picasso'},
+    {quote:'Painting is poetry that is seen rather than felt, and poetry is painting that is felt rather than seen.',author:'Leonardo da Vinci'},
+    {quote:'Every child is an artist. The problem is how to remain an artist once he grows up.',author:'Pablo Picasso'},
+    {quote:'You must have chaos within you to give birth to a dancing star.',author:'Friedrich Nietzsche'},
+    
+  ];
+  public index:number = 0;
+  randomQ: Quotes = this.quotes[0];
+
+
   constructor(private http: HttpClient, private dataService: DataService) { }
 
   ngOnInit() {
+    smoothscroll.polyfill();
+    document.querySelector('header').scrollIntoView({ behavior: 'smooth' });
+
     this.fillRandomArt();
-    /* setInterval(() => {
-      this.fillRandomArt();
-    }, 20000); */
+    setInterval(() => {
+      if (this.isSlide) this.fillRandomArt();
+    }, 15000);
+
+    setInterval(() => {
+      this.randomQuote();
+    }, 10000);
   }
   getdataServerURL(): string {
     return GlobalVariables.BASE_DATA_SERVER;
@@ -43,7 +64,6 @@ export class HomeComponent implements OnInit {
   }
 
   fillRandomArt() {
-    console.log("Called");
     this.dataService.getRandomArt<RawImportData<Artdata>>()
       .subscribe(
         (res: RawImportData<Artdata>) => {
@@ -64,5 +84,24 @@ export class HomeComponent implements OnInit {
     this.isLoading = false;
     console.log(data);
     return data;
+  }
+
+  showSlide() {
+    
+    document.querySelector('#small-slide-show').scrollIntoView({ behavior: 'smooth' });
+    document.querySelector('.home-item').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  randomQuote(){
+    this.randomQ  = this.quotes[(this.index++)%this.quotes.length];
+  }
+}
+
+export class Quotes {
+  quote: string;
+  author: string;
+  constructor(quote:string, author:string) {
+    this.quote = quote;
+    this.author = author;
   }
 }

@@ -103,7 +103,7 @@
 			</mat-form-field>
 
 			<a mat-icon-button (click)="summonTheBeast()" style="margin: 1.5rem 0;background: transparent;">
-				<mat-icon style="color: rgb(25, 93, 153);">search</mat-icon>
+				<mat-icon style="color: var(--activatedColor);">search</mat-icon>
 			</a>
 		</div>
 
@@ -135,11 +135,23 @@
 
 
 
-			<mat-grid-list [cols]="breakpoint" gutterSize="5" rowHeight="1:1" (window:resize)="onResize($event)">
+			<mat-grid-list 
+			[cols]="breakpoint" gutterSize="5" rowHeight="1:1" 
+			(window:resize)="onResize($event)"
+			style="	font-size: 0.8rem;
+					color: var(--bodyColor);
+					font-family: var(--used-font-stack);">
 				<mat-grid-tile *ngFor="let art of filterData.queryResult.records">
-					<img appLazyLoad class="mat-grid-imgs" src="{{ getDataserverURL() + 'preview/'+ art.URL }}"
-						alt="{{ art.TITLE }}" onerror="this.src='assets/imgs/inf.jpg'"
-						[routerLink]="['/arts/showcase', art.ID]">
+					<img 
+					appLazyLoad 
+					class="mat-grid-imgs" 
+					src="{{ getDataserverURL() + 'detail_s/'+ art.URL }}"
+					alt="{{ art.TITLE }}" 
+					onerror="this.src='assets/imgs/inf.jpg'"
+					[routerLink]="['/arts/showcase', art.ID]">
+					<section class="grid-item-info">
+						{{ art.AUTHOR }} / {{art.DATE}}
+					</section>
 				</mat-grid-tile>
 			</mat-grid-list>
 		</div>

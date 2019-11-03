@@ -8,9 +8,14 @@
         <mat-card class="gallery-cat-card" [ngClass]="{'hidden': !+form.COUNT}" [routerLink]="['/arts/form', form.ID]"
             *ngFor="let form of getForms()" matRipple>
             <div *ngIf="form.COUNT">
-                <img appLazyLoad mat-card-image src="{{ getDataServerURL() + 'preview/'+ form?.FIMAGE }}" alt="{{ form.FORM }}"
-                    class="gal-mat-card-image" title="Form / {{ form.FORM | titlecase }}"
-                    onerror="this.src='assets/imgs/inf.jpg'">
+                <img 
+                appLazyLoad 
+                mat-card-image 
+                src="{{ getDataServerURL() + 'detail_s/'+ form?.FIMAGE }}" 
+                alt="{{ form.FORM }}"
+                class="gal-mat-card-image" 
+                title="Form / {{ form.FORM | titlecase }}"
+                onerror="this.src='assets/imgs/inf.jpg'">
                 <mat-card-content>
                     <b>{{form.FORM | titlecase}}</b><br>
                     <b>#{{form.COUNT}} Articles</b>
